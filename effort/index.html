@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>HCV Automation Delivery Highlights</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+:root{
+  color-scheme:light;
+  --ground:#f3f5f8;--surface:#ffffff;--surface-2:#e9edf2;
+  --ink:#0e1a2b;--ink-2:#4b5868;--ink-3:#7f8b98;
+  --line:#d9dfe6;--hair:rgba(14,26,43,.10);
+  --marine:#163c66;--blue:#2a78d6;--blue-2:#1c5cab;
+  --r100:#cde2fb;--r200:#9ec5f4;--r300:#6da7ec;--r400:#3987e5;--r500:#256abf;--r600:#184f95;--r700:#0d366b;
+  --good:#006300;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0c1117;--surface:#141b23;--surface-2:#1c2530;
+    --ink:#f2f5f8;--ink-2:#aab5c1;--ink-3:#7f8b98;
+    --line:#2a3541;--hair:rgba(255,255,255,.10);
+    --marine:#9dbfe6;--blue:#3987e5;--blue-2:#6da7ec;
+    --r100:#1a2a40;--r200:#184f95;--r300:#1c5cab;--r400:#256abf;--r500:#2a78d6;--r600:#3987e5;--r700:#6da7ec;
+    --good:#0ca30c;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0c1117;--surface:#141b23;--surface-2:#1c2530;
+  --ink:#f2f5f8;--ink-2:#aab5c1;--ink-3:#7f8b98;
+  --line:#2a3541;--hair:rgba(255,255,255,.10);
+  --marine:#9dbfe6;--blue:#3987e5;--blue-2:#6da7ec;
+  --r100:#1a2a40;--r200:#184f95;--r300:#1c5cab;--r400:#256abf;--r500:#2a78d6;--r600:#3987e5;--r700:#6da7ec;
+  --good:#0ca30c;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding:40px 28px 72px}
+.eyebrow{font-family:Archivo,system-ui,sans-serif;font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--marine)}
+h1,h2,h3{font-family:Archivo,system-ui,sans-serif;text-wrap:balance;margin:0}
+h1{font-size:40px;font-weight:800;line-height:1.08;letter-spacing:-.01em;margin-top:10px}
+h2{font-size:22px;font-weight:700;margin-bottom:6px}
+.lede{max-width:62ch;color:var(--ink-2);font-size:19px;margin:14px 0 0}
+.masthead{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;border-bottom:1px solid var(--line);padding-bottom:26px}
+.window{text-align:right;color:var(--ink-2);font-size:15px;min-width:200px}
+.window b{display:block;font-family:Archivo,system-ui,sans-serif;font-size:18px;color:var(--ink);font-weight:700}
+section{margin-top:52px}
+.sub{color:var(--ink-2);max-width:66ch;margin:0 0 20px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
+.hero .big{background:var(--marine);color:#fff;border-radius:6px;padding:30px 32px 28px}
+:root[data-theme="dark"] .hero .big{background:var(--r700);color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero .big{background:var(--r700);color:var(--ink)}}
+.big .n{font-family:Archivo,system-ui,sans-serif;font-weight:800;font-size:88px;line-height:1;letter-spacing:-.03em}
+.big .l{font-size:20px;margin-top:8px;opacity:.92}
+.big .s{font-size:15px;margin-top:14px;opacity:.78}
+.hero .side{display:grid;grid-template-rows:1fr 1fr;gap:16px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.tile .n{font-family:Archivo,system-ui,sans-serif;font-weight:700;font-size:38px;line-height:1.05;letter-spacing:-.02em}
+.tile .l{color:var(--ink-2);margin-top:4px;font-size:15px}
+.tile .n small{font-size:20px;font-weight:600;color:var(--ink-3);margin-left:4px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px 22px 14px}
+.chart svg{width:100%;height:auto;display:block;overflow:visible}
+.chart .cap{color:var(--ink-3);font-size:13.5px;margin-top:10px}
+svg text{font-family:"Source Sans 3",system-ui,sans-serif;fill:var(--ink-2);font-size:12.5px;font-variant-numeric:tabular-nums}
+svg .grid{stroke:var(--line);stroke-width:1}
+svg .base{stroke:var(--ink-3);stroke-width:1}
+svg .lab{fill:var(--ink);font-weight:600}
+.two{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.cal{display:grid;grid-template-columns:auto repeat(7,1fr);gap:4px;align-items:center}
+.cal .dow{font-size:11.5px;color:var(--ink-3);text-align:center;letter-spacing:.06em;text-transform:uppercase;padding-bottom:4px}
+.cal .wk{font-size:12px;color:var(--ink-3);padding-right:8px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.cal .d{aspect-ratio:1;border-radius:3px;background:var(--surface-2);position:relative;display:flex;align-items:flex-end;justify-content:flex-end;padding:3px 4px;font-size:11px;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.cal .d.w{outline:1px dashed var(--line);outline-offset:-1px}
+.cal .d.q1{background:var(--r100)}.cal .d.q2{background:var(--r200)}.cal .d.q3{background:var(--r400);color:#fff}.cal .d.q4{background:var(--r600);color:#fff}
+.cal .d.pad{background:transparent}
+.legend{display:flex;gap:10px;align-items:center;color:var(--ink-3);font-size:12.5px;margin-top:12px;flex-wrap:wrap}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;background:var(--surface-2)}
+.repo{display:grid;grid-template-columns:150px 1fr 56px;gap:12px;align-items:center;padding:7px 0;border-top:1px solid var(--hair);font-size:15px}
+.repo:first-of-type{border-top:0}
+.repo .bar{height:12px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.repo .bar i{display:block;height:100%;background:var(--blue);border-radius:3px}
+.repo .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.repo .k{color:var(--ink-2)}
+.repo .k b{color:var(--ink);font-weight:600}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:0 40px;margin:0;padding:0;list-style:none}
+.facts.one{grid-template-columns:1fr}
+.facts li{padding:12px 0;border-top:1px solid var(--hair);display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:baseline}
+.facts .n{font-family:Archivo,system-ui,sans-serif;font-weight:700;font-size:26px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.facts .t{color:var(--ink-2);font-size:15.5px}
+.facts .t b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;padding:2px 9px;border-radius:99px;background:var(--surface-2);color:var(--ink-2);font-size:13px;font-weight:600;letter-spacing:.02em}
+.delta{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.delta .tile .from{color:var(--ink-3);font-size:14px;margin-top:8px;font-variant-numeric:tabular-nums}
+.delta .tile .from b{color:var(--ink-2);font-weight:600}
+table.sc{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}
+table.sc th{text-align:left;font-weight:600;color:var(--ink-3);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:0 10px 10px 0;border-bottom:1px solid var(--line)}
+table.sc th.r,table.sc td.r{text-align:right}
+table.sc td{padding:8px 10px 8px 0;border-bottom:1px solid var(--hair);vertical-align:middle}
+table.sc td.name{white-space:nowrap}
+table.sc td.name b{font-weight:600}
+table.sc td.name span{color:var(--ink-3);font-size:13px;margin-left:6px}
+table.sc .stack{display:flex;height:12px;background:var(--surface-2);border-radius:3px;overflow:hidden;gap:2px;min-width:180px}
+table.sc .stack i{display:block;height:100%}
+table.sc .stack .a{background:var(--r600)}table.sc .stack .b{background:var(--r400)}table.sc .stack .c{background:var(--r200)}
+table.sc tfoot td{font-weight:600;border-bottom:0;border-top:2px solid var(--line)}
+.tablewrap{overflow-x:auto}
+.method{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink-3);font-size:14px;max-width:80ch}
+.method p{margin:6px 0}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--ground);padding:6px 10px;border-radius:4px;font-size:13px;white-space:nowrap;opacity:0;transition:opacity .12s;z-index:9}
+.tip.on{opacity:1}
+@media (max-width:820px){
+  .hero,.two,.grid3,.grid4,.facts,.delta{grid-template-columns:1fr 1fr}
+  .masthead{flex-direction:column;align-items:flex-start}
+  .window{text-align:left}
+  h1{font-size:32px}.big .n{font-size:68px}
+}
+@media (max-width:560px){
+  .hero,.two,.grid3,.grid4,.facts,.delta{grid-template-columns:1fr}
+  .repo{grid-template-columns:110px 1fr 48px}
+}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">HOME &middot; HCV Automation Program</div>
+      <h1>Six weeks of build, by the numbers</h1>
+      <p class="lede">Engineering effort on the automation scopes since kick-off on 5 August 2026, taken straight from the delivery repositories and the HCV board.</p>
+    </div>
+    <div class="window"><b>5 Aug &ndash; 15 Sep 2026</b>42 calendar days &middot; 30 working days<br>11 repositories &middot; 13 scopes</div>
+  </header>
+
+  <div class="hero">
+    <div class="big">
+      <div class="n">1,728</div>
+      <div class="l">pull requests opened by the team</div>
+      <div class="s">One new pull request every eight minutes of the working day, sustained for six weeks. 1,628 of them already merged into production code; 51 still in review today.</div>
+    </div>
+    <div class="side">
+      <div class="tile"><div class="n">29</div><div class="l">engineers contributing code, 19 of them with twenty or more merged pull requests each</div></div>
+      <div class="tile"><div class="n">1.88M</div><div class="l">lines of code added to the program codebase, 1.30M to 3.18M</div></div>
+    </div>
+  </div>
+
+  <section>
+    <div class="eyebrow">Effort</div>
+    <h2>Time on the job</h2>
+    <p class="sub">Working time is read from the timestamps the engineers left behind: the first and last commit or pull request of each person on each day, plus one hour for the work around them. It counts only days and hours with code activity, so it understates the total.</p>
+    <div class="grid4">
+      <div class="tile"><div class="n">600</div><div class="l">engineer-days with code committed</div></div>
+      <div class="tile"><div class="n">6,050</div><div class="l">hours of observed working time</div></div>
+      <div class="tile"><div class="n">363,000</div><div class="l">minutes, for those who like minutes</div></div>
+      <div class="tile"><div class="n">10.1<small>h</small></div><div class="l">average observed working day per engineer</div></div>
+    </div>
+    <ul class="facts" style="margin-top:16px">
+      <li><span class="n">281</span><span class="t">engineer-days of <b>ten hours or more</b>; 213 of twelve or more</span></li>
+      <li><span class="n">21</span><span class="t">engineers active on the <b>busiest single day</b>; 17 on an average working day</span></li>
+      <li><span class="n">11</span><span class="t">engineers with code activity on <b>25 or more</b> of the 42 days</span></li>
+      <li><span class="n">16%</span><span class="t">of all code events landed <b>before 07:00 or after 21:00</b> local time</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow">Peaks</div>
+    <h2>The busiest moments</h2>
+    <p class="sub">Every peak is a full working day in which review, testing and release all kept up with the build.</p>
+    <div class="grid4">
+      <div class="tile"><div class="n">91</div><div class="l">pull requests merged in a single day <span class="pill">15 Sep</span></div></div>
+      <div class="tile"><div class="n">100</div><div class="l">pull requests opened in a single day <span class="pill">20 Aug</span></div></div>
+      <div class="tile"><div class="n">364</div><div class="l">merged in the best week <span class="pill">31 Aug &ndash; 6 Sep</span></div></div>
+      <div class="tile"><div class="n">727</div><div class="l">commits pushed in one day <span class="pill">14 Sep</span></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Tempo</div>
+    <h2>Merged pull requests per week</h2>
+    <p class="sub">Throughput climbed for five straight weeks as scopes were staffed up. The last bar covers Monday and Tuesday of the current week only.</p>
+    <div class="chart">
+      <svg id="weeks" viewBox="0 0 960 300" role="img" aria-label="Merged pull requests per week, 3 August to 15 September 2026"></svg>
+      <div class="cap">Weeks start on Monday. Source: Azure DevOps pull requests, status completed, all program repositories.</div>
+    </div>
+  </section>
+
+  <section class="two">
+    <div>
+      <div class="eyebrow">Continuity</div>
+      <h2>Not one day without code shipped</h2>
+      <p class="sub">Merged pull requests on each of the 42 days. Every day in the window saw commits or merges; 39 of 42 saw at least one merge, weekends included.</p>
+      <div class="chart">
+        <div class="cal" id="cal"></div>
+        <div class="legend">fewer <i></i><i style="background:var(--r100)"></i><i style="background:var(--r200)"></i><i style="background:var(--r400)"></i><i style="background:var(--r600)"></i> more &nbsp;&middot;&nbsp; dashed = weekend</div>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow">Commitment</div>
+      <h2>Beyond office hours</h2>
+      <p class="sub">The team worked to the program calendar, not the clock.</p>
+      <ul class="facts one">
+        <li><span class="n">141</span><span class="t">pull requests merged on <b>Saturdays and Sundays</b></span></li>
+        <li><span class="n">243</span><span class="t">merged <b>after 20:00 or before 07:00</b> local time</span></li>
+        <li><span class="n">11,342</span><span class="t"><b>commits</b> on feature branches, plus 2,662 squash merges to main</span></li>
+        <li><span class="n">54</span><span class="t">merges and <b>378 commits</b> on an average working day</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Codebase</div>
+    <h2>What the codebase looks like now versus 4 August</h2>
+    <p class="sub">Main branches of the eleven program repositories, snapshot on the last commit before kick-off and today. Roughly half of the new code is automated tests.</p>
+    <div class="delta">
+      <div class="tile"><div class="n">+1.88M</div><div class="l">lines of code</div><div class="from"><b>1,297,537</b> &rarr; <b>3,178,837</b></div></div>
+      <div class="tile"><div class="n">+37,932</div><div class="l">automated test cases</div><div class="from"><b>18,356</b> &rarr; <b>56,288</b></div></div>
+      <div class="tile"><div class="n">+626</div><div class="l">database migrations</div><div class="from"><b>631</b> &rarr; <b>1,257</b></div></div>
+    </div>
+    <ul class="facts" style="margin-top:16px">
+      <li><span class="n">+1.72M</span><span class="t">lines of <b>Python</b> across the portal, document engine and calculation engines</span></li>
+      <li><span class="n">+5,554</span><span class="t"><b>source files</b>, 8,854 to 14,408</span></li>
+      <li><span class="n">46,469</span><span class="t"><b>file changes</b> merged to main; 13,673 files created</span></li>
+      <li><span class="n">4</span><span class="t"><b>new repositories</b> started in the window: CRRA engine, DMS test suite, board automation, platform integration tests</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow">Quality</div>
+    <h2>Every line reviewed before it landed</h2>
+    <p class="sub">Each pull request passed peer review and the automated AI code review gate before merge; branch policies block a merge without them. The comment and round counts below are read from the review threads of the 1,628 merged pull requests.</p>
+    <div class="grid4" id="quality">
+      <div class="tile"><div class="n">29,344</div><div class="l">review comments written by engineers, in 18,383 threads</div></div>
+      <div class="tile"><div class="n">18,260</div><div class="l">findings raised by the automated AI code reviewer</div></div>
+      <div class="tile"><div class="n">6,384</div><div class="l">review rounds: pushes made in response to review, 92% of pull requests went through at least one</div></div>
+      <div class="tile"><div class="n">11.9<small>h</small></div><div class="l">median time from opening a pull request to merge</div></div>
+    </div>
+    <ul class="facts" style="margin-top:16px">
+      <li><span class="n">13,338</span><span class="t"><b>reviewer assignments</b>, 8.2 reviewers per pull request on average</span></li>
+      <li><span class="n">89%</span><span class="t">of merged pull requests carried at least one <b>human review comment</b></span></li>
+      <li><span class="n">76%</span><span class="t">merged <b>within 24 hours</b> of opening; 91% within 72 hours</span></li>
+      <li><span class="n">133</span><span class="t">pull requests into the <b>automated test suites</b> alone; portal test files 808 to 1,967</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="eyebrow">Scopes</div>
+    <h2>From the scope documents to shipped requirements</h2>
+    <p class="sub">Each scope document was decomposed on the board into features, requirements and tasks before build. A requirement counts as built when every task under it is finished by engineering, and as released when every task is in production.</p>
+    <div class="grid4">
+      <div class="tile"><div class="n">998</div><div class="l">requirements captured from 13 scope documents, in 149 features</div></div>
+      <div class="tile"><div class="n">761<small>76%</small></div><div class="l">requirements in build or beyond</div></div>
+      <div class="tile"><div class="n">401</div><div class="l">requirements fully built; 191 fully released</div></div>
+      <div class="tile"><div class="n">12<small>of 13</small></div><div class="l">scopes with code already in production</div></div>
+    </div>
+    <div class="chart tablewrap" style="margin-top:16px">
+      <table class="sc">
+        <thead><tr><th>Scope</th><th class="r">Requirements</th><th class="r">In build</th><th class="r">Built</th><th class="r">Released</th><th>Progress</th><th class="r">Tasks done</th></tr></thead>
+        <tbody id="scopes"></tbody>
+        <tfoot><tr><td>All scopes</td><td class="r">998</td><td class="r">761</td><td class="r">401</td><td class="r">191</td><td></td><td class="r">1,218 / 1,715</td></tr></tfoot>
+      </table>
+      <div class="legend"><i style="background:var(--r600)"></i> released <i style="background:var(--r400)"></i> built, in QA <i style="background:var(--r200)"></i> in build &nbsp;&middot;&nbsp; bar length = share of the scope's requirements</div>
+    </div>
+  </section>
+
+  <section class="two">
+    <div>
+      <div class="eyebrow">Footprint</div>
+      <h2>Where the work landed</h2>
+      <p class="sub">Merged pull requests by repository.</p>
+      <div class="chart" id="repos"></div>
+    </div>
+    <div>
+      <div class="eyebrow">Delivery</div>
+      <h2>Tasks on the board</h2>
+      <p class="sub">All 13 scope epics as of 15 September.</p>
+      <ul class="facts one">
+        <li><span class="n">1,715</span><span class="t"><b>tasks</b> created under the scope requirements</span></li>
+        <li><span class="n">1,218</span><span class="t">tasks <b>finished by engineering</b>, 71%</span></li>
+        <li><span class="n">713</span><span class="t">tasks <b>released to production</b></span></li>
+        <li><span class="n">12</span><span class="t">engineers with <b>fifty or more</b> merged pull requests</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="method">
+    <p><b>How these numbers were produced.</b> Pull request and commit figures are read from the Azure DevOps API for the eleven program repositories (ERP, DMS, DMS.UI.Tenant, lobby, hotma-engine, semap-engine, CRRA-engine, BHC, hcv-board-sync and the two automated test repositories), window 5 August to 15 September 2026 inclusive, extracted on 15 September 2026. Commits are counted once per author and timestamp across all feature branches; automated identities (build service, sync pipeline, QA autopilot) are excluded. Working time is the span from the first to the last code event of each engineer on each day plus one hour, so it excludes days spent on design, review, testing or meetings without a commit. Lines of code compare the main branch on the last commit before 5 August with today, counting source and configuration files only (no documentation, data or lock files, no dependencies). Test cases are counted as test functions in test files. Review comments exclude system notes; the AI reviewer and build service are counted separately from engineers. A review round is one pull request iteration after the first push. Working days are Monday to Friday; local time is Central European Summer Time. Board figures come from the HCV Team board export of the same day.</p>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+  var tip=document.getElementById('tip');
+  function show(e,t){tip.textContent=t;tip.classList.add('on');move(e);}
+  function move(e){tip.style.left=(e.clientX+14)+'px';tip.style.top=(e.clientY-30)+'px';}
+  function hide(){tip.classList.remove('on');}
+  function fmt(n){return n.toLocaleString('en-US');}
+
+  // weekly merged pull requests
+  var weeks=[["3 Aug",54],["10 Aug",149],["17 Aug",270],["24 Aug",305],["31 Aug",364],["7 Sep",309],["14 Sep",177]];
+  var svg=document.getElementById('weeks');
+  var W=960,H=300,pl=48,pr=12,pt=28,pb=40,ih=H-pt-pb,iw=W-pl-pr;
+  var max=400,ticks=[0,100,200,300,400];
+  var ns='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(ns,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+  function y(v){return pt+ih-(v/max)*ih;}
+  ticks.forEach(function(t){
+    svg.appendChild(el('line',{x1:pl,x2:W-pr,y1:y(t),y2:y(t),'class':t?'grid':'base'}));
+    var tx=el('text',{x:pl-8,y:y(t)+4,'text-anchor':'end'});tx.textContent=t;svg.appendChild(tx);
+  });
+  var bw=iw/weeks.length,barw=Math.min(78,bw*.62);
+  weeks.forEach(function(w,i){
+    var cx=pl+bw*i+bw/2,top=y(w[1]),h=pt+ih-top;
+    var partial=i===weeks.length-1;
+    var fill=i===4?'var(--r600)':(partial?'var(--r200)':'var(--blue)');
+    var r=el('rect',{x:cx-barw/2,y:top,width:barw,height:h,rx:4,fill:fill});
+    r.addEventListener('mouseenter',function(e){show(e,'Week of '+w[0]+': '+w[1]+' merged'+(partial?' (2 days)':''));});
+    r.addEventListener('mousemove',move);r.addEventListener('mouseleave',hide);
+    svg.appendChild(r);
+    svg.appendChild(el('rect',{x:cx-barw/2,y:pt+ih-4,width:barw,height:4,fill:fill}));
+    if(i===4||i===0||partial){var v=el('text',{x:cx,y:top-8,'text-anchor':'middle','class':'lab'});v.textContent=w[1];svg.appendChild(v);}
+    var lx=el('text',{x:cx,y:H-14,'text-anchor':'middle'});lx.textContent=w[0]+(partial?' *':'');svg.appendChild(lx);
+  });
+
+  // calendar of merged pull requests per day, 5 Aug to 15 Sep 2026
+  var days={"2026-08-05":6,"2026-08-06":18,"2026-08-07":30,"2026-08-08":0,"2026-08-09":0,"2026-08-10":17,"2026-08-11":14,"2026-08-12":38,"2026-08-13":28,"2026-08-14":36,"2026-08-15":3,"2026-08-16":13,"2026-08-17":41,"2026-08-18":56,"2026-08-19":36,"2026-08-20":45,"2026-08-21":63,"2026-08-22":22,"2026-08-23":7,"2026-08-24":62,"2026-08-25":56,"2026-08-26":41,"2026-08-27":54,"2026-08-28":54,"2026-08-29":21,"2026-08-30":17,"2026-08-31":56,"2026-09-01":76,"2026-09-02":52,"2026-09-03":62,"2026-09-04":66,"2026-09-05":36,"2026-09-06":16,"2026-09-07":28,"2026-09-08":69,"2026-09-09":61,"2026-09-10":81,"2026-09-11":67,"2026-09-12":3,"2026-09-13":0,"2026-09-14":86,"2026-09-15":91};
+  var cal=document.getElementById('cal');
+  cal.appendChild(document.createElement('span'));
+  ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].forEach(function(d){var s=document.createElement('span');s.className='dow';s.textContent=d;cal.appendChild(s);});
+  var start=new Date(2026,7,3);
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep'];
+  for(var wk=0;wk<7;wk++){
+    var lab=document.createElement('span');lab.className='wk';
+    var d0=new Date(start.getTime());d0.setDate(d0.getDate()+wk*7);
+    lab.textContent=d0.getDate()+' '+months[d0.getMonth()];cal.appendChild(lab);
+    for(var i=0;i<7;i++){
+      var d=new Date(start.getTime());d.setDate(d.getDate()+wk*7+i);
+      var key=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+      var c=document.createElement('div');c.className='d';
+      if(!(key in days)){c.className+=' pad';cal.appendChild(c);continue;}
+      var v=days[key];
+      c.className+=v>=60?' q4':v>=35?' q3':v>=15?' q2':v>0?' q1':'';
+      if(i>=5)c.className+=' w';
+      c.textContent=v;
+      (function(c,key,v){
+        c.addEventListener('mouseenter',function(e){show(e,new Date(key+'T12:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+': '+v+' merged');});
+        c.addEventListener('mousemove',move);c.addEventListener('mouseleave',hide);
+      })(c,key,v);
+      cal.appendChild(c);
+    }
+  }
+
+  // scopes: [id, name, requirements, in build, built, released, tasks done, tasks]
+  var scopes=[
+    ["S01","Omnichannel Contact & Lobby Brain",202,173,39,12,322,570],
+    ["S02","Review & Auto-Approval Engine",74,73,40,27,126,143],
+    ["S03","50058 Submission, Notices & Payment Release",98,89,75,48,126,146],
+    ["S04","Automatic Verification",39,32,20,4,68,81],
+    ["S05","Rent Reasonableness & Landlord Negotiation",90,55,50,10,65,76],
+    ["S06","Terminations & Appeals",45,42,31,26,99,111],
+    ["S07","Supervisor Dashboard",56,56,44,28,141,161],
+    ["S08","Special Programs Engine",36,22,15,12,45,57],
+    ["S09","HOTMA Engine",74,74,35,1,78,82],
+    ["S11","Reasonable Accommodations",45,41,0,0,1,118],
+    ["S12","Move Lifecycle Workflow",49,37,23,11,84,104],
+    ["S13","EIV Overpayment & Repayment Engine",93,0,0,0,0,0],
+    ["S14","SEMAP Module",97,67,29,12,63,66]
+  ];
+  var tb=document.getElementById('scopes');
+  scopes.forEach(function(s){
+    var tr=document.createElement('tr');
+    var rel=s[5]/s[2]*100,built=(s[4]-s[5])/s[2]*100,inb=(s[3]-s[4])/s[2]*100;
+    tr.innerHTML='<td class="name"><b>'+s[0]+'</b><span>'+s[1]+'</span></td><td class="r">'+s[2]+'</td><td class="r">'+s[3]+'</td><td class="r">'+s[4]+'</td><td class="r">'+s[5]+'</td>'+
+      '<td><div class="stack"><i class="a" style="width:'+rel.toFixed(1)+'%"></i><i class="b" style="width:'+built.toFixed(1)+'%"></i><i class="c" style="width:'+inb.toFixed(1)+'%"></i></div></td>'+
+      '<td class="r">'+(s[7]?fmt(s[6])+' / '+fmt(s[7]):'not started')+'</td>';
+    var st=tr.querySelector('.stack');
+    st.addEventListener('mouseenter',function(e){show(e,s[0]+': '+s[5]+' released, '+s[4]+' built, '+s[3]+' in build of '+s[2]);});
+    st.addEventListener('mousemove',move);st.addEventListener('mouseleave',hide);
+    tb.appendChild(tr);
+  });
+
+  // repositories
+  var repos=[["ERP","applicant and caseworker portal",714],["DMS","document and verification engine",499],["lobby","lobby kiosk",136],["Test suites","ERP and DMS automated tests",133],["DMS.UI.Tenant","tenant user interface",72],["Engines","HOTMA, SEMAP, CRRA",43],["hcv-board-sync","board automation",25],["BHC","",6]];
+  var box=document.getElementById('repos'),rmax=714;
+  repos.forEach(function(r){
+    var row=document.createElement('div');row.className='repo';
+    row.innerHTML='<span class="k"><b>'+r[0]+'</b></span><span class="bar"><i style="width:'+(r[2]/rmax*100).toFixed(1)+'%"></i></span><span class="v">'+fmt(r[2])+'</span>';
+    row.title=r[1];
+    box.appendChild(row);
+  });
+})();
+</script>
+</body>
+</html>

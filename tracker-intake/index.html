@@ -1,0 +1,1616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>HOME Work Intake Design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+<style>
+:root {
+  --ground: #f6f7f5;
+  --surface: #ffffff;
+  --ink: #1b2430;
+  --ink-soft: #4a5566;
+  --rule: #d9dde2;
+  --accent: #2c5a86;
+  --accent-soft: #e4edf6;
+  --client: #9a6412;
+  --client-soft: #f7ecd9;
+  --third: #6a5b8c;
+  --third-soft: #ece8f4;
+  --good: #2f7a4f;
+  --good-soft: #e1f1e7;
+  --bad: #a3342b;
+  --bad-soft: #f6e1de;
+  --code-bg: #eef0f2;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #12171d;
+    --surface: #1a2129;
+    --ink: #e4e8ee;
+    --ink-soft: #a5afbd;
+    --rule: #2f3944;
+    --accent: #7fb0e0;
+    --accent-soft: #1f3247;
+    --client: #e0ad5c;
+    --client-soft: #3a2d17;
+    --third: #b3a4d8;
+    --third-soft: #2c2640;
+    --good: #7dc79b;
+    --good-soft: #1b3326;
+    --bad: #ec8f86;
+    --bad-soft: #3d1f1c;
+    --code-bg: #222b35;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #12171d;
+  --surface: #1a2129;
+  --ink: #e4e8ee;
+  --ink-soft: #a5afbd;
+  --rule: #2f3944;
+  --accent: #7fb0e0;
+  --accent-soft: #1f3247;
+  --client: #e0ad5c;
+  --client-soft: #3a2d17;
+  --third: #b3a4d8;
+  --third-soft: #2c2640;
+  --good: #7dc79b;
+  --good-soft: #1b3326;
+  --bad: #ec8f86;
+  --bad-soft: #3d1f1c;
+  --code-bg: #222b35;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font: 15.5px/1.6 var(--sans);
+  padding-inline: 16px;
+  padding-block: 0 64px;
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 48px;
+}
+@media (max-width: 900px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  nav.toc { display: none; }
+}
+nav.toc {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 24px);
+  align-self: start;
+  padding-top: 40px;
+  font-size: 13px;
+}
+nav.toc p {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 8px;
+}
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+nav.toc a { color: var(--ink-soft); text-decoration: none; }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--accent); }
+main { max-width: 880px; min-width: 0; }
+
+header.doc { padding-block: 40px 28px; border-bottom: 1px solid var(--rule); margin-bottom: 8px; }
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+h1, h2, h3 { font-family: var(--serif); text-wrap: balance; line-height: 1.2; }
+h1 { font-size: clamp(30px, 4.4vw, 40px); font-weight: 600; margin: 0 0 12px; }
+h2 { font-size: 25px; font-weight: 600; margin: 48px 0 12px; padding-top: 8px; }
+h3 { font-size: 18.5px; font-weight: 600; margin: 28px 0 8px; }
+.lede { font-size: 17.5px; color: var(--ink-soft); margin: 0 0 18px; max-width: 64ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: var(--ink-soft); }
+.meta b { color: var(--ink); font-weight: 600; }
+p, li { max-width: 68ch; }
+ul, ol { padding-left: 22px; }
+li + li { margin-top: 4px; }
+code, .mono { font-family: var(--mono); font-size: .88em; }
+code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+a { color: var(--accent); }
+
+.callout {
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  padding: 14px 18px;
+  margin: 18px 0;
+}
+.callout p { margin: 0; }
+.callout p + p { margin-top: 8px; }
+
+.principles { display: grid; gap: 0; margin: 16px 0; border-top: 1px solid var(--rule); }
+.principles div {
+  display: grid;
+  grid-template-columns: minmax(0, 15em) minmax(0, 1fr);
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.principles dt { font-weight: 600; }
+.principles dd { margin: 0; color: var(--ink-soft); }
+@media (max-width: 560px) { .principles div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+
+.table-scroll { overflow-x: auto; margin: 16px 0; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--rule); }
+th { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; background: var(--ground); }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.type-code { font-family: var(--mono); font-weight: 500; white-space: nowrap; }
+
+.chip {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.chip.vendor { background: var(--accent-soft); color: var(--accent); }
+.chip.client { background: var(--client-soft); color: var(--client); }
+.chip.third { background: var(--third-soft); color: var(--third); }
+.chip.done { background: var(--good-soft); color: var(--good); }
+.chip.stop { background: var(--bad-soft); color: var(--bad); }
+
+.matrix { display: grid; grid-template-columns: 7.5em repeat(3, minmax(0, 1fr)); gap: 4px; margin: 16px 0; font-size: 13.5px; }
+.matrix div { padding: 10px; }
+.matrix .h { font-size: 11.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-soft); font-weight: 600; align-self: end; }
+.matrix .rh { font-weight: 600; color: var(--ink-soft); font-size: 12.5px; }
+.matrix .p0 { background: var(--bad-soft); color: var(--bad); font-weight: 600; }
+.matrix .p1 { background: var(--client-soft); color: var(--client); font-weight: 600; }
+.matrix .p2 { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.matrix .p3 { background: var(--code-bg); color: var(--ink-soft); font-weight: 600; }
+.matrix small { display: block; font-weight: 400; margin-top: 2px; opacity: .85; }
+
+.diagram { background: var(--surface); border: 1px solid var(--rule); padding: 16px; margin: 16px 0; overflow-x: auto; }
+.diagram svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.diagram figcaption { font-size: 13px; color: var(--ink-soft); margin-top: 10px; }
+svg text { font-family: var(--sans); }
+
+.phases { display: grid; gap: 14px; margin: 16px 0; }
+.phase { background: var(--surface); border: 1px solid var(--rule); padding: 14px 18px; }
+.phase h3 { margin: 0 0 4px; font-size: 17px; }
+.phase .when { font-size: 12.5px; color: var(--ink-soft); margin: 0 0 8px; }
+.phase ul { margin: 0; }
+
+pre.code {
+  background: var(--code-bg);
+  padding: 14px 16px;
+  overflow-x: auto;
+  font: 13px/1.55 var(--mono);
+  margin: 14px 0;
+}
+.decisions li { margin-bottom: 8px; }
+footer.doc { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--ink-soft); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- Walkthrough controls (theme-aware) ---------- */
+.walk { margin: 16px 0 8px; }
+.walk-flows { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.walk-flows button {
+  font: 600 13.5px/1.2 var(--sans);
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  padding: 8px 12px;
+  cursor: pointer;
+  text-align: left;
+}
+.walk-flows button small { display: block; font-weight: 400; font-size: 12px; margin-top: 2px; }
+.walk-flows button[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.walk-rail { display: flex; flex-wrap: wrap; gap: 4px; list-style: none; padding: 0; margin: 0 0 12px; }
+.walk-rail li { margin: 0; }
+.walk-rail button {
+  font: 500 12.5px/1 var(--sans);
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+.walk-rail button[aria-current="step"] { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+.walk-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.walk-bar button {
+  font: 600 13.5px/1 var(--sans);
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  padding: 9px 14px;
+  cursor: pointer;
+}
+.walk-bar button:disabled { opacity: .4; cursor: default; }
+.walk-count { font-size: 13px; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.wstep { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.wstep[hidden] { display: none; }
+.wnotes { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 4px 28px; align-items: start; }
+.wnotes .actor, .wnotes h3 { grid-column: 1 / -1; }
+.wnotes .effect { border-top: 0; padding-top: 0; border-left: 1px solid var(--rule); padding-left: 16px; }
+@media (max-width: 640px) {
+  .wnotes { grid-template-columns: minmax(0, 1fr); }
+  .wnotes .effect { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 10px; }
+}
+.wnotes .actor { margin: 0 0 6px; }
+.wnotes h3 { margin: 0 0 10px; font-size: 18px; }
+.wnotes ol { padding-left: 0; list-style: none; margin: 0 0 12px; display: grid; gap: 8px; font-size: 14px; }
+.wnotes ol li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; margin: 0; }
+.wnotes .n {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #f59e0b; color: #1b1300;
+  font: 700 11px/20px var(--sans); text-align: center;
+}
+.wnotes .effect { font-size: 13.5px; color: var(--ink-soft); border-top: 1px solid var(--rule); padding-top: 10px; margin: 0; }
+.wnotes .effect b { color: var(--ink); }
+
+/* ---------- Mock screens: fixed light palette, like a screenshot of the app ---------- */
+.mock {
+  --m-ground: #eef0f4; --m-card: #ffffff; --m-ink: #1f2433; --m-soft: #6b7280; --m-line: #e3e6ec;
+  --m-primary: #3b82f6; --m-primary-dk: #2563eb; --m-red: #dc2626; --m-amber: #b45309; --m-amber-bg: #fef3c7;
+  --m-green: #15803d; --m-green-bg: #dcfce7; --m-blue-bg: #dbeafe; --m-violet: #6d28d9; --m-violet-bg: #ede9fe;
+  --m-rose-bg: #fee2e2;
+  border: 1px solid #c9ced8;
+  background: var(--m-ground);
+  color: var(--m-ink);
+  font: 13px/1.45 "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-shadow: 0 1px 2px rgba(20, 30, 50, .08), 0 8px 24px rgba(20, 30, 50, .08);
+  overflow: hidden;
+  min-width: 0;
+}
+.m-scroll { overflow-x: auto; }
+.m-inner { min-width: 620px; }
+.m-chrome { display: flex; align-items: center; gap: 6px; background: #dfe3ea; padding: 7px 10px; border-bottom: 1px solid #c9ced8; }
+.m-chrome i { width: 10px; height: 10px; border-radius: 50%; background: #b8bfcc; display: block; }
+.m-url { margin-left: 8px; flex: 1; background: #fff; border-radius: 4px; padding: 3px 10px; font: 11.5px/1.3 "IBM Plex Mono", Consolas, monospace; color: #4b5563; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.m-nav { display: flex; align-items: center; gap: 10px; background: #fff; padding: 8px 14px; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.m-brand { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 15px; }
+.m-env { font-size: 10.5px; font-weight: 600; color: #fff; background: var(--m-red); border-radius: 999px; padding: 1px 7px; }
+.m-sp { flex: 1; }
+.m-new { display: flex; align-items: center; gap: 4px; background: var(--m-red); color: #fff; font-weight: 600; border-radius: 6px; padding: 5px 10px; font-size: 12.5px; }
+.m-user { color: var(--m-soft); font-size: 12px; display: flex; align-items: center; gap: 4px; }
+.m-views { display: flex; gap: 4px; padding: 10px 14px 0; flex-wrap: wrap; }
+.m-view { display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 6px; font-weight: 600; font-size: 12.5px; color: var(--m-ink); }
+.m-view.on { background: var(--m-primary); color: #fff; }
+.m-view .c { background: rgba(0,0,0,.08); border-radius: 999px; font-size: 11px; padding: 0 6px; font-variant-numeric: tabular-nums; }
+.m-view.on .c { background: #1e3a8a; color: #fff; }
+.m-page { padding: 14px; display: grid; gap: 12px; }
+.m-card { background: var(--m-card); border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,.07); padding: 14px; min-width: 0; }
+.m-card h4 { margin: 0 0 8px; font-size: 14px; font-weight: 600; font-family: inherit; }
+.m-row { display: flex; gap: 12px; align-items: flex-start; }
+.m-row > * { flex: 1; min-width: 0; }
+.m-grid2 { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+.m-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.m-grid4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.m-label { font-size: 11.5px; color: var(--m-soft); margin-bottom: 3px; }
+.m-input { border: 1px solid #cfd4dc; border-radius: 6px; background: #fff; padding: 6px 9px; min-height: 30px; color: var(--m-ink); }
+.m-input.ta { min-height: 58px; }
+.m-input.sel { display: flex; justify-content: space-between; align-items: center; }
+.m-input.missing { border-color: var(--m-red); background: #fff7f7; }
+.m-hint { font-size: 11px; color: var(--m-soft); margin-top: 3px; }
+.m-seg { display: inline-flex; border: 1px solid #cfd4dc; border-radius: 6px; overflow: hidden; background: #fff; }
+.m-seg span { padding: 5px 10px; font-size: 12px; border-right: 1px solid #cfd4dc; }
+.m-seg span:last-child { border-right: 0; }
+.m-seg span.on { background: var(--m-primary); color: #fff; font-weight: 600; }
+.m-btn { display: inline-flex; align-items: center; gap: 4px; background: var(--m-primary); color: #fff; font-weight: 600; border-radius: 6px; padding: 6px 12px; font-size: 12.5px; white-space: nowrap; }
+.m-btn.ghost { background: transparent; color: var(--m-ink); border: 1px solid #cfd4dc; }
+.m-btn.ok { background: var(--m-green); }
+.m-btn.warn { background: #fff; color: var(--m-amber); border: 1px solid #f2c26b; }
+.m-btn.no { background: #fff; color: var(--m-red); border: 1px solid #f3a5a5; }
+.m-actions { display: flex; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+.m-badge { display: inline-flex; align-items: center; gap: 3px; font-size: 11px; font-weight: 600; border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+.b-blue { background: var(--m-blue-bg); color: #1d4ed8; }
+.b-amber { background: var(--m-amber-bg); color: var(--m-amber); }
+.b-green { background: var(--m-green-bg); color: var(--m-green); }
+.b-violet { background: var(--m-violet-bg); color: var(--m-violet); }
+.b-red { background: var(--m-rose-bg); color: #b91c1c; }
+.b-grey { background: #eceff3; color: #4b5563; }
+.m-ref { font: 600 12px/1 "IBM Plex Mono", Consolas, monospace; color: #1d4ed8; }
+.m-h { font-size: 16px; font-weight: 600; margin: 0; }
+.m-sub { color: var(--m-soft); font-size: 12px; }
+.m-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.m-table th { text-align: left; font-size: 10.5px; letter-spacing: .04em; text-transform: uppercase; color: var(--m-soft); padding: 6px 8px; border-bottom: 1px solid var(--m-line); background: #f8f9fb; font-weight: 600; }
+.m-table td { padding: 7px 8px; border-bottom: 1px solid var(--m-line); vertical-align: top; }
+.m-table td.hl { outline-offset: -2px; border-radius: 0; }
+.m-table td.hl .pin { top: 2px; right: 4px; }
+.m-table tr.tint-amber td { background: #fffbeb; }
+.m-table tr.tint-blue td { background: #f3f7ff; }
+.m-num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.m-wiz-head { display: flex; justify-content: space-between; align-items: center; background: var(--m-primary); color: #fff; padding: 9px 14px; border-radius: 12px 12px 0 0; font-weight: 600; }
+.m-wiz-body { background: #fff; border-radius: 0 0 12px 12px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.07); display: grid; gap: 12px; }
+.m-wiz { max-width: 560px; margin: 0 auto; width: 100%; }
+.m-stepper { display: flex; align-items: center; gap: 4px; }
+.m-stepper b { width: 20px; height: 20px; border-radius: 50%; font-size: 11px; display: grid; place-items: center; background: rgba(255,255,255,.25); }
+.m-stepper b.done { background: #22c55e; }
+.m-stepper b.cur { background: #fff; color: var(--m-primary); }
+.m-stepper i { width: 10px; height: 1px; background: rgba(255,255,255,.45); display: block; }
+.m-choice { border: 1px solid #cfd4dc; border-radius: 8px; padding: 10px; display: grid; gap: 3px; background: #fff; }
+.m-choice.on { border-color: var(--m-primary); box-shadow: 0 0 0 2px #bfdbfe; background: #f5f9ff; }
+.m-choice strong { font-size: 13px; }
+.m-choice span { font-size: 11.5px; color: var(--m-soft); }
+.m-choice .ms { color: var(--m-primary); }
+.m-check { display: grid; gap: 5px; font-size: 12.5px; }
+.m-check div { display: flex; gap: 6px; align-items: center; }
+.m-check .ok { color: var(--m-green); }
+.m-check .no { color: var(--m-red); }
+.m-alert { display: flex; gap: 8px; align-items: flex-start; border-radius: 8px; padding: 9px 11px; font-size: 12.5px; }
+.m-alert.amber { background: var(--m-amber-bg); color: #78350f; }
+.m-alert.blue { background: var(--m-blue-bg); color: #1e3a8a; }
+.m-alert.green { background: var(--m-green-bg); color: #14532d; }
+.m-track { display: flex; gap: 2px; }
+.m-track span { flex: 1; font-size: 10.5px; text-align: center; padding: 5px 2px; background: #e5e8ee; color: #6b7280; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.m-track span.done { background: #bbf7d0; color: #166534; }
+.m-track span.cur { background: var(--m-primary); color: #fff; }
+.m-track span.cur.client { background: #f59e0b; color: #1b1300; }
+.m-bar { height: 8px; background: #e5e8ee; border-radius: 999px; overflow: hidden; }
+.m-bar > i { display: block; height: 100%; background: var(--m-primary); border-radius: 999px; }
+.m-bar.green > i { background: #22c55e; }
+.m-bar.amber > i { background: #f59e0b; }
+.m-kv { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 5px 10px; font-size: 12.5px; }
+.m-kv dt { color: var(--m-soft); }
+.m-kv dd { margin: 0; }
+.m-comment { border-left: 3px solid var(--m-line); padding: 2px 0 2px 10px; font-size: 12.5px; }
+.m-comment .who { font-weight: 600; }
+.m-comment .when { color: var(--m-soft); font-size: 11px; }
+.m-comment.sys { border-left-color: #93c5fd; color: #374151; }
+.m-comment.home { border-left-color: #f59e0b; }
+.m-drag { display: grid; gap: 6px; }
+.m-drag div { display: grid; grid-template-columns: 18px 22px minmax(0, 1fr) auto; gap: 6px; align-items: center; background: #fff; border: 1px solid var(--m-line); border-radius: 6px; padding: 6px 8px; font-size: 12.5px; }
+.m-drag div.lift { border-color: var(--m-primary); box-shadow: 0 4px 12px rgba(59,130,246,.25); transform: translateX(6px); }
+.m-drag .rk { font-weight: 700; color: var(--m-soft); font-variant-numeric: tabular-nums; }
+.m-col { background: #e7eaf0; border-radius: 10px; padding: 10px; display: grid; gap: 8px; align-content: start; }
+.m-col h5 { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: #4b5563; }
+.m-tile { background: #fff; border-radius: 8px; padding: 9px; display: grid; gap: 5px; font-size: 12px; box-shadow: 0 1px 1px rgba(0,0,0,.05); }
+.m-tile b { font-size: 12.5px; }
+.m-drop { border: 2px dashed #cbd2dc; border-radius: 8px; padding: 12px; text-align: center; color: var(--m-soft); font-size: 12px; }
+.m-radio { display: grid; gap: 5px; }
+.m-radio div { display: flex; gap: 8px; align-items: center; border: 1px solid #d9dde4; border-radius: 6px; padding: 6px 9px; background: #fff; font-size: 12.5px; }
+.m-radio div.on { border-color: var(--m-primary); background: #f5f9ff; }
+.m-radio div::before { content: ""; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #9ca3af; flex: none; }
+.m-radio div.on::before { border-color: var(--m-primary); background: radial-gradient(circle, var(--m-primary) 45%, transparent 50%); }
+.m-menu { position: absolute; right: 14px; top: 44px; width: 250px; background: #fff; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.18); padding: 6px; z-index: 2; font-size: 12.5px; }
+.m-menu .t { font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--m-soft); padding: 6px 8px 3px; }
+.m-menu div.i { display: flex; gap: 8px; align-items: center; padding: 6px 8px; border-radius: 6px; }
+.m-menu div.i.on { background: #eff6ff; }
+.m-rel { position: relative; }
+.m-divider { height: 1px; background: var(--m-line); margin: 4px 0; }
+.ms {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal; font-style: normal; font-size: 17px; line-height: 1;
+  letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap;
+  -webkit-font-feature-settings: "liga"; font-feature-settings: "liga"; -webkit-font-smoothing: antialiased;
+  vertical-align: -3px;
+}
+.hl { outline: 2px solid #f59e0b; outline-offset: 3px; border-radius: 6px; position: relative; }
+.pin {
+  position: absolute; top: -11px; right: -11px; z-index: 1;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: #f59e0b; color: #1b1300; font: 700 11px/20px "IBM Plex Sans", sans-serif; text-align: center;
+  box-shadow: 0 0 0 2px #fff;
+}
+.sample { font-size: 12px; color: var(--ink-soft); margin: 8px 0 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .wstep { animation: wfade .18s ease-out; }
+  @keyframes wfade { from { opacity: .35; } to { opacity: 1; } }
+}
+</style>
+</head>
+<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0&display=block">
+
+<div class="wrap">
+<nav class="toc" aria-label="Contents">
+  <p>Contents</p>
+  <ol>
+    <li><a href="#problem">The problem</a></li>
+    <li><a href="#borrowed">What we borrow</a></li>
+    <li><a href="#principles">Operating principles</a></li>
+    <li><a href="#types">Record types</a></li>
+    <li><a href="#hierarchy">Hierarchy and ADO</a></li>
+    <li><a href="#lifecycle">Lifecycle</a></li>
+    <li><a href="#ready">Definition of Ready</a></li>
+    <li><a href="#priority">Priority and rank</a></li>
+    <li><a href="#schedule">Schedule and releases</a></li>
+    <li><a href="#sla">Service levels</a></li>
+    <li><a href="#intake">Calls and chat</a></li>
+    <li><a href="#cadence">Governance cadence</a></li>
+    <li><a href="#views">Screens</a></li>
+    <li><a href="#walkthrough">Walkthrough mockups</a></li>
+    <li><a href="#model">Data model</a></li>
+    <li><a href="#rollout">Rollout</a></li>
+    <li><a href="#decisions">Open decisions</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="doc">
+  <p class="eyebrow">Design proposal - DMS Tracker v2</p>
+  <h1>One front door for everything HOME asks us to build</h1>
+  <p class="lede">How the existing DMS Tracker grows from an issue log into the single shared system where HOME and the delivery team record every request, from a broken screen to a new module, agree its priority, and see when it ships.</p>
+  <div class="meta">
+    <span><b>Status</b> Draft for discussion</span>
+    <span><b>Date</b> 23 September 2026</span>
+    <span><b>Builds on</b> tracker-prod.home.kruko.co, main @ 69baf83</span>
+    <span><a href="#walkthrough">Jump to the step-by-step mockups</a></span>
+  </div>
+</header>
+
+<h2 id="problem">The problem</h2>
+<p>Requests reach the team through calls, Teams chats and e-mail, usually as a sentence with no example record, no expected outcome and no deadline. Weeks later HOME asks for a status on something that was never written down in one place, or was written down differently by two people. Nobody can answer "what are we working on for HOME, in what order, and when does it land" from a single screen.</p>
+<p>The current tracker already solves this for one slice: DMS defects reported by HOME staff. It has configurable modules, problem types, priorities and statuses, a P0 sign-off, default assignees per category, internal notes, attachments, change history and a link to the Azure DevOps work item. What it lacks is a way to hold anything larger than a single ticket, a plan for when things ship, and a rule that makes it the only place requests live.</p>
+<div class="callout">
+  <p><b>Goal.</b> If HOME wants it, it is in the tracker. Every record shows who holds it now, what happens next, its priority, and the month it is planned for. Status questions are answered by a link, not by a meeting.</p>
+</div>
+
+<h2 id="borrowed">What we borrow from ServiceNow and its peers</h2>
+<p>Vendor-client delivery is a solved problem in enterprise service management. ServiceNow splits it across ITSM (incidents, requests, problems, changes), Strategic Portfolio Management (demands, projects, roadmaps) and Customer Service Management (the client-facing portal). Jira Service Management and Azure DevOps cover the same ground with different names. We take the concepts that fit a team of our size and leave the heavy machinery.</p>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Concept</th><th>Where it comes from</th><th>What it becomes here</th></tr></thead>
+  <tbody>
+    <tr><td>Record types by intent</td><td>ServiceNow Incident / Request / Change / Demand</td><td>Five types, each with its own required fields and lifecycle (<a href="#types">section 4</a>)</td></tr>
+    <tr><td>Demand management</td><td>ServiceNow SPM Demand, Jira Product Discovery</td><td>Larger asks start as a Demand, get sized and approved, then become a Project</td></tr>
+    <tr><td>Impact x Urgency = Priority</td><td>ITIL, ServiceNow priority lookup</td><td>Priority is computed, not picked, for defects (<a href="#priority">section 8</a>)</td></tr>
+    <tr><td>"Awaiting caller" hold states</td><td>ServiceNow On Hold reasons, Jira "Waiting for customer"</td><td>Every status names who holds the ball; client-held time pauses the clock</td></tr>
+    <tr><td>Change calendar and releases</td><td>ServiceNow Change Schedule, Release Management</td><td>Monthly releases with a freeze date; every approved item targets one</td></tr>
+    <tr><td>Customer portal</td><td>ServiceNow CSM portal, Jira SM portal</td><td>HOME sees their requests, the roadmap and what is waiting on them</td></tr>
+    <tr><td>SLA timers</td><td>ServiceNow SLA definitions</td><td>Response and resolution targets per priority, paused while on hold</td></tr>
+    <tr><td>Change Advisory Board</td><td>ITIL CAB</td><td>A 30-minute weekly triage with HOME's product owner</td></tr>
+    <tr><td>Work item linkage</td><td>ServiceNow Agile / Azure DevOps integration</td><td>Tracker record = client layer; ADO Epic/Feature/Story/Task = delivery layer</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="principles">Operating principles</h2>
+<dl class="principles">
+  <div><dt>One front door</dt><dd>A request that is not in the tracker does not exist. Anything raised on a call or in chat is logged there by whoever heard it, within one business day.</dd></div>
+  <div><dt>Every record has a holder</dt><dd>Each status belongs to <span class="chip vendor">Vendor</span>, <span class="chip client">HOME</span> or <span class="chip third">Third party</span> (Yardi, BASC, middleware). The list is sortable by who owes the next move.</dd></div>
+  <div><dt>HOME owns the order, we own the effort</dt><dd>HOME's product owner ranks demands and approves priorities. The delivery team sizes the work and says what fits in a release. Neither side sets the other's number.</dd></div>
+  <div><dt>Months, not dates</dt><dd>Plans show a target release month. A specific date appears only once an item is in a frozen release.</dd></div>
+  <div><dt>Tracker for HOME, ADO for engineering</dt><dd>HOME never needs an Azure DevOps login. Engineers never re-type what HOME wrote. The link between them is kept by the system, not by hand.</dd></div>
+  <div><dt>Nothing silently disappears</dt><dd>Rejected, deferred and duplicate are visible outcomes with a reason, not deletions.</dd></div>
+</dl>
+
+<h2 id="types">Record types</h2>
+<p>The single <code>Ticket</code> today mixes things that behave very differently: a login failure needs to be fixed today, a new report needs a quote and a slot in the plan. Classifying by intent at intake is what lets the rest of the system (fields, workflow, SLA, approval) behave correctly.</p>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Type</th><th>Meaning</th><th>HOME examples</th><th>Size</th><th>Goes to ADO as</th></tr></thead>
+  <tbody>
+    <tr><td class="type-code">INC Incident</td><td>Something that worked is broken or wrong now</td><td>Caseworker cannot open a recert; AR tile missing for a resident; 50058 calculation off</td><td>Hours to days</td><td>Bug or Task</td></tr>
+    <tr><td class="type-code">REQ Service request</td><td>A standard operation, no product change</td><td>Change a login e-mail; re-send a notice; data fix on one family; new staff account</td><td>Hours</td><td>Task (often none)</td></tr>
+    <tr><td class="type-code">CHG Change request</td><td>A small change to how the product behaves</td><td>Add a column to a queue; reword a notice; new filter on a report</td><td>Up to about 5 person-days</td><td>User Story</td></tr>
+    <tr><td class="type-code">DEM Demand</td><td>An idea or need that must be sized before anyone commits</td><td>Landlord portal for rent increases; SEMAP dashboard; lobby kiosk flows</td><td>Unknown until sized</td><td>Nothing yet</td></tr>
+    <tr><td class="type-code">PRJ Project</td><td>An approved demand with scope, estimate and target months</td><td>HOTMA cutover; PBV migration; Scope 5 BASC parity</td><td>Weeks to months</td><td>Epic (Features beneath)</td></tr>
+  </tbody>
+</table>
+</div>
+<p>Reclassification is normal and recorded: a "Change request" sized at 20 days is converted to a Demand; a Demand approved for delivery spawns a Project and links back to it. An Incident whose root cause needs a redesign spawns a Change request or Demand and closes with a workaround.</p>
+
+<h2 id="hierarchy">Hierarchy and the Azure DevOps link</h2>
+<p>A Project owns the smaller records that belong to it, which is what makes "how far along is the landlord portal" answerable. Each tracker record links to exactly one ADO item at the level that matches it, and ADO keeps its own Epic, Feature, Story, Task hierarchy underneath.</p>
+<figure class="diagram">
+<svg viewBox="0 0 720 300" role="img" aria-labelledby="hier-title">
+  <title id="hier-title">Tracker records on the left link to Azure DevOps items on the right</title>
+  <g font-size="12.5">
+    <text x="20" y="22" fill="var(--ink-soft)" font-weight="600" letter-spacing=".06em">TRACKER - WHAT HOME SEES</text>
+    <text x="420" y="22" fill="var(--ink-soft)" font-weight="600" letter-spacing=".06em">AZURE DEVOPS - HOW WE BUILD</text>
+
+    <rect x="20" y="40" width="220" height="44" fill="var(--client-soft)" stroke="var(--client)"/>
+    <text x="34" y="60" fill="var(--client)" font-weight="600">DEM Demand</text>
+    <text x="34" y="76" fill="var(--ink-soft)">sized, approved by HOME</text>
+
+    <rect x="20" y="120" width="220" height="44" fill="var(--accent-soft)" stroke="var(--accent)"/>
+    <text x="34" y="140" fill="var(--accent)" font-weight="600">PRJ Project</text>
+    <text x="34" y="156" fill="var(--ink-soft)">scope, estimate, target months</text>
+
+    <rect x="60" y="200" width="180" height="40" fill="var(--surface)" stroke="var(--rule)"/>
+    <text x="74" y="224" fill="var(--ink)">CHG Change request</text>
+    <rect x="60" y="250" width="180" height="40" fill="var(--surface)" stroke="var(--rule)"/>
+    <text x="74" y="274" fill="var(--ink)">INC / REQ</text>
+
+    <line x1="130" y1="84" x2="130" y2="120" stroke="var(--ink-soft)"/>
+    <text x="138" y="106" fill="var(--ink-soft)" font-size="11.5">becomes</text>
+    <path d="M40 164 V270 H60 M40 220 H60" fill="none" stroke="var(--ink-soft)"/>
+
+    <rect x="420" y="120" width="140" height="40" fill="var(--surface)" stroke="var(--rule)"/>
+    <text x="434" y="144" fill="var(--ink)">Epic</text>
+    <rect x="450" y="170" width="140" height="36" fill="var(--surface)" stroke="var(--rule)"/>
+    <text x="464" y="192" fill="var(--ink)">Feature</text>
+    <rect x="480" y="214" width="140" height="36" fill="var(--surface)" stroke="var(--rule)"/>
+    <text x="494" y="236" fill="var(--ink)">User Story</text>
+    <rect x="510" y="258" width="140" height="36" fill="var(--surface)" stroke="var(--rule)"/>
+    <text x="524" y="280" fill="var(--ink)">Task / Bug</text>
+
+    <g stroke="var(--accent)" stroke-dasharray="4 4" fill="none">
+      <path d="M240 142 H420"/>
+      <path d="M240 220 H480"/>
+      <path d="M240 270 H510"/>
+    </g>
+    <text x="300" y="134" fill="var(--accent)" font-size="11.5">links to</text>
+  </g>
+</svg>
+<figcaption>Solid lines are tracker parent links. Dashed lines are the ADO link on each record; its state is read back into the tracker, as the Task field does today.</figcaption>
+</figure>
+<p>Two rules keep the two systems honest. First, the tracker record carries HOME's words and ADO carries the team's restatement; neither overwrites the other (the current sync already posts the ADO description as an internal comment rather than replacing the report). Second, progress shown to HOME is rolled up from ADO child states, so nobody maintains a percentage by hand.</p>
+
+<h2 id="lifecycle">Lifecycle</h2>
+<p>One shared set of stages, each type using the subset it needs. Statuses stay editable lookups as they are today; each one is mapped to a fixed stage so that SLAs, the roadmap and reports can rely on it even when a status is renamed.</p>
+<figure class="diagram">
+<svg viewBox="0 0 760 250" role="img" aria-labelledby="life-title">
+  <title id="life-title">Stages from New to Closed, with the holder of each stage</title>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--ink-soft)"/>
+    </marker>
+  </defs>
+  <g font-size="12">
+    <g>
+      <rect x="10" y="30" width="96" height="40" fill="var(--accent-soft)" stroke="var(--accent)"/>
+      <text x="58" y="55" text-anchor="middle" fill="var(--accent)" font-weight="600">New</text>
+      <rect x="130" y="30" width="96" height="40" fill="var(--accent-soft)" stroke="var(--accent)"/>
+      <text x="178" y="55" text-anchor="middle" fill="var(--accent)" font-weight="600">Triage</text>
+      <rect x="250" y="30" width="96" height="40" fill="var(--accent-soft)" stroke="var(--accent)"/>
+      <text x="298" y="55" text-anchor="middle" fill="var(--accent)" font-weight="600">Sizing</text>
+      <rect x="370" y="30" width="110" height="40" fill="var(--client-soft)" stroke="var(--client)"/>
+      <text x="425" y="55" text-anchor="middle" fill="var(--client)" font-weight="600">Approval</text>
+      <rect x="504" y="30" width="110" height="40" fill="var(--accent-soft)" stroke="var(--accent)"/>
+      <text x="559" y="55" text-anchor="middle" fill="var(--accent)" font-weight="600">Scheduled</text>
+      <rect x="638" y="30" width="110" height="40" fill="var(--accent-soft)" stroke="var(--accent)"/>
+      <text x="693" y="55" text-anchor="middle" fill="var(--accent)" font-weight="600">In progress</text>
+    </g>
+    <g stroke="var(--ink-soft)" marker-end="url(#arr)">
+      <line x1="106" y1="50" x2="128" y2="50"/>
+      <line x1="226" y1="50" x2="248" y2="50"/>
+      <line x1="346" y1="50" x2="368" y2="50"/>
+      <line x1="480" y1="50" x2="502" y2="50"/>
+      <line x1="614" y1="50" x2="636" y2="50"/>
+      <path d="M693 70 V110 H610" fill="none"/>
+      <line x1="500" y1="130" x2="452" y2="130"/>
+      <line x1="342" y1="130" x2="294" y2="130"/>
+    </g>
+    <g>
+      <rect x="500" y="110" width="110" height="40" fill="var(--client-soft)" stroke="var(--client)"/>
+      <text x="555" y="135" text-anchor="middle" fill="var(--client)" font-weight="600">UAT</text>
+      <rect x="342" y="110" width="110" height="40" fill="var(--accent-soft)" stroke="var(--accent)"/>
+      <text x="397" y="135" text-anchor="middle" fill="var(--accent)" font-weight="600">Released</text>
+      <rect x="184" y="110" width="110" height="40" fill="var(--good-soft)" stroke="var(--good)"/>
+      <text x="239" y="135" text-anchor="middle" fill="var(--good)" font-weight="600">Closed</text>
+    </g>
+    <g>
+      <rect x="130" y="190" width="150" height="40" fill="var(--client-soft)" stroke="var(--client)" stroke-dasharray="4 3"/>
+      <text x="205" y="215" text-anchor="middle" fill="var(--client)" font-weight="600">Needs info from HOME</text>
+      <rect x="300" y="190" width="150" height="40" fill="var(--third-soft)" stroke="var(--third)" stroke-dasharray="4 3"/>
+      <text x="375" y="215" text-anchor="middle" fill="var(--third)" font-weight="600">Blocked, third party</text>
+      <rect x="470" y="190" width="200" height="40" fill="var(--bad-soft)" stroke="var(--bad)" stroke-dasharray="4 3"/>
+      <text x="570" y="215" text-anchor="middle" fill="var(--bad)" font-weight="600">Rejected / Deferred / Duplicate</text>
+    </g>
+    <path d="M178 70 V190" stroke="var(--ink-soft)" stroke-dasharray="2 3" fill="none"/>
+    <text x="20" y="186" fill="var(--ink-soft)" font-size="11.5">Side states, from any open stage:</text>
+  </g>
+</svg>
+<figcaption>Blue stages are held by the delivery team, amber by HOME, violet by a third party. Dashed boxes are hold states: they can be entered from any open stage and return to it.</figcaption>
+</figure>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Type</th><th>Path through the stages</th></tr></thead>
+  <tbody>
+    <tr><td class="type-code">INC</td><td>New, Triage, In progress, Released (fix deployed or workaround given), Closed. HOME confirms, or the record closes itself 5 business days after release.</td></tr>
+    <tr><td class="type-code">REQ</td><td>New, In progress, Closed. Approval only where the catalogue says so (for example production data changes).</td></tr>
+    <tr><td class="type-code">CHG</td><td>New, Triage, Sizing, Approval, Scheduled, In progress, UAT, Released, Closed.</td></tr>
+    <tr><td class="type-code">DEM</td><td>New, Triage, Sizing (rough order of magnitude), Approval (go / defer / reject), then converted to a Project.</td></tr>
+    <tr><td class="type-code">PRJ</td><td>Scheduled, In progress, UAT, Released, Closed. Its own progress is the roll-up of its children.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="ready">Definition of Ready</h2>
+<p>This is the part that ends "a sentence on a call". A record cannot leave Triage until the fields its type needs are filled. Triage either fills them from what is known or moves the record to <span class="chip client">Needs info from HOME</span> with a specific question. A record left there for 10 business days is closed with a note and can be reopened in one click.</p>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Field</th><th class="num">INC</th><th class="num">REQ</th><th class="num">CHG</th><th class="num">DEM</th></tr></thead>
+  <tbody>
+    <tr><td>Product and module</td><td class="num">Required</td><td class="num">Required</td><td class="num">Required</td><td class="num">Required</td></tr>
+    <tr><td>What happens now / what is needed</td><td class="num">Required</td><td class="num">Required</td><td class="num">Required</td><td class="num">Required</td></tr>
+    <tr><td>Example record (tenant code, recert id, page link)</td><td class="num">Required</td><td class="num">If applicable</td><td class="num">If applicable</td><td class="num">-</td></tr>
+    <tr><td>Screenshot or screen recording</td><td class="num">Required</td><td class="num">-</td><td class="num">Optional</td><td class="num">Optional</td></tr>
+    <tr><td>Who is affected and how many</td><td class="num">Required</td><td class="num">-</td><td class="num">Required</td><td class="num">Required</td></tr>
+    <tr><td>Expected outcome / acceptance criteria</td><td class="num">Required</td><td class="num">Required</td><td class="num">Required</td><td class="num">-</td></tr>
+    <tr><td>Business reason or rule (HUD, HOTMA, board policy)</td><td class="num">-</td><td class="num">-</td><td class="num">Required</td><td class="num">Required</td></tr>
+    <tr><td>Needed by (month) and why that month</td><td class="num">-</td><td class="num">-</td><td class="num">Optional</td><td class="num">Required</td></tr>
+    <tr><td>HOME sponsor</td><td class="num">-</td><td class="num">-</td><td class="num">-</td><td class="num">Required</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The guided wizard already asks module, problem type and family; it grows one branch per record type with these fields. A template per record type in the form keeps the questions in HOME's language ("Which tenant did you see this on?") rather than field names.</p>
+
+<h2 id="priority">Priority and rank</h2>
+<h3>Incidents: priority is computed</h3>
+<p>The reporter answers two questions, impact and urgency, and the tracker derives the priority from the matrix below. This is the ITIL method ServiceNow uses, and it stops every issue arriving as P0. The existing P0 sign-off by HOME's approver stays exactly as it works today.</p>
+<div class="matrix" role="table" aria-label="Impact by urgency priority matrix">
+  <div class="h" role="columnheader">Impact / Urgency</div>
+  <div class="h" role="columnheader">High - work stops today</div>
+  <div class="h" role="columnheader">Medium - workaround exists</div>
+  <div class="h" role="columnheader">Low - can wait</div>
+  <div class="rh" role="rowheader">Many users, or a deadline, payment or compliance at risk</div>
+  <div class="p0">P0 Process halted<small>sign-off by HOME approver</small></div>
+  <div class="p1">P1</div>
+  <div class="p2">P2 Process impacted</div>
+  <div class="rh" role="rowheader">One team or a group of families</div>
+  <div class="p1">P1</div>
+  <div class="p2">P2 Process impacted</div>
+  <div class="p3">P3</div>
+  <div class="rh" role="rowheader">One user or one record</div>
+  <div class="p2">P2 Process impacted</div>
+  <div class="p3">P3</div>
+  <div class="p3">P3 Process improvement</div>
+</div>
+<p>Triage may override the computed value with a reason; the override is recorded in the history like any other change.</p>
+
+<h3>Changes, demands and projects: one ranked list</h3>
+<p>Priority labels do not order planned work; everything ends up "high". Instead HOME's product owner keeps one ranked backlog per product, drag and drop, with a light score to support the conversation rather than replace it.</p>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Factor</th><th>Scale</th><th>Set by</th></tr></thead>
+  <tbody>
+    <tr><td>Business value (families served, staff time saved)</td><td class="num">1 to 5</td><td><span class="chip client">HOME</span></td></tr>
+    <tr><td>Time pressure (regulatory date, funding, board decision)</td><td class="num">1 to 5</td><td><span class="chip client">HOME</span></td></tr>
+    <tr><td>Risk reduced (compliance, audit, data quality)</td><td class="num">1 to 5</td><td><span class="chip client">HOME</span></td></tr>
+    <tr><td>Effort (T-shirt size: S, M, L, XL)</td><td class="num">S to XL</td><td><span class="chip vendor">Vendor</span></td></tr>
+  </tbody>
+</table>
+</div>
+<p>The tracker shows value plus time pressure plus risk, divided by effort, as a suggested order. HOME's rank is what counts. Changing the rank of anything already in a frozen release requires a swap: something of equal size comes out.</p>
+
+<h3>Approval gates</h3>
+<ul>
+  <li><b>Priority P0</b> - HOME approver, as today.</li>
+  <li><b>Estimate</b> - any CHG sized above an agreed threshold, and every Demand, waits in <span class="chip client">Approval</span> until HOME accepts the estimate. This is where maintenance hours and change-request budget are consumed knowingly rather than discovered on the invoice.</li>
+  <li><b>UAT sign-off</b> - a CHG or PRJ is released only after HOME passes UAT, or after an agreed silent-acceptance period.</li>
+</ul>
+
+<h2 id="schedule">Schedule and releases</h2>
+<p>ServiceNow's change calendar is overkill, but the idea behind it is exactly what HOME is missing: a published plan of what changes when.</p>
+<ul>
+  <li><b>Release</b> becomes a record: product, name (for example <span class="mono">DMS 2026.11</span>), target month, freeze date, deploy window, state (Planned, Frozen, In UAT, Deployed). It maps to the deploy tags we already cut.</li>
+  <li>Every approved CHG and PRJ milestone targets a release. Incidents and requests are fixed as hotfixes and are attached to the release that actually carried them, so release notes build themselves.</li>
+  <li><b>Freeze</b>: two weeks before the deploy window the release content is locked. After the freeze, additions go through the swap rule or wait for the next release.</li>
+  <li><b>Roadmap</b> view for HOME: columns Now (current release), Next (the following one or two) and Later (ranked, not yet scheduled). Months, never days, until frozen.</li>
+  <li>Slipping an item to a later release requires a reason and notifies the requester; the roadmap history shows every move.</li>
+</ul>
+
+<h2 id="sla">Service levels</h2>
+<p>Clocks run on business hours in El Paso time and pause in any HOME-held or third-party stage. The existing <code>Priority.sla_hours</code> field becomes two targets per priority. Figures below are a starting proposal to agree with HOME.</p>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Priority</th><th>First response</th><th>Workaround or fix</th><th>Status update</th></tr></thead>
+  <tbody>
+    <tr><td>P0 Process halted</td><td class="num">1 business hour</td><td class="num">1 business day</td><td class="num">Every 4 hours</td></tr>
+    <tr><td>P1</td><td class="num">4 business hours</td><td class="num">3 business days</td><td class="num">Daily</td></tr>
+    <tr><td>P2 Process impacted</td><td class="num">1 business day</td><td class="num">Next release</td><td class="num">On change</td></tr>
+    <tr><td>P3 Process improvement</td><td class="num">3 business days</td><td class="num">By rank</td><td class="num">On change</td></tr>
+    <tr><td>Demand (any)</td><td class="num">3 business days</td><td class="num">Rough size in 10 business days</td><td class="num">On change</td></tr>
+  </tbody>
+</table>
+</div>
+<p>An SLA at 75 percent of its target alerts the assignee and the delivery lead; a breach is listed in the weekly triage and in the monthly report. Reporting counts breaches honestly; the pause rule is what keeps it fair to both sides.</p>
+
+<h2 id="intake">Requests raised on calls and in chat</h2>
+<p>Calls and Teams will not go away, and they should not have to. The rule is that they feed the tracker instead of replacing it.</p>
+<ol>
+  <li>Whoever hears the request creates the record the same day with <b>Source</b> set to Call, Teams, E-mail or Meeting, and <b>Requested by</b> set to the HOME person (the existing "Reported by" field covers people without an account).</li>
+  <li>The record is created in <span class="chip client">Needs info from HOME</span> if anything required is missing, so the requester gets one message listing exactly what is needed.</li>
+  <li>After a working session, the meeting owner turns the notes into records and posts one summary link in the chat: "Logged from today's call: DEM-0142, CHG-0310, INC-0877". The link replaces the recap message.</li>
+  <li>When someone asks for a status in chat, the answer is the record link. If there is no record, the answer is to create one now.</li>
+  <li>Later, e-mail-in (a mailbox that creates records) and a Teams message action ("Create tracker record from this message") make step 1 a click. Both are phase 3, not a precondition.</li>
+</ol>
+
+<h2 id="cadence">Governance cadence</h2>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Forum</th><th>When</th><th>Who</th><th>Output</th></tr></thead>
+  <tbody>
+    <tr><td>Daily triage</td><td>Every business morning, 15 minutes, internal</td><td>Delivery lead, on-call engineer</td><td>New records typed, completed or sent back for info; P0/P1 assigned</td></tr>
+    <tr><td>Weekly triage with HOME</td><td>30 minutes, fixed slot</td><td>HOME product owner, delivery lead</td><td>Approvals decided, ranks adjusted, items waiting on HOME cleared</td></tr>
+    <tr><td>Release planning</td><td>Before each freeze</td><td>Same, plus tech leads</td><td>Release content frozen; slips agreed and communicated</td></tr>
+    <tr><td>Monthly service review</td><td>First week of the month</td><td>HOME leadership, account lead</td><td>Generated report: throughput, SLA, aging, roadmap changes, hours used</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The weekly triage agenda is a tracker view, not a document: <i>awaiting HOME approval</i>, <i>needs info from HOME</i> older than 3 days, <i>new demands</i>, <i>SLA at risk</i>. The meeting ends when the view is empty.</p>
+
+<h2 id="views">Screens</h2>
+<div class="table-scroll">
+<table>
+  <thead><tr><th>Screen</th><th>For</th><th>What it answers</th></tr></thead>
+  <tbody>
+    <tr><td>My requests</td><td>Every HOME user</td><td>What have I asked for, where is it, what is it waiting for</td></tr>
+    <tr><td>Waiting on HOME</td><td>HOME product owner, approvers</td><td>Everything held on the client side, oldest first, with the exact question</td></tr>
+    <tr><td>Roadmap</td><td>HOME leadership</td><td>Now / Next / Later per product, by month, with progress roll-ups</td></tr>
+    <tr><td>Release view</td><td>Both sides</td><td>What is in DMS 2026.11, frozen or not, UAT status, release notes draft</td></tr>
+    <tr><td>Project page</td><td>Sponsor, delivery lead</td><td>Scope, estimate vs. actual, children and their states, risks, decisions log</td></tr>
+    <tr><td>Queues</td><td>Delivery team</td><td>Untriaged, SLA at risk, assigned to me, blocked on third party</td></tr>
+    <tr><td>Service review</td><td>Account lead</td><td>Monthly figures, exportable (the XLSX export exists and extends)</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="walkthrough">Walkthrough mockups</h2>
+<p>Three end-to-end flows, one screen per step, drawn in the tracker's current look (the same navigation bar, red "New request" button, blue guided-wizard header and saved-view tabs). Amber pins mark what is new on each screen; the notes below it say who is acting and what the system records. Use the arrow keys or the buttons to move through a flow.</p>
+
+<div class="walk" id="walk">
+  <div class="walk-flows" role="group" aria-label="Choose a flow">
+    <button type="button" data-flow-btn="a" aria-pressed="true">A. Asked on a call<small>Change request, 8 steps</small></button>
+    <button type="button" data-flow-btn="b" aria-pressed="false">B. Something is broken<small>Incident, 4 steps</small></button>
+    <button type="button" data-flow-btn="c" aria-pressed="false">C. A bigger idea<small>Demand to project, 5 steps</small></button>
+  </div>
+  <ol class="walk-rail" id="walk-rail" aria-label="Steps in this flow"></ol>
+
+  <div id="walk-steps">
+
+  <!-- ================= FLOW A ================= -->
+  <article class="wstep" data-flow="a" data-label="Log it">
+    <div class="mock" data-url="tracker.home.kruko.co/requests/new?source=call" data-who="J. Nowak · Delivery lead" data-views="">
+      <div class="m-page">
+        <div class="m-card">
+          <div class="m-row" style="align-items:center">
+            <div><p class="m-h">Log a request heard on a call or in chat</p><div class="m-sub">Takes a minute. Missing details are asked for in the next step, not now.</div></div>
+          </div>
+        </div>
+        <div class="m-card" style="display:grid;gap:12px">
+          <div class="m-row">
+            <div class="hl"><span class="pin">1</span><div class="m-label">Where did you hear it?</div><div class="m-seg"><span class="on">Call</span><span>Teams</span><span>E-mail</span><span>Meeting</span></div></div>
+            <div><div class="m-label">When</div><div class="m-input">Sep 23, 2026</div></div>
+          </div>
+          <div class="m-row">
+            <div class="hl"><span class="pin">2</span><div class="m-label">Requested by (HOME)</div><div class="m-input sel"><span>M. Alvarez · Recertification supervisor</span><span class="ms">search</span></div></div>
+            <div><div class="m-label">Product</div><div class="m-input sel"><span>DMS · Caseworker portal</span><span class="ms">expand_more</span></div></div>
+          </div>
+          <div><div class="m-label">What did they ask for? In their words.</div><div class="m-input ta">Wants the annual recert queue to show each family's move-in date so staff can work anniversaries in order. Said it is "urgent-ish".</div></div>
+          <div class="hl"><span class="pin">3</span><div class="m-label">What kind of request is it?</div>
+            <div class="m-grid4">
+              <div class="m-choice"><strong><span class="ms">bug_report</span> Incident</strong><span>Worked before, broken now</span></div>
+              <div class="m-choice"><strong><span class="ms">task_alt</span> Service request</strong><span>Do a standard thing</span></div>
+              <div class="m-choice on"><strong><span class="ms">tune</span> Change request</strong><span>Small change in behaviour</span></div>
+              <div class="m-choice"><strong><span class="ms">lightbulb</span> Demand</strong><span>Bigger, needs sizing</span></div>
+            </div>
+          </div>
+          <div class="m-actions"><span class="m-btn ghost">Cancel</span><span class="m-btn">Create CHG-0311</span></div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip vendor">Vendor</span> right after the call</p>
+      <h3>Write it down the same day</h3>
+      <ol>
+        <li><span class="n">1</span><span>Source is recorded, so reports can show how much still arrives outside the tracker.</span></li>
+        <li><span class="n">2</span><span>The requester is the HOME person, not the one typing. They get every update from now on.</span></li>
+        <li><span class="n">3</span><span>Type decides the fields, workflow and SLA. It can be changed later; the change is logged.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> CHG-0311 created in <i>Triage</i>, holder Vendor. The requester gets "We logged what you asked for on today's call" with the link.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="a" data-label="Ready check" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/r/CHG-0311" data-who="J. Nowak · Delivery lead" data-views="Queues|7;All records;Approvals|1;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <div class="m-row" style="align-items:center">
+            <div><span class="m-ref">CHG-0311</span> <span class="m-badge b-blue">Triage</span> <span class="m-badge b-blue">Holder: Vendor</span><p class="m-h" style="margin-top:4px">Show move-in date in the annual recertification queue</p><div class="m-sub">DMS · Caseworker portal · requested by M. Alvarez on a call, Sep 23</div></div>
+          </div>
+        </div>
+        <div class="m-grid2">
+          <div class="m-card hl"><span class="pin">2</span>
+            <h4>Ask HOME for what is missing</h4>
+            <div class="m-input ta" style="min-height:92px">1. Annual queue only, or Interim too?<br>2. Roughly how many caseworkers use this queue?<br>3. Should the column be sortable, filterable, or both?<br>4. Is there a HUD or policy reason for working anniversaries in order?</div>
+            <div class="m-actions" style="margin-top:10px"><span class="m-btn">Send to HOME and pause</span></div>
+          </div>
+          <div class="m-card hl"><span class="pin">1</span>
+            <h4>Ready check · 3 of 6</h4>
+            <div class="m-check">
+              <div class="ok"><span class="ms">check_circle</span>Product and module</div>
+              <div class="ok"><span class="ms">check_circle</span>What is needed</div>
+              <div class="ok"><span class="ms">check_circle</span>Requested by</div>
+              <div class="no"><span class="ms">cancel</span>Who is affected, how many</div>
+              <div class="no"><span class="ms">cancel</span>Acceptance criteria</div>
+              <div class="no"><span class="ms">cancel</span>Business reason</div>
+            </div>
+            <div class="m-hint" style="margin-top:8px">Sizing is locked until all six are filled.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip vendor">Vendor</span> daily triage</p>
+      <h3>The tracker refuses a half-written request</h3>
+      <ol>
+        <li><span class="n">1</span><span>Definition of Ready for a change request: six fields. Three came from the call; three did not.</span></li>
+        <li><span class="n">2</span><span>One message with numbered questions, not a chat thread. The clock stops while HOME holds it.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> status <i>Needs info from HOME</i>, holder HOME, SLA paused. Reminder on day 3 and day 7; closed with a note on day 10 if unanswered.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="a" data-label="HOME answers" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/waiting" data-who="M. Alvarez · HOME" data-views="My requests|5;*Waiting on me|2;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card hl" style="padding:0;overflow:hidden"><span class="pin">1</span>
+          <table class="m-table">
+            <thead><tr><th>Record</th><th>What we need from you</th><th>Waiting</th><th></th></tr></thead>
+            <tbody>
+              <tr class="tint-amber"><td><span class="m-ref">CHG-0311</span><br>Move-in date in recert queue</td><td>Answer 4 questions</td><td class="m-num">1 day</td><td><span class="m-btn">Answer</span></td></tr>
+              <tr><td><span class="m-ref">INC-0874</span><br>Notice PDF missing page 2</td><td>Confirm the fix works for you</td><td class="m-num">2 days</td><td><span class="m-btn ghost">Confirm</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="m-card hl"><span class="pin">2</span>
+          <h4>CHG-0311 · your answers</h4>
+          <div class="m-row">
+            <div><div class="m-label">Which queue?</div><div class="m-seg"><span class="on">Annual</span><span>Interim</span><span>Both</span></div></div>
+            <div><div class="m-label">Who is affected?</div><div class="m-input sel"><span>One team (6-20 users)</span><span class="ms">expand_more</span></div></div>
+          </div>
+          <div style="margin-top:10px"><div class="m-label">How will you know it works?</div><div class="m-input ta">Column "Move-in date" after "Head of household". Sort oldest first. Filter by month.</div></div>
+          <div style="margin-top:10px"><div class="m-label">Why does it matter?</div><div class="m-input">Annual recerts are due on the move-in anniversary; staff now look it up family by family.</div></div>
+          <div class="m-actions" style="margin-top:10px"><span class="m-btn">Send answers</span></div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> requester, same or next day</p>
+      <h3>Everything waiting on HOME, in one list</h3>
+      <ol>
+        <li><span class="n">1</span><span>"Waiting on me" replaces chat reminders. Oldest first, with what exactly is needed.</span></li>
+        <li><span class="n">2</span><span>Questions arrive as a short form in plain language, not as field names.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> answers fill the missing fields, ready check reaches 6 of 6, record returns to <i>Triage</i> with holder Vendor and the clock restarts.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="a" data-label="Size it" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/r/CHG-0311#sizing" data-who="J. Nowak · Delivery lead" data-views="Queues|6;All records;Approvals|1;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <span class="m-ref">CHG-0311</span> <span class="m-badge b-blue">Sizing</span> <span class="m-badge b-green">Ready 6 of 6</span>
+          <p class="m-h" style="margin-top:4px">Show move-in date in the annual recertification queue</p>
+        </div>
+        <div class="m-grid2">
+          <div class="m-card">
+            <h4>Size and estimate</h4>
+            <div class="m-row">
+              <div class="hl"><span class="pin">1</span><div class="m-label">Size</div><div class="m-seg"><span>S</span><span class="on">M</span><span>L</span><span>XL</span></div></div>
+              <div><div class="m-label">Estimate</div><div class="m-input">4 person-days</div></div>
+            </div>
+            <div style="margin-top:10px"><div class="m-label">What is included</div><div class="m-input ta">New column from the family lease record, sort and month filter, export column, tests. Staging for UAT.</div></div>
+            <div class="m-alert amber hl" style="margin-top:10px"><span class="pin">2</span><span class="ms">gavel</span><span>Above the 3-day threshold. HOME must accept the estimate before work starts.</span></div>
+            <div class="m-actions" style="margin-top:10px"><span class="m-btn">Send estimate to HOME</span></div>
+          </div>
+          <div class="m-card hl"><span class="pin">3</span>
+            <h4>Delivery link</h4>
+            <div class="m-label">Azure DevOps</div>
+            <div class="m-input sel"><span>Create User Story in DMS on approval</span><span class="ms">toggle_on</span></div>
+            <div class="m-hint">HOME's text goes in as-is; engineers add their own restatement under it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip vendor">Vendor</span> tech lead</p>
+      <h3>We own the effort number</h3>
+      <ol>
+        <li><span class="n">1</span><span>T-shirt size plus days. Days are what HOME approves; the size feeds the backlog score.</span></li>
+        <li><span class="n">2</span><span>The approval gate opens automatically above the agreed threshold.</span></li>
+        <li><span class="n">3</span><span>The ADO item is created when HOME approves, not before, so the board holds only committed work.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> status <i>Awaiting approval</i>, holder HOME product owner.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="a" data-label="Approve and rank" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/approvals" data-who="R. Chavez · HOME product owner" data-views="My requests|2;Waiting on me|1;*Approvals|1;Backlog;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-grid2">
+          <div class="m-card hl"><span class="pin">1</span>
+            <span class="m-ref">CHG-0311</span> <span class="m-badge b-amber">Awaiting your approval</span>
+            <p class="m-h" style="margin:4px 0 8px">Move-in date in annual recert queue</p>
+            <dl class="m-kv">
+              <dt>Estimate</dt><dd><b>4 person-days</b> (32 hours)</dd>
+              <dt>Hours left</dt><dd>88 of 120 this month after this</dd>
+              <dt>Asked by</dt><dd>M. Alvarez, Sep 23</dd>
+              <dt>Includes</dt><dd>Column, sort, month filter, export, tests</dd>
+            </dl>
+            <div class="m-actions" style="margin-top:12px;justify-content:flex-start"><span class="m-btn ok">Approve</span><span class="m-btn warn">Defer</span><span class="m-btn no">Reject</span></div>
+          </div>
+          <div class="m-card hl"><span class="pin">2</span>
+            <h4>DMS backlog · your order</h4>
+            <div class="m-drag">
+              <div><span class="ms">drag_indicator</span><span class="rk">1</span><span>PRJ-0017 HOTMA income rules</span><span class="m-badge b-blue">L</span></div>
+              <div class="lift"><span class="ms">drag_indicator</span><span class="rk">2</span><span>CHG-0311 Move-in date column</span><span class="m-badge b-blue">M</span></div>
+              <div><span class="ms">drag_indicator</span><span class="rk">3</span><span>CHG-0298 Notice wording, Spanish</span><span class="m-badge b-blue">S</span></div>
+              <div><span class="ms">drag_indicator</span><span class="rk">4</span><span>DEM-0142 Landlord rent portal</span><span class="m-badge b-grey">XL</span></div>
+            </div>
+            <div class="m-hint" style="margin-top:6px">Suggested order from value, time pressure and risk over size. Your order wins.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> product owner, weekly triage</p>
+      <h3>HOME owns the order</h3>
+      <ol>
+        <li><span class="n">1</span><span>The approval shows the cost in hours against what is left this month, so budget is spent knowingly.</span></li>
+        <li><span class="n">2</span><span>Approved work drops into one ranked list per product. Dragging it up is the priority decision.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> estimate approved (who, when), rank 2, ADO User Story created and linked, status <i>Approved</i>.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="a" data-label="Schedule" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/releases/dms-2026-11" data-who="J. Nowak · Delivery lead" data-views="Queues|5;All records;Approvals;Roadmap;*Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <div class="m-row" style="align-items:center">
+            <div><p class="m-h">DMS 2026.11</p><div class="m-sub">Target November 2026 · freeze Oct 30 · deploy window Nov 17-19</div></div>
+            <div style="flex:none"><span class="m-badge b-blue">Planned</span></div>
+          </div>
+          <div class="hl" style="margin-top:12px"><span class="pin">1</span>
+            <div class="m-row" style="font-size:12px"><span>Capacity</span><span style="text-align:right" class="m-num">38 of 45 person-days</span></div>
+            <div class="m-bar"><i style="width:84%"></i></div>
+          </div>
+        </div>
+        <div class="m-card" style="padding:0;overflow:hidden">
+          <table class="m-table">
+            <thead><tr><th>Rank</th><th>Record</th><th>Size</th><th>State</th></tr></thead>
+            <tbody>
+              <tr><td class="m-num">1</td><td><span class="m-ref">PRJ-0017</span> HOTMA income rules, milestone 2</td><td class="m-num">28 d</td><td><span class="m-badge b-blue">In progress</span></td></tr>
+              <tr class="tint-blue"><td class="m-num">2</td><td class="hl"><span class="pin">2</span><span class="m-ref">CHG-0311</span> Move-in date column</td><td class="m-num">4 d</td><td><span class="m-badge b-blue">Scheduled</span></td></tr>
+              <tr><td class="m-num">3</td><td><span class="m-ref">CHG-0298</span> Notice wording, Spanish</td><td class="m-num">2 d</td><td><span class="m-badge b-blue">Scheduled</span></td></tr>
+              <tr><td class="m-num">-</td><td><span class="m-ref">INC-0874</span> Notice PDF page 2 (hotfix)</td><td class="m-num">1 d</td><td><span class="m-badge b-green">Released</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="m-alert blue hl"><span class="pin">3</span><span class="ms">lock_clock</span><span>After Oct 30 this list is frozen. Adding something means taking out work of the same size, or waiting for DMS 2026.12.</span></div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip vendor">Vendor</span> release planning</p>
+      <h3>Every approved item gets a month</h3>
+      <ol>
+        <li><span class="n">1</span><span>Capacity is visible, so "can you also squeeze in" has a factual answer.</span></li>
+        <li><span class="n">2</span><span>CHG-0311 targets November. HOME sees "Planned for November 2026", never a day.</span></li>
+        <li><span class="n">3</span><span>Freeze and swap rule, shown where the decision is made.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> target release set, requester notified, roadmap moves the item into Now.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="a" data-label="Build and UAT" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/r/CHG-0311" data-who="M. Alvarez · HOME" data-views="My requests|5;*Waiting on me|1;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <span class="m-ref">CHG-0311</span> <span class="m-badge b-amber">Ready for your testing</span> <span class="m-badge b-amber">Holder: HOME</span>
+          <p class="m-h" style="margin:4px 0 10px">Show move-in date in the annual recertification queue</p>
+          <div class="m-track hl"><span class="pin">1</span><span class="done">New</span><span class="done">Triage</span><span class="done">Sizing</span><span class="done">Approved</span><span class="done">Scheduled</span><span class="done">In progress</span><span class="cur client">UAT</span><span>Released</span><span>Closed</span></div>
+        </div>
+        <div class="m-grid2">
+          <div class="m-card hl"><span class="pin">2</span>
+            <h4>Please test on staging</h4>
+            <ol style="margin:0 0 10px;padding-left:18px;font-size:12.5px">
+              <li>Open the annual recertification queue on staging.</li>
+              <li>Check the "Move-in date" column after "Head of household".</li>
+              <li>Sort oldest first; filter to December.</li>
+            </ol>
+            <div class="m-actions" style="justify-content:flex-start"><span class="m-btn ok">It works</span><span class="m-btn no">Something is wrong</span></div>
+            <div class="m-hint" style="margin-top:6px">No answer in 5 business days counts as accepted.</div>
+          </div>
+          <div class="m-card hl"><span class="pin">3</span>
+            <h4>Progress</h4>
+            <dl class="m-kv">
+              <dt>Release</dt><dd>DMS 2026.11 (frozen)</dd>
+              <dt>Deploy</dt><dd>Nov 17-19</dd>
+              <dt>Work</dt><dd>4 of 4 tasks done</dd>
+            </dl>
+            <div class="m-bar green" style="margin-top:8px"><i style="width:100%"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> requester</p>
+      <h3>Status is a picture, not a meeting</h3>
+      <ol>
+        <li><span class="n">1</span><span>The stage bar answers "where is it" without anyone writing a status update.</span></li>
+        <li><span class="n">2</span><span>UAT is a task for HOME with steps, and a pass or fail button.</span></li>
+        <li><span class="n">3</span><span>Progress is read from the ADO tasks. HOME never needs an ADO login.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> "It works" records UAT passed by M. Alvarez; "Something is wrong" reopens In progress with her note.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="a" data-label="Released" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/r/CHG-0311#history" data-who="M. Alvarez · HOME" data-views="*My requests|4;Waiting on me;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <span class="m-ref">CHG-0311</span> <span class="m-badge b-green">Released in DMS 2026.11</span>
+          <p class="m-h" style="margin:4px 0 0">Show move-in date in the annual recertification queue</p>
+        </div>
+        <div class="m-grid2">
+          <div class="m-card hl"><span class="pin">1</span>
+            <h4>Timeline</h4>
+            <div style="display:grid;gap:7px">
+              <div class="m-comment"><span class="who">Logged from a call</span> <span class="when">Sep 23 · J. Nowak</span></div>
+              <div class="m-comment home"><span class="who">Answers sent</span> <span class="when">Sep 24 · M. Alvarez</span></div>
+              <div class="m-comment"><span class="who">Estimate 4 days sent</span> <span class="when">Sep 25 · J. Nowak</span></div>
+              <div class="m-comment home"><span class="who">Approved, rank 2</span> <span class="when">Sep 29 · R. Chavez</span></div>
+              <div class="m-comment sys"><span class="who">Scheduled for DMS 2026.11</span> <span class="when">Sep 30</span></div>
+              <div class="m-comment home"><span class="who">UAT passed</span> <span class="when">Nov 12 · M. Alvarez</span></div>
+              <div class="m-comment sys"><span class="who">Released</span> <span class="when">Nov 18</span></div>
+            </div>
+          </div>
+          <div class="m-card hl"><span class="pin">2</span>
+            <h4>Who held it</h4>
+            <div class="m-row" style="font-size:12px"><span>Vendor</span><span class="m-num" style="text-align:right">49 days</span></div>
+            <div class="m-bar"><i style="width:88%"></i></div>
+            <div class="m-row" style="font-size:12px;margin-top:8px"><span>HOME</span><span class="m-num" style="text-align:right">7 days</span></div>
+            <div class="m-bar amber"><i style="width:12%"></i></div>
+            <div class="m-hint" style="margin-top:10px">Release note line written from this record:<br><i>"The annual recertification queue shows each family's move-in date and can be sorted and filtered by it."</i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip done">Closed</span> automatically</p>
+      <h3>A trail both sides can trust</h3>
+      <ol>
+        <li><span class="n">1</span><span>Every hand-off with a date and a name. This is the answer to "when did we ask for that".</span></li>
+        <li><span class="n">2</span><span>Time held by each side, measured, not argued. Release notes build from the records.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> closed 5 business days after release, counted in the monthly service review.</p>
+    </aside>
+  </article>
+
+  <!-- ================= FLOW B ================= -->
+  <article class="wstep" data-flow="b" data-label="What do you need?" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/new" data-who="L. Ortiz · HOME caseworker" data-views="">
+      <div class="m-page">
+        <div class="m-wiz">
+          <div class="m-wiz-head"><span>New request</span><span class="m-stepper"><b class="cur">1</b><i></i><b>2</b><i></i><b>3</b><i></i><b>4</b></span></div>
+          <div class="m-wiz-body">
+            <div><p class="m-h">What do you need?</p><div class="m-sub">Pick the closest one. We can change it later.</div></div>
+            <div class="m-grid2 hl" style="grid-template-columns:1fr 1fr"><span class="pin">1</span>
+              <div class="m-choice on"><strong><span class="ms">bug_report</span> Something is broken</strong><span>It worked before, or it shows something wrong</span></div>
+              <div class="m-choice"><strong><span class="ms">task_alt</span> I need something done</strong><span>Account, e-mail change, re-send, data fix</span></div>
+              <div class="m-choice"><strong><span class="ms">tune</span> Change how something works</strong><span>A column, a filter, a wording</span></div>
+              <div class="m-choice"><strong><span class="ms">lightbulb</span> An idea for something bigger</strong><span>A new screen, report or process</span></div>
+            </div>
+            <div class="m-actions"><span class="m-btn">Continue</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> any staff member</p>
+      <h3>HOME picks in plain words</h3>
+      <ol>
+        <li><span class="n">1</span><span>The same four types as the vendor form, phrased for the person asking. Each leads to its own next questions.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> nothing yet. The existing guided wizard gains this first step; its family search and proofs steps stay.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="b" data-label="Details" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/new/incident" data-who="L. Ortiz · HOME caseworker" data-views="">
+      <div class="m-page">
+        <div class="m-wiz">
+          <div class="m-wiz-head"><span>Something is broken</span><span class="m-stepper"><b class="done">1</b><i></i><b class="cur">2</b><i></i><b>3</b><i></i><b>4</b></span></div>
+          <div class="m-wiz-body">
+            <div class="m-row">
+              <div><div class="m-label">Product</div><div class="m-input sel"><span>DMS</span><span class="ms">expand_more</span></div></div>
+              <div><div class="m-label">Where</div><div class="m-input sel"><span>Caseworker portal</span><span class="ms">expand_more</span></div></div>
+            </div>
+            <div class="hl"><span class="pin">1</span><div class="m-label">Which family did you see it on?</div><div class="m-input sel"><span>t0012345 · Sample Household</span><span class="ms">search</span></div><div class="m-hint">Head of household is filled in from the tenant code.</div></div>
+            <div><div class="m-label">What happens, and what did you expect?</div><div class="m-input ta">Interim recert will not submit. Button spins, then "Server error". Expected it to go to review.</div></div>
+            <div class="m-drop hl"><span class="pin">2</span><span class="ms">upload</span> Drop a screenshot or screen recording, or paste an image</div>
+            <div class="m-actions"><span class="m-btn ghost">Back</span><span class="m-btn">Continue</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> caseworker</p>
+      <h3>The fields an incident needs, nothing more</h3>
+      <ol>
+        <li><span class="n">1</span><span>An example record is required for incidents; the tenant code search already exists.</span></li>
+        <li><span class="n">2</span><span>Screenshot or recording required for this type. Paste and drag-and-drop work today.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> the Definition of Ready for INC is met inside the form, so the record skips the "Needs info" loop.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="b" data-label="Impact" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/new/incident" data-who="L. Ortiz · HOME caseworker" data-views="">
+      <div class="m-page">
+        <div class="m-wiz">
+          <div class="m-wiz-head"><span>Something is broken</span><span class="m-stepper"><b class="done">1</b><i></i><b class="done">2</b><i></i><b class="cur">3</b><i></i><b>4</b></span></div>
+          <div class="m-wiz-body">
+            <div class="m-row">
+              <div class="hl"><span class="pin">1</span><div class="m-label">Who is affected?</div>
+                <div class="m-radio"><div>Many users, or a deadline or payment at risk</div><div class="on">One team or a group of families</div><div>Just me, or one record</div></div>
+              </div>
+              <div class="hl"><span class="pin">1</span><div class="m-label">Can work continue?</div>
+                <div class="m-radio"><div>No, work stops</div><div class="on">Yes, with a workaround</div><div>Yes, it can wait</div></div>
+              </div>
+            </div>
+            <div class="m-alert blue hl"><span class="pin">2</span><span class="ms">speed</span><span><b>This will be P2 · Process impacted.</b> First response within 1 business day, fix in the next release or a workaround sooner.</span></div>
+            <div class="m-hint">If work stops for many people, choose that and it becomes P0; your approver confirms it.</div>
+            <div class="m-actions"><span class="m-btn ghost">Back</span><span class="m-btn">Continue</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> caseworker</p>
+      <h3>Two questions, priority computed</h3>
+      <ol>
+        <li><span class="n">1</span><span>Impact and urgency in everyday words, not "P1 or P2".</span></li>
+        <li><span class="n">2</span><span>The result and its promise are shown before sending, so expectations are set at the start.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> priority from the matrix; P0 still opens the existing sign-off request for the HOME approver.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="b" data-label="Tracked" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/r/INC-0878" data-who="L. Ortiz · HOME caseworker" data-views="*My requests|3;Waiting on me;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <span class="m-ref">INC-0878</span> <span class="m-badge b-blue">In progress</span> <span class="m-badge b-blue">Holder: Vendor</span> <span class="m-badge b-grey">P2</span>
+          <p class="m-h" style="margin:4px 0 0">Interim recert will not submit: "Server error"</p>
+          <div class="m-sub">DMS · Caseworker portal · t0012345</div>
+        </div>
+        <div class="m-grid2">
+          <div class="m-card">
+            <h4>Conversation</h4>
+            <div style="display:grid;gap:8px">
+              <div class="m-comment"><span class="who">A. Kowalski</span> <span class="when">Sep 23, 10:12</span><br>Reproduced. The middleware rejects the copy step for this household. Workaround: submit from the family page instead of the queue. Fix planned for DMS 2026.10 hotfix.</div>
+              <div class="m-comment home"><span class="who">L. Ortiz</span> <span class="when">Sep 23, 10:40</span><br>Workaround works, thanks.</div>
+            </div>
+          </div>
+          <div class="m-card hl"><span class="pin">1</span>
+            <h4>Service level</h4>
+            <div class="m-row" style="font-size:12px"><span>First response</span><span class="m-num" style="text-align:right;color:#15803d">Met · 42 min</span></div>
+            <div class="m-bar green" style="margin-bottom:10px"><i style="width:100%"></i></div>
+            <div class="m-row" style="font-size:12px"><span>Workaround given</span><span class="m-num" style="text-align:right;color:#15803d">Met · 1 h 10 min</span></div>
+            <div class="m-bar green" style="margin-bottom:10px"><i style="width:100%"></i></div>
+            <div class="m-row" style="font-size:12px"><span>Fix</span><span class="m-num" style="text-align:right">Next release</span></div>
+            <div class="m-bar"><i style="width:30%"></i></div>
+            <div class="m-hint" style="margin-top:8px">Clock pauses whenever we are waiting on you.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip vendor">Vendor</span> on-call engineer</p>
+      <h3>HOME sees the promise and whether it was kept</h3>
+      <ol>
+        <li><span class="n">1</span><span>SLA timers on the record itself. The same numbers feed the monthly service review.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> hotfix attached to the release that carries it; HOME confirms or the record closes 5 business days after.</p>
+    </aside>
+  </article>
+
+  <!-- ================= FLOW C ================= -->
+  <article class="wstep" data-flow="c" data-label="Propose" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/new/demand" data-who="R. Chavez · HOME product owner" data-views="">
+      <div class="m-page">
+        <div class="m-wiz" style="max-width:620px">
+          <div class="m-wiz-head"><span>An idea for something bigger</span><span class="m-stepper"><b class="done">1</b><i></i><b class="cur">2</b><i></i><b>3</b></span></div>
+          <div class="m-wiz-body">
+            <div><div class="m-label">Name it</div><div class="m-input">Landlords submit rent increase requests online</div></div>
+            <div><div class="m-label">What problem does it solve?</div><div class="m-input ta">Rent increase requests arrive by e-mail and paper; staff re-key them and check rent reasonableness by hand.</div></div>
+            <div class="m-row hl"><span class="pin">1</span>
+              <div><div class="m-label">Needed by</div><div class="m-input sel"><span>January 2027</span><span class="ms">calendar_month</span></div></div>
+              <div><div class="m-label">Why then?</div><div class="m-input">Annual HAP contract renewals start</div></div>
+            </div>
+            <div class="m-grid3 hl"><span class="pin">2</span>
+              <div><div class="m-label">Value</div><div class="m-seg"><span>1</span><span>2</span><span>3</span><span class="on">4</span><span>5</span></div></div>
+              <div><div class="m-label">Time pressure</div><div class="m-seg"><span>1</span><span>2</span><span class="on">3</span><span>4</span><span>5</span></div></div>
+              <div><div class="m-label">Risk reduced</div><div class="m-seg"><span>1</span><span>2</span><span>3</span><span class="on">4</span><span>5</span></div></div>
+            </div>
+            <div class="m-actions"><span class="m-btn">Submit DEM-0142</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> sponsor or product owner</p>
+      <h3>An idea gets a sponsor and a reason</h3>
+      <ol>
+        <li><span class="n">1</span><span>A month and the reason for it. Deadlines without a reason are the ones that move.</span></li>
+        <li><span class="n">2</span><span>HOME scores value, time pressure and risk. We add the size.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> DEM-0142 in <i>Triage</i>. SLA: first reply in 3 business days, rough size in 10.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="c" data-label="Rough size" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/r/DEM-0142#sizing" data-who="J. Nowak · Delivery lead" data-views="Queues|4;All records;Approvals;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <span class="m-ref">DEM-0142</span> <span class="m-badge b-blue">Sizing</span>
+          <p class="m-h" style="margin:4px 0 0">Landlords submit rent increase requests online</p>
+        </div>
+        <div class="m-grid2">
+          <div class="m-card">
+            <h4>Rough order of magnitude</h4>
+            <div class="m-row hl"><span class="pin">1</span>
+              <div><div class="m-label">Size</div><div class="m-seg"><span>S</span><span>M</span><span>L</span><span class="on">XL</span></div></div>
+              <div><div class="m-label">Range</div><div class="m-input">35 to 50 person-days</div></div>
+            </div>
+            <div class="hl" style="margin-top:10px"><span class="pin">2</span><div class="m-label">Options</div>
+              <div class="m-radio"><div class="on">Phase 1: submit and track request (18-22 d), rent check later</div><div>Full scope in one go (35-50 d)</div></div>
+            </div>
+            <div style="margin-top:10px"><div class="m-label">Assumptions and risks</div><div class="m-input ta">Landlord accounts exist in the portal. Rent reasonableness data from the current comparables source. Yardi write-back out of scope.</div></div>
+            <div class="m-actions" style="margin-top:10px"><span class="m-btn">Send for decision</span></div>
+          </div>
+          <div class="m-card">
+            <h4>Score</h4>
+            <dl class="m-kv"><dt>Value</dt><dd>4</dd><dt>Time pressure</dt><dd>3</dd><dt>Risk</dt><dd>4</dd><dt>Size</dt><dd>XL</dd></dl>
+            <div class="m-hint" style="margin-top:8px">Suggested rank: 4 of 9 in the DMS backlog.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip vendor">Vendor</span> tech lead</p>
+      <h3>A range and options, not a promise</h3>
+      <ol>
+        <li><span class="n">1</span><span>Demands get a range. A firm estimate comes with the project plan.</span></li>
+        <li><span class="n">2</span><span>Offering a smaller first phase is how a January need meets an XL idea.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> <i>Awaiting decision</i>, holder HOME. Listed on the weekly triage agenda.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="c" data-label="Decide" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/approvals" data-who="R. Chavez · HOME product owner" data-views="My requests|3;Waiting on me;*Approvals|1;Backlog;Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <span class="m-ref">DEM-0142</span> <span class="m-badge b-amber">Your decision</span>
+          <p class="m-h" style="margin:4px 0 10px">Landlords submit rent increase requests online</p>
+          <div class="m-grid3 hl"><span class="pin">1</span>
+            <div class="m-choice on"><strong><span class="ms">rocket_launch</span> Go with phase 1</strong><span>Becomes a project, 18-22 person-days</span></div>
+            <div class="m-choice"><strong><span class="ms">schedule</span> Defer</strong><span>Stays in the backlog; pick a month to revisit</span></div>
+            <div class="m-choice"><strong><span class="ms">block</span> Reject</strong><span>Closed with your reason, visible to all</span></div>
+          </div>
+          <div class="m-alert green hl" style="margin-top:12px"><span class="pin">2</span><span class="ms">account_tree</span><span>On Go: <b>PRJ-0019</b> is created with this demand linked, a matching Epic is opened in Azure DevOps, and the project appears on the roadmap under Next.</span></div>
+          <div class="m-actions" style="margin-top:12px"><span class="m-btn ok">Confirm decision</span></div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> product owner</p>
+      <h3>Go, defer or reject, always with a trace</h3>
+      <ol>
+        <li><span class="n">1</span><span>Three outcomes. Deferred and rejected stay visible with the reason, so the same idea is not re-raised blind.</span></li>
+        <li><span class="n">2</span><span>Go converts the demand into a project in one step, in both systems.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> DEM-0142 closed as <i>Converted</i>, PRJ-0019 in <i>Scheduled</i>, Epic linked.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="c" data-label="Roadmap" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/roadmap?product=dms" data-who="HOME leadership" data-views="My requests;Waiting on me;*Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-grid3">
+          <div class="m-col hl"><span class="pin">1</span><h5>Now · November 2026</h5>
+            <div class="m-tile"><b>HOTMA income rules</b><span class="m-sub">PRJ-0017 · milestone 2 of 3</span><div class="m-bar"><i style="width:62%"></i></div></div>
+            <div class="m-tile"><b>Move-in date in recert queue</b><span class="m-sub">CHG-0311 · in UAT</span><div class="m-bar green"><i style="width:100%"></i></div></div>
+            <div class="m-tile"><b>Notice wording, Spanish</b><span class="m-sub">CHG-0298 · in progress</span><div class="m-bar"><i style="width:40%"></i></div></div>
+          </div>
+          <div class="m-col"><h5>Next · Dec 2026 to Jan 2027</h5>
+            <div class="m-tile hl"><span class="pin">2</span><b>Landlord rent increase portal, phase 1</b><span class="m-sub">PRJ-0019 · planned January 2027</span><div class="m-bar"><i style="width:0%"></i></div></div>
+            <div class="m-tile"><b>HOTMA income rules, milestone 3</b><span class="m-sub">PRJ-0017 · planned December</span><div class="m-bar"><i style="width:0%"></i></div></div>
+          </div>
+          <div class="m-col"><h5>Later · ranked</h5>
+            <div class="m-tile"><b>SEMAP indicators dashboard</b><span class="m-sub">DEM-0137 · rank 5 · L</span></div>
+            <div class="m-tile"><b>Bulk re-send of notices</b><span class="m-sub">CHG-0305 · rank 6 · S</span></div>
+            <div class="m-tile hl"><span class="pin">3</span><b>Kiosk: staff-assisted submit</b><span class="m-sub">DEM-0139 · deferred to Feb 2027</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> leadership, anytime</p>
+      <h3>"What are we getting, and when" on one screen</h3>
+      <ol>
+        <li><span class="n">1</span><span>Now is the current release. Progress comes from ADO, nobody types a percentage.</span></li>
+        <li><span class="n">2</span><span>Months only, until a release is frozen.</span></li>
+        <li><span class="n">3</span><span>Deferred items keep their month to revisit, so nothing silently drops off.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> a read-only view over records, releases and ranks. Every move between columns is in the history.</p>
+    </aside>
+  </article>
+
+  <article class="wstep" data-flow="c" data-label="Project page" hidden>
+    <div class="mock" data-url="tracker.home.kruko.co/r/PRJ-0019" data-who="R. Chavez · HOME product owner" data-views="My requests;Waiting on me;Approvals;Backlog;*Roadmap;Releases">
+      <div class="m-page">
+        <div class="m-card">
+          <span class="m-ref">PRJ-0019</span> <span class="m-badge b-blue">In progress</span> <span class="m-badge b-grey">from DEM-0142</span>
+          <p class="m-h" style="margin:4px 0 0">Landlord rent increase portal, phase 1</p>
+          <div class="m-sub">Sponsor R. Chavez · target January 2027 · Epic in Azure DevOps linked</div>
+        </div>
+        <div class="m-grid2">
+          <div class="m-card hl" style="padding:0;overflow:hidden"><span class="pin">1</span>
+            <table class="m-table">
+              <thead><tr><th>Part</th><th>Month</th><th>Progress</th></tr></thead>
+              <tbody>
+                <tr><td>Landlord sign-in and unit list</td><td class="m-num">Dec</td><td><div class="m-bar green"><i style="width:100%"></i></div></td></tr>
+                <tr><td>Submit request with documents</td><td class="m-num">Dec</td><td><div class="m-bar"><i style="width:55%"></i></div></td></tr>
+                <tr><td>Staff review queue</td><td class="m-num">Jan</td><td><div class="m-bar"><i style="width:10%"></i></div></td></tr>
+                <tr><td>Notifications to landlord</td><td class="m-num">Jan</td><td><div class="m-bar"><i style="width:0%"></i></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="m-card">
+            <div class="hl"><span class="pin">2</span>
+              <h4>Effort</h4>
+              <div class="m-row" style="font-size:12px"><span>Used</span><span class="m-num" style="text-align:right">11 of 18-22 d</span></div>
+              <div class="m-bar"><i style="width:55%"></i></div>
+            </div>
+            <div class="hl" style="margin-top:14px"><span class="pin">3</span>
+              <h4>Decisions and risks</h4>
+              <div class="m-comment home" style="margin-bottom:6px"><span class="who">Decision</span> <span class="when">Oct 6</span><br>Documents limited to PDF and images.</div>
+              <div class="m-comment"><span class="who">Risk</span> <span class="when">open</span><br>Comparable rents source not confirmed by HOME.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <aside class="wnotes">
+      <p class="actor"><span class="chip client">HOME</span> sponsor and <span class="chip vendor">Vendor</span> lead</p>
+      <h3>A project answers its own status question</h3>
+      <ol>
+        <li><span class="n">1</span><span>Parts are the ADO Features, in HOME's words, each with its month and live progress.</span></li>
+        <li><span class="n">2</span><span>Effort used against the approved range, visible to the sponsor before it is exceeded.</span></li>
+        <li><span class="n">3</span><span>Decisions and open risks live on the project, not in meeting notes.</span></li>
+      </ol>
+      <p class="effect"><b>In the system:</b> change requests raised during the project attach to PRJ-0019 and are approved like any other.</p>
+    </aside>
+  </article>
+
+  </div>
+
+  <div class="walk-bar">
+    <button type="button" id="walk-prev">Previous</button>
+    <span class="walk-count" id="walk-count" aria-live="polite"></span>
+    <button type="button" id="walk-next">Next</button>
+  </div>
+  <p class="sample">All names, tenant codes, figures and record numbers on these screens are made-up examples.</p>
+</div>
+
+<h2 id="model">Data model changes</h2>
+<p>The current code already does the hard parts (history, approval rules in <code>save()</code>, ADO read, attachments, SSO). The change is additive; nothing existing is rewritten.</p>
+<pre class="code">class RecordType(LookupModel):        # INC, REQ, CHG, DEM, PRJ
+    prefix = CharField()               # reference prefix, e.g. "CHG"
+    required_fields = JSONField()      # Definition of Ready for this type
+    allowed_stages = JSONField()
+
+class Stage(TextChoices):              # fixed, code relies on it
+    NEW, TRIAGE, SIZING, APPROVAL, SCHEDULED,
+    IN_PROGRESS, UAT, RELEASED, CLOSED, ON_HOLD, REJECTED
+
+class Status(LookupModel):             # existing, editable
+    stage = CharField(choices=Stage)   # new: what the status means
+    holder = CharField(choices=[vendor, client, third_party])  # new
+    pauses_sla = BooleanField()        # new
+
+class Product(LookupModel):            # DMS, Home ERP, Lobby, Middleware...
+class Module(LookupModel):             # existing, gains product FK
+
+class Release(Model):
+    product, name, target_month, freeze_date, deploy_window, state
+
+class Ticket(Model):                   # existing, keeps T-NNNNN for old rows
+    record_type = FK(RecordType)
+    parent = FK("self", null=True)     # CHG/INC under a PRJ
+    source = CharField(call/teams/email/meeting/portal)
+    impact, urgency = CharField()      # priority derived for INC
+    rank = PositiveIntegerField()      # HOME's order, per product
+    value, time_pressure, risk = SmallInt()
+    size = CharField(S/M/L/XL); estimate_days = Decimal()
+    estimate_state = Approval          # reuses the existing enum
+    needed_by = DateField()            # month precision
+    target_release = FK(Release)
+    sponsor = FK(User)
+    ado_links = M2M(AdoLink)           # replaces the single Task URL
+
+class SlaClock(Model):                 # one row per target per ticket
+    ticket, target, started_at, paused_seconds, breached_at</pre>
+<p>Migrations follow the repository's existing pattern (guarded defaults for rolling deploys). Existing tickets are backfilled as <b>INC</b> or <b>REQ</b> by problem type, and their statuses are mapped to stages once in a data migration.</p>
+
+<h2 id="rollout">Rollout</h2>
+<div class="phases">
+  <section class="phase">
+    <h3>Phase 1 - One front door</h3>
+    <p class="when">About 3 to 4 weeks of one engineer</p>
+    <ul>
+      <li>Record types, stages and holders on statuses; Product lookup; parent link.</li>
+      <li>Definition of Ready per type in the wizard and the classic form; Needs info loop with auto-close.</li>
+      <li>"Waiting on HOME" and "My requests" views; Source field for call and chat intake.</li>
+      <li>Backfill existing tickets. Agree the intake rule with HOME and start using it.</li>
+    </ul>
+  </section>
+  <section class="phase">
+    <h3>Phase 2 - Plan and priority</h3>
+    <p class="when">About 3 to 4 weeks</p>
+    <ul>
+      <li>Impact x urgency matrix; ranked backlog per product; estimate approval gate.</li>
+      <li>Release records, target release, freeze and swap rule; Roadmap view.</li>
+      <li>Project page with roll-up from ADO child states; multiple ADO links per record.</li>
+    </ul>
+  </section>
+  <section class="phase">
+    <h3>Phase 3 - Service levels and automation</h3>
+    <p class="when">About 2 to 3 weeks</p>
+    <ul>
+      <li>SLA clocks with pause rules, at-risk alerts, monthly service review report.</li>
+      <li>E-mail-in and a Teams message action for intake.</li>
+      <li>Optional: create the ADO item from an approved record, so engineers never re-type.</li>
+    </ul>
+  </section>
+</div>
+<p>Phase 1 alone fixes the everyday pain: every request is written down with enough detail, and everyone can see who holds it. Phases 2 and 3 add the plan and the measurement.</p>
+
+<h2 id="decisions">Open decisions</h2>
+<ol class="decisions">
+  <li><b>Scope of products.</b> Does the tracker cover DMS only, or also Home ERP / HCV, the lobby kiosk and middleware? The design assumes all of them under one Product lookup, with HOME seeing only the products they are on.</li>
+  <li><b>HOME product owner.</b> One named person per product who ranks and approves. Without this role the ranked backlog does not work.</li>
+  <li><b>Estimate threshold.</b> Above how many person-days does a change request need HOME's approval of the estimate before work starts?</li>
+  <li><b>Release cadence.</b> Monthly per product, or one shared monthly release train?</li>
+  <li><b>SLA figures.</b> The table above is a proposal; the final numbers belong in the contract, not only in the tool.</li>
+  <li><b>Build or buy.</b> Jira Service Management or ServiceNow CSM would cover most of this out of the box, at per-seat cost and with a second login for HOME staff. Extending the tracker keeps DMS SSO, the TCode-aware wizard and the ADO link we already have. The recommendation is to extend.</li>
+</ol>
+
+<footer class="doc">Draft prepared for internal review before it is discussed with HOME. Reference implementation: EPHOME.DMS.Tracker, main @ 69baf83 (4 September 2026).</footer>
+</main>
+</div>
+
+<script>
+(function () {
+  // Browser chrome, tracker navbar and saved-view tabs are the same on every
+  // mock, so they are built here from data attributes instead of repeated.
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text) n.textContent = text;
+    return n;
+  }
+  function icon(name) { return el("span", "ms", name); }
+
+  document.querySelectorAll(".mock").forEach(function (mock) {
+    var page = mock.querySelector(".m-page");
+    var scroll = el("div", "m-scroll");
+    var inner = el("div", "m-inner");
+
+    var chrome = el("div", "m-chrome");
+    chrome.append(el("i"), el("i"), el("i"), el("span", "m-url", mock.dataset.url || ""));
+
+    var nav = el("div", "m-nav");
+    var brand = el("span", "m-brand");
+    brand.append(icon("confirmation_number"), document.createTextNode("HOME Tracker"));
+    var help = el("span", "m-new");
+    help.append(icon("add_circle"), document.createTextNode("New request"), icon("expand_more"));
+    var user = el("span", "m-user");
+    user.append(icon("account_circle"), document.createTextNode(mock.dataset.who || ""));
+    nav.append(brand, el("span", "m-env", "production"), el("span", "m-sp"), help, user);
+
+    inner.append(chrome, nav);
+    var views = (mock.dataset.views || "").split(";").filter(Boolean);
+    if (views.length) {
+      var bar = el("div", "m-views");
+      views.forEach(function (v) {
+        var on = v.charAt(0) === "*";
+        var parts = (on ? v.slice(1) : v).split("|");
+        var tab = el("span", "m-view" + (on ? " on" : ""), parts[0]);
+        if (parts[1]) tab.append(el("span", "c", parts[1]));
+        bar.append(tab);
+      });
+      inner.append(bar);
+    }
+    inner.append(page);
+    scroll.append(inner);
+    mock.append(scroll);
+  });
+
+  var steps = Array.prototype.slice.call(document.querySelectorAll(".wstep"));
+  var flowBtns = document.querySelectorAll("[data-flow-btn]");
+  var rail = document.getElementById("walk-rail");
+  var prev = document.getElementById("walk-prev");
+  var next = document.getElementById("walk-next");
+  var count = document.getElementById("walk-count");
+  var names = { a: "Asked on a call", b: "Something is broken", c: "A bigger idea" };
+  var flow = "a";
+  var index = 0;
+
+  function inFlow() { return steps.filter(function (s) { return s.dataset.flow === flow; }); }
+
+  function render() {
+    var list = inFlow();
+    steps.forEach(function (s) { s.hidden = true; });
+    list[index].hidden = false;
+    flowBtns.forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.flowBtn === flow)); });
+    rail.innerHTML = "";
+    list.forEach(function (s, i) {
+      var li = el("li");
+      var b = el("button", "", (i + 1) + ". " + s.dataset.label);
+      b.type = "button";
+      if (i === index) b.setAttribute("aria-current", "step");
+      b.addEventListener("click", function () { index = i; render(); });
+      li.append(b);
+      rail.append(li);
+    });
+    prev.disabled = index === 0 && flow === "a";
+    var last = index === list.length - 1;
+    next.disabled = last && flow === "c";
+    next.textContent = last && flow !== "c" ? "Next flow" : "Next";
+    count.textContent = names[flow] + " · step " + (index + 1) + " of " + list.length;
+  }
+
+  function go(delta) {
+    var order = ["a", "b", "c"];
+    var list = inFlow();
+    var i = index + delta;
+    if (i >= list.length) {
+      var nf = order[order.indexOf(flow) + 1];
+      if (!nf) return;
+      flow = nf; index = 0;
+    } else if (i < 0) {
+      var pf = order[order.indexOf(flow) - 1];
+      if (!pf) return;
+      flow = pf; index = inFlow().length - 1;
+    } else {
+      index = i;
+    }
+    render();
+  }
+
+  flowBtns.forEach(function (b) {
+    b.addEventListener("click", function () { flow = b.dataset.flowBtn; index = 0; render(); });
+  });
+  prev.addEventListener("click", function () { go(-1); });
+  next.addEventListener("click", function () { go(1); });
+  document.addEventListener("keydown", function (e) {
+    var t = e.target;
+    if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+    var box = document.getElementById("walk").getBoundingClientRect();
+    if (box.bottom < 0 || box.top > window.innerHeight) return;
+    if (e.key === "ArrowRight") { go(1); }
+    if (e.key === "ArrowLeft") { go(-1); }
+  });
+  render();
+})();
+</script>
+</body>
+</html>

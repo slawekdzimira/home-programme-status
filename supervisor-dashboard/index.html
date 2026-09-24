@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<title>Consolidated Supervisor Dashboard</title>
+<meta name="description" content="Proposed one-page layout for the HCV supervisor dashboard, with an interactive prototype and a map of where today's panels go.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --plane:#edf1f6; --app:#f4f6fa; --card:#ffffff; --card-2:#f7f9fc;
+  --ink:#132033; --ink-2:#4a576c; --ink-3:#6e7b91;
+  --line:#e1e6ee; --line-2:#cdd5e1; --grid:#e8ecf2;
+  --accent:#1f66d1; --accent-ink:#1a57b3; --accent-soft:#e7effb; --accent-soft-2:#d4e2f7;
+  --btn:#1f66d1;
+  --navy:#0d2a52; --navy-2:#163b6f; --navy-ink:#c6d3e7; --navy-ink-2:#90a6c6;
+  --good:#0ca30c; --good-ink:#0b6b24; --good-soft:#e3f4e6;
+  --warn:#fab219; --warn-ink:#845400; --warn-soft:#fff2d4;
+  --serious:#ec835a; --serious-ink:#98401a; --serious-soft:#fdebe3;
+  --crit:#d03b3b; --crit-ink:#a42828; --crit-soft:#fbe7e7;
+  --neutral-soft:#edf0f4;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300;
+  --t1:#2a6fdb; --t2:#15955a; --t3:#0e86a4; --t4:#6a4fd0; --t5:#dc6720; --t6:#2c7a8c;
+  --bar-muted:#b6c0cf;
+  --shadow-sm:0 1px 2px rgba(19,32,51,.05),0 2px 10px rgba(19,32,51,.05);
+  --shadow-hover:0 6px 22px rgba(19,32,51,.11);
+  --shadow-lg:0 2px 6px rgba(19,32,51,.07),0 30px 70px -18px rgba(19,32,51,.26);
+  --scrim:rgba(10,22,44,.30);
+  --radius:12px;
+  --font:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --plane:#0a0f18; --app:#0e1522; --card:#151d2b; --card-2:#19222f;
+    --ink:#e7ecf4; --ink-2:#aab5c6; --ink-3:#8290a6;
+    --line:#253045; --line-2:#35435b; --grid:#1f2939;
+    --accent:#5a9af4; --accent-ink:#8cbafb; --accent-soft:#182a49; --accent-soft-2:#1f3761;
+    --navy:#0a1a33; --navy-2:#13294d; --navy-ink:#c6d3e7; --navy-ink-2:#8298bb;
+    --good-ink:#5fd176; --good-soft:#12291b;
+    --warn-ink:#f3c457; --warn-soft:#322710;
+    --serious-ink:#f2a484; --serious-soft:#351f17;
+    --crit-ink:#f28d8d; --crit-soft:#371a1d;
+    --neutral-soft:#1d2636;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300;
+    --t1:#3a7fe6; --t2:#1ea865; --t3:#1797b6; --t4:#7c62de; --t5:#e27a33; --t6:#3a8fa2;
+    --bar-muted:#4a586f;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.35);
+    --shadow-hover:0 6px 22px rgba(0,0,0,.45);
+    --shadow-lg:0 2px 6px rgba(0,0,0,.4),0 30px 70px -18px rgba(0,0,0,.7);
+    --scrim:rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --plane:#0a0f18; --app:#0e1522; --card:#151d2b; --card-2:#19222f;
+  --ink:#e7ecf4; --ink-2:#aab5c6; --ink-3:#8290a6;
+  --line:#253045; --line-2:#35435b; --grid:#1f2939;
+  --accent:#5a9af4; --accent-ink:#8cbafb; --accent-soft:#182a49; --accent-soft-2:#1f3761;
+  --navy:#0a1a33; --navy-2:#13294d; --navy-ink:#c6d3e7; --navy-ink-2:#8298bb;
+  --good-ink:#5fd176; --good-soft:#12291b;
+  --warn-ink:#f3c457; --warn-soft:#322710;
+  --serious-ink:#f2a484; --serious-soft:#351f17;
+  --crit-ink:#f28d8d; --crit-soft:#371a1d;
+  --neutral-soft:#1d2636;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s6:#008300;
+  --t1:#3a7fe6; --t2:#1ea865; --t3:#1797b6; --t4:#7c62de; --t5:#e27a33; --t6:#3a8fa2;
+  --bar-muted:#4a586f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.35);
+  --shadow-hover:0 6px 22px rgba(0,0,0,.45);
+  --shadow-lg:0 2px 6px rgba(0,0,0,.4),0 30px 70px -18px rgba(0,0,0,.7);
+  --scrim:rgba(0,0,0,.5);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--plane);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,select{font-family:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ic{width:18px;height:18px;flex:none}
+.ic-sm{width:14px;height:14px;flex:none}
+.ic-xs{width:13px;height:13px;flex:none}
+:focus-visible{outline:2px solid var(--btn);outline-offset:2px}
+
+/* ---------- document ---------- */
+.doc{max-width:1440px;margin:0 auto;padding-inline:clamp(16px,2.5vw,36px);padding-block:44px 56px}
+.mast{max-width:940px}
+.eyebrow{margin:0 0 12px;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent-ink)}
+.mast h1{margin:0;font-size:clamp(30px,4.4vw,46px);line-height:1.06;letter-spacing:-.022em;font-weight:800;text-wrap:balance}
+.lede{margin:16px 0 0;font-size:clamp(16px,1.55vw,18px);color:var(--ink-2);max-width:66ch;line-height:1.55}
+.meta{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.meta li{font-size:12.5px;font-weight:600;color:var(--ink-2);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.proto{margin-top:34px;container-type:inline-size;container-name:proto}
+.proto-hint{display:flex;align-items:center;gap:8px;margin:0 0 12px;font-size:13px;color:var(--ink-2)}
+.proto-hint .ic{color:var(--accent-ink)}
+.proto-note{margin:12px 2px 0;font-size:12.5px;color:var(--ink-3)}
+.sec{margin-top:76px}
+.sec h2{margin:0;font-size:clamp(23px,2.5vw,30px);letter-spacing:-.017em;font-weight:800;line-height:1.15;text-wrap:balance}
+.sec .intro{margin:10px 0 0;max-width:68ch;color:var(--ink-2);font-size:15.5px}
+
+/* ---------- app frame ---------- */
+.app{position:relative;display:grid;grid-template-columns:212px minmax(0,1fr);background:var(--app);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow-lg);overflow:hidden;min-height:760px}
+.side{background:var(--navy);color:var(--navy-ink);display:flex;flex-direction:column;gap:22px;padding:22px 14px 18px}
+.brand{display:flex;gap:11px;align-items:center;padding:0 8px}
+.brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(155deg,#3481f0,#1550b4);display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px;letter-spacing:.03em;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.brand-name{color:#fff;font-weight:700;font-size:15px;line-height:1.2}
+.brand-org{font-size:12px;color:var(--navy-ink-2)}
+.nav{display:flex;flex-direction:column;gap:2px}
+.nav button{display:flex;align-items:center;gap:11px;width:100%;border:0;background:transparent;padding:9px 12px;border-radius:9px;font-size:14px;font-weight:500;color:var(--navy-ink);cursor:pointer;text-align:left;white-space:nowrap}
+.nav button:hover{background:var(--navy-2);color:#fff}
+.nav button[aria-current="page"]{background:var(--btn);color:#fff;font-weight:600}
+.nav button:focus-visible{outline:2px solid #fff;outline-offset:1px}
+.nav .badge{margin-left:auto;background:rgba(255,255,255,.95);color:#0d2a52;font-size:11px;font-weight:700;border-radius:999px;padding:1px 7px;line-height:1.5}
+.side-foot{margin-top:auto;font-size:12px;line-height:1.45;color:var(--navy-ink-2);padding:14px 10px 0;border-top:1px solid rgba(255,255,255,.1);display:grid;gap:6px}
+.side-foot b{color:var(--navy-ink);font-weight:600}
+.side-foot .row{display:flex;gap:8px;align-items:flex-start}
+.side-foot .ic-sm{margin-top:2px}
+
+.main{min-width:0;padding:22px 26px 26px;display:flex;flex-direction:column;gap:14px;container-type:inline-size;container-name:main}
+.top{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+.top h2{margin:0;font-size:23px;font-weight:800;letter-spacing:-.015em;line-height:1.2}
+.top p{margin:3px 0 0;color:var(--ink-2);font-size:13.5px}
+.score{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 16px 5px 5px;box-shadow:var(--shadow-sm);cursor:pointer;color:var(--ink);text-align:left}
+.score:hover{box-shadow:var(--shadow-hover)}
+.score-main{font-size:13.5px;font-weight:700;line-height:1.25}
+.score-sub{font-size:11.5px;color:var(--ink-3)}
+.ring-track{fill:none;stroke:var(--neutral-soft);stroke-width:4}
+.ring-fill{fill:none;stroke:var(--good);stroke-width:4;stroke-linecap:round}
+.ring-text{font-size:12px;font-weight:800;fill:var(--ink)}
+
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.seg{display:inline-flex;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;font-size:13px;font-weight:600;color:var(--ink-2);padding:6px 11px;border-radius:7px;cursor:pointer}
+.seg button:hover:not(:disabled){background:var(--accent-soft);color:var(--accent-ink)}
+.seg button[aria-pressed="true"]{background:var(--btn);color:#fff}
+.seg button:disabled{color:var(--ink-3);cursor:not-allowed;opacity:.75}
+.sel{position:relative;display:inline-flex}
+.sel select{appearance:none;-webkit-appearance:none;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:13px;font-weight:600;padding:8px 32px 8px 12px;border-radius:10px;cursor:pointer}
+.sel .ic-sm{position:absolute;right:11px;top:50%;transform:translateY(-50%) rotate(90deg);pointer-events:none;color:var(--ink-3)}
+.actions{margin-left:auto;display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line-2);background:var(--card);color:var(--ink);font-size:13px;font-weight:600;padding:7px 12px;border-radius:9px;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary{background:var(--btn);border-color:var(--btn);color:#fff}
+.btn.primary:hover{filter:brightness(1.08);color:#fff}
+.fine{margin:-4px 0 0;font-size:12px;color:var(--ink-3)}
+.fine .run{color:var(--warn-ink);font-weight:600}
+
+.attn{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:10px 12px 10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px}
+.attn-head{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
+.attn-head .ic{color:var(--crit)}
+.attn-items{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card-2);border-radius:999px;padding:3px 10px 3px 3px;font-size:13px;color:var(--ink);cursor:pointer;text-align:left}
+.chip:hover{border-color:var(--line-2);background:var(--card);box-shadow:var(--shadow-sm)}
+.chip .n{min-width:28px;height:24px;padding:0 8px;border-radius:999px;display:inline-grid;place-items:center;font-weight:800;font-size:12.5px}
+.chip .chev{color:var(--ink-3)}
+.crit-bg{background:var(--crit-soft);color:var(--crit-ink)}
+.warn-bg{background:var(--warn-soft);color:var(--warn-ink)}
+.serious-bg{background:var(--serious-soft);color:var(--serious-ink)}
+.good-bg{background:var(--good-soft);color:var(--good-ink)}
+
+.pill{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 8px 2px 6px;font-size:11.5px;font-weight:700;line-height:1.5;white-space:nowrap}
+.pill.good{background:var(--good-soft);color:var(--good-ink)}
+.pill.crit{background:var(--crit-soft);color:var(--crit-ink)}
+.pill.warn{background:var(--warn-soft);color:var(--warn-ink)}
+.pill.neutral{background:var(--neutral-soft);color:var(--ink-2)}
+.pill.live{background:var(--accent-soft);color:var(--accent-ink)}
+.pill.live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--good);margin-right:1px}
+
+/* KPI tiles */
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.tile{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"icon status" "label label" "value value" "delta delta" "foot foot";gap:6px 8px;align-content:start;text-align:left;cursor:pointer;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:14px 14px 13px;transition:transform .15s ease,box-shadow .15s ease}
+.tile:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+.tile-icon{grid-area:icon;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;color:#fff}
+.tile-icon .ic{width:18px;height:18px}
+.tile-status{grid-area:status;align-self:center;justify-self:end;min-width:0}
+.t1{background:var(--t1)}.t2{background:var(--t2)}.t3{background:var(--t3)}.t4{background:var(--t4)}.t5{background:var(--t5)}.t6{background:var(--t6)}
+.tile-label{grid-area:label;min-height:2.5em;margin-top:6px;font-size:13px;font-weight:600;color:var(--ink-2);line-height:1.25}
+.tile-value{grid-area:value;font-size:30px;font-weight:800;letter-spacing:-.025em;line-height:1.05}
+.tile-value small{font-size:15px;font-weight:700;color:var(--ink-2);letter-spacing:0;margin-left:2px}
+.delta{grid-area:delta;display:flex;align-items:center;gap:4px;min-height:1.3em;font-size:12.5px;font-weight:600;line-height:1.3}
+.delta.good{color:var(--good-ink)}.delta.bad{color:var(--crit-ink)}.delta.flat{color:var(--ink-3)}
+.tile-foot{grid-area:foot;display:flex;flex-wrap:wrap;align-items:center;gap:2px 8px;font-size:11.5px;color:var(--ink-3);line-height:1.35}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);padding:14px 16px 16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.span-5{grid-column:span 5}.span-4{grid-column:span 4}.span-3{grid-column:span 3}
+.card-head{display:flex;align-items:flex-start;gap:10px}
+.card-ic{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);flex:none}
+.card-ic .ic{width:16px;height:16px}
+.card-titles{min-width:0}
+.card-title{font-size:14.5px;font-weight:700;margin:0;line-height:1.3}
+.card-sub{font-size:12px;color:var(--ink-3);margin:1px 0 0;line-height:1.35}
+.more{margin-left:auto;display:inline-flex;align-items:center;gap:2px;border:0;background:none;color:var(--accent-ink);font-size:12.5px;font-weight:700;cursor:pointer;padding:4px 6px 4px 8px;border-radius:7px;white-space:nowrap}
+.more:hover{background:var(--accent-soft)}
+.card-body{display:flex;flex-direction:column;gap:12px;min-width:0;flex:1}
+.link{align-self:flex-start;border:0;background:none;padding:2px 0;color:var(--accent-ink);font-size:12.5px;font-weight:700;cursor:pointer}
+.link:hover{text-decoration:underline}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.muted{color:var(--ink-3)}
+
+/* chart primitives */
+.chart{position:relative;min-height:196px}
+.chart svg{display:block;overflow:visible}
+.c-grid{stroke:var(--grid);stroke-width:1}
+.c-base{stroke:var(--line-2);stroke-width:1}
+.c-axis{fill:var(--ink-3);font-size:11px;font-family:var(--font);font-variant-numeric:tabular-nums}
+.c-band{fill:var(--accent-soft)}
+.c-area{fill:var(--s1);fill-opacity:.10}
+.c-line{fill:none;stroke:var(--s1);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.c-dot{fill:var(--s1);stroke:var(--card);stroke-width:2}
+.c-target{stroke:var(--ink-2);stroke-width:1.25;stroke-dasharray:5 4}
+.c-tlabel{fill:var(--ink-2);font-size:11px;font-weight:700;font-family:var(--font)}
+.c-end{fill:var(--ink);font-size:12px;font-weight:800;font-family:var(--font)}
+.c-cross{stroke:var(--ink-3);stroke-width:1}
+.c-hit{fill:transparent;cursor:crosshair}
+.c-s1{fill:var(--s1)}.c-s2{fill:var(--s2)}.c-s3{fill:var(--s3)}.c-s4{fill:var(--s4)}.c-s5{fill:var(--s5)}.c-s6{fill:var(--s6)}
+.bg-s1{background:var(--s1)}.bg-s2{background:var(--s2)}.bg-s3{background:var(--s3)}.bg-s4{background:var(--s4)}.bg-s5{background:var(--s5)}.bg-s6{background:var(--s6)}
+.seg-path{cursor:pointer;transition:opacity .15s}
+.donut.hovering .seg-path{opacity:.42}
+.donut.hovering .seg-path.on{opacity:1}
+.donut-total{fill:var(--ink);font-size:22px;font-weight:800;font-family:var(--font)}
+.donut-cap{fill:var(--ink-3);font-size:11px;font-family:var(--font)}
+
+.team{display:grid;grid-template-columns:minmax(84px,auto) minmax(0,1fr) auto auto;gap:7px 12px;align-items:center;font-size:13px}
+.th{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3)}
+.name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.name.soft{color:var(--ink-2);font-style:italic}
+.barcell{display:flex;align-items:center;gap:7px;min-width:0}
+.bar{height:10px;border-radius:0 4px 4px 0;background:var(--s1);min-width:3px;flex:none}
+.bar.muted-bar{background:var(--bar-muted)}
+.barval{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+
+.tgt{display:grid;gap:14px}
+.tgt-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;align-items:center}
+.tgt-label{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600;line-height:1.3;min-width:0}
+.tgt-val{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+.meter{grid-column:1/-1;position:relative;height:8px;border-radius:4px;background:var(--accent-soft)}
+.meter .fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--s1)}
+.meter.out{background:var(--crit-soft)}
+.meter.out .fill{background:var(--crit)}
+.meter .tick{position:absolute;top:-4px;bottom:-4px;width:2px;border-radius:1px;background:var(--ink)}
+.tgt-note{grid-column:1/-1;display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--ink-3)}
+.ok{color:var(--good)}.bad{color:var(--crit)}
+
+.donut-wrap{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
+.donut{flex:none}
+.legend{flex:1;min-width:180px;display:grid;grid-template-columns:10px minmax(0,1fr) auto auto;gap:7px 10px;align-items:center;font-size:13px}
+.sw{width:10px;height:10px;border-radius:3px}
+
+.hl{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.hl li{display:grid;grid-template-columns:26px minmax(0,1fr);gap:10px;align-items:start;font-size:13px;line-height:1.45}
+.hl .hi{width:26px;height:26px;border-radius:8px;display:grid;place-items:center}
+.hl .hi .ic{width:15px;height:15px}
+
+.rows{display:grid;gap:0}
+.row-item{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:4px 10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13px}
+.row-item:first-child{border-top:0;padding-top:2px}
+.row-item .val{font-weight:800;font-variant-numeric:tabular-nums;text-align:right}
+.row-item .sub{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11.5px;color:var(--ink-3)}
+.row-item .ric{width:22px;height:22px;border-radius:6px;display:grid;place-items:center}
+.row-item .ric .ic{width:13px;height:13px}
+
+.reasons{display:grid;gap:11px}
+.reason-label{font-size:12.5px;line-height:1.35;color:var(--ink);margin-bottom:4px}
+
+.queue{display:grid;grid-template-columns:minmax(0,1fr) auto 18px;gap:2px 10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left;color:var(--ink);font-size:13px}
+.queue:first-child{border-top:0;padding-top:2px}
+.queue:hover .q-label{color:var(--accent-ink)}
+.q-label{font-weight:600}
+.q-note{grid-column:1/2;font-size:11.5px;color:var(--ink-3)}
+.q-count{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums;text-align:right;grid-row:1/3;grid-column:2}
+.queue .ic-sm{grid-row:1/3;grid-column:3;color:var(--ink-3)}
+
+.qc-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.qc-stat{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.qc-stat b{display:block;font-size:22px;font-weight:800;line-height:1.1}
+.qc-stat span{font-size:11.5px;color:var(--ink-3)}
+.qc-age{display:grid;gap:6px}
+.qc-age p{margin:0;font-size:12.5px;color:var(--ink-2)}
+
+/* drawer, toast, tooltip */
+.scrim{position:absolute;inset:0;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity .2s ease;z-index:4}
+.scrim.open{opacity:1;pointer-events:auto}
+.drawer{position:absolute;top:0;right:0;bottom:0;width:min(470px,100%);background:var(--card);border-left:1px solid var(--line);box-shadow:-14px 0 44px rgba(10,20,40,.2);transform:translateX(104%);visibility:hidden;transition:transform .25s ease,visibility 0s linear .25s;display:flex;flex-direction:column;z-index:5}
+.drawer.open{transform:none;visibility:visible;transition:transform .25s ease}
+.d-head{display:flex;align-items:flex-start;gap:12px;padding:18px 20px 14px;border-bottom:1px solid var(--line)}
+.d-head h3{margin:0;font-size:17px;font-weight:800;line-height:1.25}
+.d-sub{margin:3px 0 0;font-size:12.5px;color:var(--ink-3)}
+.d-close{margin-left:auto;border:1px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:8px;width:32px;height:32px;display:grid;place-items:center;cursor:pointer;flex:none}
+.d-close:hover{color:var(--ink);border-color:var(--line-2)}
+.d-body{padding:16px 20px 26px;overflow-y:auto;display:grid;gap:18px;align-content:start;flex:1}
+.d-sec h4{margin:0 0 7px;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.d-sec p{margin:0 0 8px;font-size:14px;line-height:1.55}
+.d-sec p:last-child{margin-bottom:0}
+.d-stat{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.d-stat strong{font-size:26px;font-weight:800;letter-spacing:-.02em}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:8px 10px;background:var(--card-2);border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl th.num,.tbl td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl tr.hl-row td{background:var(--accent-soft)}
+.tbl tr.total td{font-weight:700;background:var(--card-2)}
+.d-actions{display:flex;flex-wrap:wrap;gap:8px}
+.d-today{margin:0;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-3);line-height:1.5}
+.d-today strong{color:var(--ink-2)}
+.toast{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:7;background:var(--ink);color:var(--card);padding:10px 14px;border-radius:10px;font-size:13px;line-height:1.45;box-shadow:0 10px 30px rgba(0,0,0,.25);width:max-content;max-width:min(540px,calc(100% - 32px))}
+.tip{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--card);border-radius:8px;padding:7px 10px;font-size:12px;line-height:1.4;box-shadow:0 8px 24px rgba(0,0,0,.22);display:grid;gap:2px;max-width:280px}
+.tip strong{font-size:13px;font-weight:800;margin-right:6px}
+
+/* responsive app */
+@container main (max-width: 900px){
+  .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cards>.card{grid-column:span 6}
+  .cards>.card.wide-md{grid-column:span 12}
+}
+@container main (max-width: 600px){
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cards>.card,.cards>.card.wide-md{grid-column:span 12}
+  .actions{margin-left:0}
+  .tile-value{font-size:26px}
+}
+@container main (max-width: 340px){
+  .kpis{grid-template-columns:1fr}
+}
+@container proto (max-width: 1080px){
+  .app{grid-template-columns:70px minmax(0,1fr)}
+  .side{padding:18px 10px;align-items:center}
+  .brand{padding:0}
+  .brand-text,.nav .lbl,.nav .badge,.side-foot{display:none}
+  .nav button{justify-content:center;padding:10px}
+}
+@container proto (max-width: 700px){
+  .app{grid-template-columns:minmax(0,1fr);min-height:0}
+  .side{flex-direction:row;align-items:center;gap:12px;padding:10px 12px;overflow-x:auto}
+  .nav{flex-direction:row}
+  .nav .lbl{display:inline}
+  .nav button{padding:8px 10px}
+  .main{padding:16px 14px 18px}
+}
+
+/* ---------- document sections ---------- */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow-sm);min-width:0}
+.panel h3{margin:0;font-size:15.5px;font-weight:700}
+.panel .panel-sub{margin:3px 0 0;font-size:12.5px;color:var(--ink-3)}
+.changes{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:18px;margin-top:26px;align-items:start}
+.scroll-chart{display:grid;grid-template-columns:auto minmax(0,1fr);gap:11px 14px;align-items:center;margin-top:18px}
+.scroll-chart .lbl{font-size:13px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.scroll-chart .lbl.acc{color:var(--accent-ink)}
+.track{display:flex;align-items:center;gap:8px;min-width:0}
+.cbar{height:14px;border-radius:0 4px 4px 0;background:var(--bar-muted);min-width:3px;flex:none}
+.cbar.acc{background:var(--s1)}
+.cval{font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroll-total{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-2)}
+.scroll-total b{color:var(--ink)}
+.cmp-row{display:grid;grid-template-columns:128px minmax(0,1fr) minmax(0,1fr);gap:14px 18px;padding:13px 0;border-top:1px solid var(--line);font-size:13.5px;line-height:1.5}
+.cmp-row.head{border-top:0;padding-top:0;padding-bottom:8px}
+.cmp-row.head span{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3)}
+.cmp-row .topic{font-weight:700;display:flex;gap:8px;align-items:flex-start}
+.cmp-row .topic .ic-sm{margin-top:3px;color:var(--accent-ink)}
+.cmp-row .today{color:var(--ink-2)}
+.cmp-row .prop{color:var(--ink)}
+.pages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:26px}
+.page-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px 18px;min-width:0}
+.page-card.home{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.page-card h3{display:flex;align-items:center;gap:9px;margin:0 0 11px;font-size:15px;font-weight:700}
+.page-card h3 .pc-ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink);flex:none}
+.page-card h3 .pc-ic .ic{width:15px;height:15px}
+.page-card h3 .count{margin-left:auto;font-size:11.5px;color:var(--ink-3);font-weight:600;white-space:nowrap}
+.page-card ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.page-card li{font-size:13px;line-height:1.4;color:var(--ink-2);padding-left:14px;position:relative}
+.page-card li::before{content:"";position:absolute;left:2px;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--line-2)}
+.decisions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
+.decision{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px 20px}
+.decision .dc-ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent-ink)}
+.decision h3{margin:12px 0 6px;font-size:16px;font-weight:700}
+.decision p{margin:0;color:var(--ink-2);font-size:14px;line-height:1.55}
+.note{margin:18px 0 0;font-size:13.5px;color:var(--ink-2);max-width:82ch}
+.foot{margin-top:64px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+@media (max-width: 1080px){.pages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width: 900px){.changes,.decisions{grid-template-columns:minmax(0,1fr)}}
+@media (max-width: 620px){
+  .cmp-row{grid-template-columns:minmax(0,1fr);gap:4px}
+  .cmp-row.head{display:none}
+  .cmp-row .today::before{content:"Today: ";font-weight:700;color:var(--ink-3)}
+  .cmp-row .prop::before{content:"Proposed: ";font-weight:700;color:var(--accent-ink)}
+  .pages{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .tile:hover{transform:none}
+}
+</style>
+</head>
+<body>
+<div class="doc">
+  <header class="mast">
+    <p class="eyebrow">HCV Scope 7 &middot; Supervisor reporting and quality control</p>
+    <h1>One view for the supervisor</h1>
+    <p class="lede">A proposed layout for the supervisor dashboard that brings today's five tabs onto one page: what needs attention, how the program performs against its targets, and where the work sits. Every tile opens the detail behind it, so nothing on today's tabs is lost.</p>
+    <ul class="meta">
+      <li>Proposal for discussion</li>
+      <li>September 2026</li>
+      <li>Prototype figures are illustrative</li>
+    </ul>
+  </header>
+
+  <section class="proto" aria-label="Interactive prototype of the consolidated dashboard">
+    <p class="proto-hint"><span data-ic="info"></span>Interactive: switch the period or type, open any tile or card, hover the charts.</p>
+    <div class="app" id="app">
+      <aside class="side">
+        <div class="brand">
+          <div class="brand-mark">8AI</div>
+          <div class="brand-text"><div class="brand-name">Supervisor</div><div class="brand-org">El Paso &middot; HCV</div></div>
+        </div>
+        <nav class="nav" id="nav" aria-label="Dashboard pages"></nav>
+        <div class="side-foot">
+          <div class="row"><span data-ic="clock" class="ic-sm"></span><span>Figures compiled through <b>Sep 23</b>, refreshed 6:05 AM</span></div>
+          <div class="row"><span data-ic="activity" class="ic-sm"></span><span>Live counts read at <b>7:58 AM</b></span></div>
+          <div class="row"><span data-ic="calendar" class="ic-sm"></span><span>All dates in America/Denver</span></div>
+        </div>
+      </aside>
+      <div class="main" id="main">
+        <div class="top">
+          <div>
+            <h2>Supervisor Dashboard</h2>
+            <p id="subtitle"></p>
+          </div>
+          <button class="score" id="score" type="button"></button>
+        </div>
+        <div class="filters">
+          <div class="seg" id="periods" role="group" aria-label="Period"></div>
+          <label class="sel"><span class="sr">Recertification type</span>
+            <select id="type">
+              <option value="all">All types</option>
+              <option value="annual">Annual</option>
+              <option value="interim">Interim</option>
+            </select><span data-ic="chev" class="ic-sm"></span>
+          </label>
+          <div class="actions">
+            <button class="btn primary" id="btnSummary" type="button"><span data-ic="file" class="ic-sm"></span>Written summary</button>
+            <button class="btn" id="btnExport" type="button"><span data-ic="download" class="ic-sm"></span>Export</button>
+            <button class="btn" id="btnSaved" type="button"><span data-ic="bookmark" class="ic-sm"></span>Saved reports</button>
+          </div>
+        </div>
+        <p class="fine" id="fine"></p>
+        <div class="attn" id="attn"></div>
+        <div class="kpis" id="kpis"></div>
+        <div class="cards" id="cards"></div>
+      </div>
+      <div class="scrim" id="scrim"></div>
+      <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" aria-hidden="true">
+        <div class="d-head">
+          <div><h3 id="dTitle"></h3><p class="d-sub" id="dSub"></p></div>
+          <button class="d-close" id="dClose" type="button" aria-label="Close details"><span data-ic="x" class="ic-sm"></span></button>
+        </div>
+        <div class="d-body" id="dBody"></div>
+      </aside>
+      <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+    <p class="proto-note">Figures and staff labels in the prototype are illustrative. The live dashboard fills every tile from the organization's own data.</p>
+  </section>
+
+  <section class="sec" id="changes" aria-labelledby="changesT">
+    <h2 id="changesT">What changes</h2>
+    <p class="intro">Today the supervisor moves between five tabs to answer the daily questions. The Recertification tab alone holds 37 sections, 21 tables and 10 charts. The proposal keeps every figure and changes where it sits.</p>
+    <div class="changes">
+      <div class="panel">
+        <h3>Page length today and proposed</h3>
+        <p class="panel-sub">Screens of scrolling on a 1440 &times; 900 desktop</p>
+        <div class="scroll-chart" role="table" aria-label="Screens of scrolling per tab today and for the proposed overview">
+          <span class="lbl">Overview</span><span class="track"><span class="cbar" style="width:calc((100% - 44px) * 0.046)"></span><span class="cval">1.2</span></span>
+          <span class="lbl">Queues</span><span class="track"><span class="cbar" style="width:calc((100% - 44px) * 0.077)"></span><span class="cval">2.0</span></span>
+          <span class="lbl">Team</span><span class="track"><span class="cbar" style="width:calc((100% - 44px) * 0.196)"></span><span class="cval">5.1</span></span>
+          <span class="lbl">Recertification</span><span class="track"><span class="cbar" style="width:calc((100% - 44px) * 0.954)"></span><span class="cval">24.8</span></span>
+          <span class="lbl">Activity</span><span class="track"><span class="cbar" style="width:calc((100% - 44px) * 0.062)"></span><span class="cval">1.6</span></span>
+          <span class="lbl acc">Proposed overview</span><span class="track"><span class="cbar acc" style="width:calc((100% - 44px) * 0.073)"></span><span class="cval">1.9</span></span>
+        </div>
+        <p class="scroll-total"><b>34.7 screens</b> across five tabs today. The proposed overview gathers the headline figures of all five on one page; the full tables sit one click away on the detail pages.</p>
+      </div>
+      <div class="panel">
+        <div class="cmp-row head"><span></span><span>Today</span><span>Proposed</span></div>
+        <div class="cmp-row"><span class="topic"><span data-ic="layout" class="ic-sm"></span>Layout</span><span class="today">Five tabs; the figures behind one question often sit on different tabs.</span><span class="prop">One overview page, with detail pages grouped by the question they answer.</span></div>
+        <div class="cmp-row"><span class="topic"><span data-ic="flag" class="ic-sm"></span>Priorities</span><span class="today">Waiting items split between the Overview and Queues tabs.</span><span class="prop">A "Needs attention today" strip at the top; each item opens its list in one click.</span></div>
+        <div class="cmp-row"><span class="topic"><span data-ic="filter" class="ic-sm"></span>Filters</span><span class="today">Period, type and group selectors sit inside the Recertification tab.</span><span class="prop">One filter bar at the top scopes every figure on the page.</span></div>
+        <div class="cmp-row"><span class="topic"><span data-ic="target" class="ic-sm"></span>Status</span><span class="today">Figures print as numbers and tables; a figure outside its range is named in a separate notice.</span><span class="prop">Each headline figure shows its change on the previous period and whether it is within target.</span></div>
+        <div class="cmp-row"><span class="topic"><span data-ic="type" class="ic-sm"></span>Wording</span><span class="today">Counting rules printed beside each panel.</span><span class="prop">Plain labels on screen; the counting rule opens with the detail.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="pages" aria-labelledby="pagesT">
+    <h2 id="pagesT">Where today's panels go</h2>
+    <p class="intro">The overview draws its tiles from figures the dashboard already computes. The full tables and charts move to detail pages in the left-hand menu, grouped by topic.</p>
+    <div class="pages">
+      <div class="page-card home">
+        <h3><span class="pc-ic"><span data-ic="grid"></span></span>Overview<span class="count">this page</span></h3>
+        <ul><li>Needs a supervisor today</li><li>Metrics Overview</li><li>Intake</li><li>Total and completed recertifications</li><li>Highlights from the written summary</li><li>Figures outside their target range</li></ul>
+      </div>
+      <div class="page-card">
+        <h3><span class="pc-ic"><span data-ic="refresh"></span></span>Recertifications<span class="count">7 panels</span></h3>
+        <ul><li>Status breakdown</li><li>Case load as it stands now</li><li>Type breakdown</li><li>Recertification trends</li><li>What became of each closed month's cohort</li><li>Active case load, month over month</li><li>Active case load by status, month by month</li></ul>
+      </div>
+      <div class="page-card">
+        <h3><span class="pc-ic"><span data-ic="clock"></span></span>Timeliness<span class="count">8 panels</span></h3>
+        <ul><li>On-time completion</li><li>Recertification completion time</li><li>Completion of the cases started in the period</li><li>Past-deadline cases by population</li><li>Submission timing</li><li>Engagement by week of the notice window</li><li>Excluded from completion-time metrics</li><li>Excluded from active-handling time</li></ul>
+      </div>
+      <div class="page-card">
+        <h3><span class="pc-ic"><span data-ic="file"></span></span>Documents &amp; returns<span class="count">9 panels</span></h3>
+        <ul><li>Return rate</li><li>Returned documents by type</li><li>Decisions per document type</li><li>Caseworker approval metrics by document</li><li>Validation errors</li><li>Document success</li><li>Caseworker intervention</li><li>Non-completion reasons</li><li>Completions by origin</li></ul>
+      </div>
+      <div class="page-card">
+        <h3><span class="pc-ic"><span data-ic="users"></span></span>Team<span class="count">3 panels</span></h3>
+        <ul><li>Active caseload by caseworker</li><li>Throughput by caseworker</li><li>Team performance this week</li></ul>
+      </div>
+      <div class="page-card">
+        <h3><span class="pc-ic"><span data-ic="shield"></span></span>QC reviews<span class="count">3 panels</span></h3>
+        <ul><li>Open quality control reviews</li><li>Review list with status, reviewer and age</li><li>Review notifications</li></ul>
+      </div>
+      <div class="page-card">
+        <h3><span class="pc-ic"><span data-ic="inbox"></span></span>Queues<span class="count">5 panels</span></h3>
+        <ul><li>New applications</li><li>Waitlist</li><li>Failed reviews, override needed</li><li>Criminal-history review, no screening on record</li><li>Voucher approval queue</li></ul>
+      </div>
+      <div class="page-card">
+        <h3><span class="pc-ic"><span data-ic="chart"></span></span>Activity &amp; reports<span class="count">4 panels</span></h3>
+        <ul><li>Recent activity</li><li>Saved reports</li><li>Written summary (PDF)</li><li>Excel exports of every table</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="decisions" aria-labelledby="decisionsT">
+    <h2 id="decisionsT">Decisions for HOME</h2>
+    <p class="intro">Three choices shape the final layout.</p>
+    <div class="decisions">
+      <div class="decision">
+        <span class="dc-ic"><span data-ic="grid"></span></span>
+        <h3>The six headline figures</h3>
+        <p>Confirm the top row, or name the figures HOME would rather see there. Any figure the dashboard computes today can take a place.</p>
+      </div>
+      <div class="decision">
+        <span class="dc-ic"><span data-ic="target"></span></span>
+        <h3>A target for each</h3>
+        <p>The green and red marks compare each figure with a target. The administrator records targets under Metric Thresholds; none is recorded for El Paso yet.</p>
+      </div>
+      <div class="decision">
+        <span class="dc-ic"><span data-ic="eye"></span></span>
+        <h3>Who opens this view</h3>
+        <p>Supervisors only, or leadership as well. A leadership view can open on the headline figures and highlights, without the queue strip.</p>
+      </div>
+    </div>
+    <p class="note">Not in this proposal: peer and national benchmarks, resident satisfaction and SEMAP standing. Each needs figures the supervisor dashboard does not receive today.</p>
+  </section>
+
+  <footer class="foot">
+    <span>8AI &middot; HCV Scope 7 supervisor dashboard &middot; layout proposal, September 2026</span>
+    <span>Prototype figures and staff labels are illustrative</span>
+  </footer>
+</div>
+
+<script>
+(() => {
+  'use strict';
+
+  /* ---------- helpers ---------- */
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  function h(tag, attrs, ...kids) {
+    const n = document.createElement(tag);
+    if (attrs) {
+      for (const [k, v] of Object.entries(attrs)) {
+        if (v == null || v === false) continue;
+        if (k === 'class') n.className = v;
+        else if (k === 'text') n.textContent = v;
+        else if (k.startsWith('on') && typeof v === 'function') n.addEventListener(k.slice(2), v);
+        else n.setAttribute(k, v === true ? '' : String(v));
+      }
+    }
+    for (const kid of kids.flat(Infinity)) {
+      if (kid == null || kid === false) continue;
+      n.append(kid instanceof Node ? kid : document.createTextNode(String(kid)));
+    }
+    return n;
+  }
+  function s(tag, attrs) {
+    const n = document.createElementNS(SVGNS, tag);
+    if (attrs) for (const [k, v] of Object.entries(attrs)) if (v != null) n.setAttribute(k, String(v));
+    return n;
+  }
+  const ICONS = {
+    grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>',
+    refresh: '<path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/>',
+    clock: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    file: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    shield: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/>',
+    inbox: '<polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>',
+    activity: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+    chart: '<path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/>',
+    sliders: '<line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>',
+    folder: '<path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>',
+    check: '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>',
+    tick: '<path d="M20 6 9 17l-5-5"/>',
+    timer: '<line x1="10" x2="14" y1="2" y2="2"/><line x1="12" x2="15" y1="14" y2="11"/><circle cx="12" cy="14" r="8"/>',
+    undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/>',
+    bot: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
+    up: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+    down: '<polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>',
+    minus: '<path d="M5 12h14"/>',
+    alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+    chev: '<path d="m9 18 6-6-6-6"/>',
+    x: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    download: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+    bookmark: '<path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>',
+    target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+    pie: '<path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>',
+    sparkles: '<path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/>',
+    calendar: '<rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/>',
+    info: '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+    list: '<line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/>',
+    zap: '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
+    flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/>',
+    filter: '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>',
+    layout: '<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>',
+    type: '<polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/>',
+    eye: '<path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/>',
+    user: '<circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/>'
+  };
+  function ic(name, cls) {
+    const n = s('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true', focusable: 'false', class: cls || 'ic' });
+    n.innerHTML = ICONS[name] || '';
+    return n;
+  }
+  document.querySelectorAll('[data-ic]').forEach(node => node.replaceWith(ic(node.dataset.ic, node.className || 'ic')));
+
+  const fmtN = n => Math.round(n).toLocaleString('en-US');
+  const f1 = v => (Math.round(v * 10) / 10).toFixed(1);
+  const r1 = v => Math.round(v * 10) / 10;
+  const MINUS = '−';
+
+  /* ---------- illustrative data ---------- */
+  const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+  const MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'];
+  const monthLabel = i => MONTH_NAMES[i] + (i === 8 ? ' 1-24' : '');
+  const S = {
+    onTime: [92.1, 92.8, 93.5, 94.2, 95.1, 95.4, 94.4, 95.6, 93.8],
+    days: [15.8, 15.1, 14.6, 14.1, 13.5, 13.2, 13.3, 12.2, 11.4],
+    returns: [16.9, 16.2, 15.4, 14.8, 14.1, 13.8, 14.9, 15.5, 17.9],
+    automated: [74.2, 75.8, 76.9, 77.6, 78.3, 79.3, 80.4, 81.1, 84.1],
+    docs: [86.0, 86.9, 87.5, 88.4, 89.0, 89.9, 90.2, 90.8, 91.6],
+    sameDay: [30.1, 31.0, 31.8, 32.6, 33.4, 34.5, 35.2, 36.0, 38.2],
+    completed: [548, 561, 579, 566, 571, 557, 587, 612, 486]
+  };
+  const RATE_KEYS = ['onTime', 'days', 'returns', 'automated', 'docs', 'sameDay'];
+  const PERIODS = {
+    this_month: { label: 'This month', range: 'September 1-24, 2026', idx: [8], cmp: { label: 'August 1-24', short: 'Aug 1-24', idx: [7], completed: 474 }, running: true },
+    last_month: { label: 'Last month', range: 'August 2026', idx: [7], cmp: { label: 'July', short: 'July', idx: [6] } },
+    last_quarter: { label: 'Last quarter', range: 'April-June 2026', idx: [3, 4, 5], cmp: { label: 'January-March', short: 'Q1', idx: [0, 1, 2] } },
+    ytd: { label: 'Year to date', range: 'January 1 to September 24, 2026', idx: [0, 1, 2, 3, 4, 5, 6, 7, 8], cmp: null, running: true }
+  };
+  const TYPES = {
+    all: { label: 'All types', share: 1, adj: {} },
+    annual: { label: 'Annual', share: 0.38, adj: { onTime: 0.8, days: 1.9, returns: -2.1, automated: -6.0, docs: 1.2, sameDay: -4.0 } },
+    interim: { label: 'Interim', share: 0.62, adj: { onTime: -0.5, days: -1.2, returns: 1.3, automated: 3.7, docs: -0.7, sameDay: 2.4 } }
+  };
+  const STATUS_KEYS = ['Open', 'Pending documents', 'Submitted', 'Ready for review', 'Review required', 'Termination pending'];
+  const STATUS = {
+    this_month: [318, 402, 298, 64, 41, 19],
+    last_month: [305, 396, 290, 70, 38, 19],
+    last_quarter: [296, 391, 281, 72, 39, 18],
+    ytd: [318, 402, 298, 64, 41, 19]
+  };
+  const CASELOAD_PREV = { this_month: 1118, last_month: 1096, last_quarter: 1085, ytd: 1031 };
+  const CASELOAD_SINCE = { this_month: 'since Aug 31', last_month: 'since Jul 31', last_quarter: 'since Mar 31', ytd: 'since Jan 1' };
+  const CASELOAD_PILL = { this_month: 'Live', last_month: 'Aug 31', last_quarter: 'Jun 30', ytd: 'Live' };
+  const CASELOAD_AT = { this_month: 'Live at 7:58 AM', last_month: 'At August 31', last_quarter: 'At June 30', ytd: 'Live at 7:58 AM' };
+  const TEAM = [
+    ['Caseworker A', 148, 71, 9.6], ['Caseworker B', 139, 66, 10.4], ['Caseworker C', 131, 62, 12.1], ['Caseworker D', 126, 58, 10.5],
+    ['Caseworker E', 118, 55, 12.9], ['Caseworker F', 104, 49, 11.8], ['Caseworker G', 97, 44, 11.2], ['Caseworker H', 71, 31, 9.8],
+    ['Caseworker I', 58, 22, 12.9], ['Caseworker J', 42, 15, 14.6], ['Caseworker K', 26, 8, 15.2], ['Caseworker L', 22, 5, 16.1]
+  ];
+  const REASONS = [
+    ['Family has not confirmed or removed a document', 32],
+    ['Family has not confirmed a member’s details', 20],
+    ['No identity document for an adult who needs one', 13],
+    ['Emergency contact name or phone missing', 9],
+    ['Birth certificate or Social Security card incomplete', 8]
+  ];
+  const REASONS_OTHER = 22;
+  const RETURNED = { this_month: 104, last_month: 113, last_quarter: 298, ytd: 941 };
+  const PAST_DEADLINE = { this_month: 41, last_month: 37, last_quarter: 33, ytd: 41 };
+  const QC = { open: 3, inProgress: 2, closed: { this_month: 14, last_month: 17, last_quarter: 41, ytd: 118 }, oldest: 12, limit: 10 };
+  const ATTENTION = [
+    { count: 1, label: 'failed review awaiting an override decision', tone: 'crit' },
+    { count: 3, label: 'families awaiting voucher approval', tone: 'warn' },
+    { count: 23, label: 'vouchers expire within 30 days', tone: 'warn' },
+    { count: 2, label: 'QC reviews not yet assigned', tone: 'warn' },
+    { count: 58, label: 'cases past due for documents', tone: 'serious' }
+  ];
+  const QUEUES = [
+    { label: 'New applications', count: 412, note: 'Oldest waiting 6 days' },
+    { label: 'Waitlist', count: 8960, note: 'Applicants on the list' },
+    { label: 'Failed reviews, override needed', count: 1, note: 'Waiting 2 days' },
+    { label: 'Criminal-history review, no screening on record', count: 0, note: 'Every enrollment has a screening' },
+    { label: 'Voucher approval queue', count: 3, note: 'Oldest waiting 1 day' }
+  ];
+  const TARGETS = {
+    onTime: { op: 'min', v: 95, text: '95% or more', sentence: 'The target is 95% or more.', max: 100 },
+    days: { op: 'max', v: 14, text: '14 days or fewer', sentence: 'The target is 14 days or fewer.', max: 20 },
+    returns: { op: 'max', v: 15, text: '15% or less', sentence: 'The limit is 15%.', max: 25 },
+    automated: { op: 'min', v: 80, text: '80% or more', sentence: 'The target is 80% or more.', max: 100 },
+    docs: { op: 'min', v: 90, text: '90% or more', sentence: 'The target is 90% or more.', max: 100 },
+    sameDay: { op: 'min', v: 35, text: '35% or more', sentence: 'The target is 35% or more.', max: 50 }
+  };
+  const META = {
+    caseload: { label: 'Active case load', icon: 'folder', tone: 't1', kind: 'count', better: null,
+      def: 'Recertifications open right now, in any status except Approved, Declined and Cancelled.',
+      today: 'Recertification tab, "Case load as it stands now" and "Recertification Status Breakdown".' },
+    completed: { label: 'Recertifications completed', icon: 'check', tone: 't2', kind: 'count', better: 'up',
+      def: 'Recertifications approved in the selected period.',
+      today: 'Recertification tab, "Completed Recertifications".' },
+    onTime: { label: 'Completed on time', phrase: 'On-time completion', icon: 'clock', tone: 't3', kind: 'pct', better: 'up',
+      def: 'Share of the recertifications completed in the period that were approved on or before their due date.',
+      today: 'Recertification tab, "On-time completion".' },
+    days: { label: 'Average days to complete', phrase: 'Time to complete', icon: 'timer', tone: 't4', kind: 'days', better: 'down',
+      def: 'Calendar days from the day the family starts a recertification to its approval, averaged over the cases completed in the period.',
+      today: 'Recertification tab, "Throughput by caseworker" and "Recertification Completion Time".' },
+    returns: { label: 'Return rate', phrase: 'The return rate', icon: 'undo', tone: 't5', kind: 'pct', better: 'down',
+      def: 'Cases sent back to the family for a correction, as a share of the submissions in the period.',
+      today: 'Recertification tab, "Return rate".' },
+    automated: { label: 'Fully automated cases', phrase: 'Fully automated cases', icon: 'bot', tone: 't6', kind: 'pct', better: 'up',
+      def: 'Share of the cases in the period that went through without a caseworker changing anything.',
+      today: 'Recertification tab, "Caseworker Intervention".' },
+    docs: { label: 'Documents right first time', phrase: 'Documents right first time', kind: 'pct', better: 'up',
+      def: 'Share of the collected documents that passed validation without a correction.',
+      today: 'Recertification tab, "Document success".' },
+    sameDay: { label: 'Submitted the day they started', phrase: 'Same-day submission', kind: 'pct', better: 'up',
+      def: 'Share of the cases started in the period that the family submitted on the same day.',
+      today: 'Recertification tab, "Completion of the cases started in the period".' }
+  };
+  const NAV = [
+    ['grid', 'Overview', null], ['refresh', 'Recertifications', null], ['clock', 'Timeliness', null],
+    ['file', 'Documents & returns', null], ['users', 'Team', null], ['shield', 'QC reviews', '2'],
+    ['inbox', 'Queues', '4'], ['activity', 'Activity', null], ['chart', 'Reports', null], ['sliders', 'Settings', null]
+  ];
+
+  const state = { period: 'this_month', type: 'all' };
+  let M = null;
+
+  const isWithin = (k, v) => TARGETS[k].op === 'min' ? v >= TARGETS[k].v : v <= TARGETS[k].v;
+  const fmtVal = (k, v) => META[k].kind === 'days' ? `${f1(v)} days` : `${f1(v)}%`;
+
+  function compute() {
+    const p = PERIODS[state.period];
+    const t = TYPES[state.type];
+    const adj = k => t.adj[k] || 0;
+    const rate = (k, idx) => r1(idx.reduce((a, i) => a + S[k][i], 0) / idx.length + adj(k));
+    const scaleN = v => Math.round(v * t.share);
+    const m = { p, t, rates: {}, monthly: {} };
+    for (const k of RATE_KEYS) {
+      m.rates[k] = { value: rate(k, p.idx), prev: p.cmp ? rate(k, p.cmp.idx) : null };
+      m.monthly[k] = S[k].map(v => r1(v + adj(k)));
+    }
+    const sumIdx = idx => idx.reduce((a, i) => a + S.completed[i], 0);
+    m.completed = {
+      value: scaleN(sumIdx(p.idx)),
+      prev: p.cmp ? scaleN(p.cmp.completed != null ? p.cmp.completed : sumIdx(p.cmp.idx)) : null
+    };
+    m.monthlyCompleted = S.completed.map(scaleN);
+    m.status = STATUS[state.period].map(scaleN);
+    m.caseload = m.status.reduce((a, b) => a + b, 0);
+    m.caseloadPrev = scaleN(CASELOAD_PREV[state.period]);
+    const fAct = m.caseload / 1142;
+    const fDone = m.completed.value / 486;
+    const fDays = m.rates.days.value / 11.4;
+    m.team = TEAM.map(([name, a, d, days]) => ({ name, active: Math.round(a * fAct), done: Math.round(d * fDone), days: r1(days * fDays) }));
+    const doneGap = m.completed.value - m.team.reduce((a, r) => a + r.done, 0);
+    m.team[0].done += doneGap;
+    m.unassigned = m.caseload - m.team.reduce((a, r) => a + r.active, 0);
+    const fRet = RETURNED[state.period] * t.share / 104;
+    m.reasons = REASONS.map(([label, n]) => ({ label, n: Math.round(n * fRet) }));
+    m.reasonsOther = Math.round(REASONS_OTHER * fRet);
+    m.returned = m.reasons.reduce((a, r) => a + r.n, 0) + m.reasonsOther;
+    m.within = RATE_KEYS.filter(k => isWithin(k, m.rates[k].value));
+    m.pastDeadline = scaleN(PAST_DEADLINE[state.period]);
+    return m;
+  }
+
+  /* ---------- tooltip & toast ---------- */
+  const tip = h('div', { class: 'tip', 'aria-hidden': 'true' });
+  tip.hidden = true;
+  document.body.append(tip);
+  function showTip(x, y, rows) {
+    tip.textContent = '';
+    for (const [value, label] of rows) tip.append(h('div', null, h('strong', { text: value }), h('span', { text: label })));
+    tip.hidden = false;
+    const b = tip.getBoundingClientRect();
+    let left = x + 14;
+    let top = y - b.height - 12;
+    if (left + b.width > window.innerWidth - 8) left = x - b.width - 14;
+    if (left < 8) left = 8;
+    if (top < 8) top = y + 18;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  const hideTip = () => { tip.hidden = true; };
+  function hoverTip(node, rows) {
+    node.addEventListener('pointermove', e => showTip(e.clientX, e.clientY, rows()));
+    node.addEventListener('pointerleave', hideTip);
+  }
+  let toastTimer = 0;
+  function toast(msg) {
+    const node = $('#toast');
+    node.textContent = msg;
+    node.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { node.hidden = true; }, 4200);
+  }
+
+  /* ---------- small builders ---------- */
+  function pill(text, tone, iconName) {
+    return h('span', { class: `pill ${tone}` }, iconName ? ic(iconName, 'ic-xs') : null, text);
+  }
+  function statusPill(k, v) {
+    return isWithin(k, v) ? pill('Within target', 'good', 'tick') : pill('Outside target', 'crit', 'alert');
+  }
+  function deltaInfo(key, cur, prev, cmpLabel, joiner) {
+    if (prev == null) return { cls: 'flat', icon: 'minus', text: 'No earlier year on record' };
+    const diff = r1(cur - prev);
+    if (diff === 0) return { cls: 'flat', icon: 'minus', text: `No change ${joiner} ${cmpLabel}` };
+    const up = diff > 0;
+    const better = META[key].better;
+    const cls = better == null ? 'flat' : ((better === 'up') === up ? 'good' : 'bad');
+    const sign = up ? '+' : MINUS;
+    let amount;
+    if (META[key].kind === 'count') {
+      const pct = prev ? Math.abs(diff) / prev * 100 : 0;
+      amount = better == null ? `${sign}${fmtN(Math.abs(diff))}` : `${sign}${fmtN(Math.abs(diff))} (${f1(pct)}%)`;
+    } else if (META[key].kind === 'days') amount = `${sign}${f1(Math.abs(diff))} days`;
+    else amount = `${sign}${f1(Math.abs(diff))} pts`;
+    return { cls, icon: up ? 'up' : 'down', text: `${amount} ${joiner} ${cmpLabel}` };
+  }
+
+  /* ---------- static chrome ---------- */
+  function buildNav() {
+    const nav = $('#nav');
+    NAV.forEach(([iconName, label, badge], i) => {
+      nav.append(h('button', {
+        type: 'button', title: label, 'aria-current': i === 0 ? 'page' : null,
+        onclick: i === 0 ? null : () => toast(`Prototype: "${label}" opens a detail page with today’s full tables for this topic.`)
+      }, ic(iconName), h('span', { class: 'lbl', text: label }), badge ? h('span', { class: 'badge', text: badge }) : null));
+    });
+  }
+  function buildPeriods() {
+    const host = $('#periods');
+    for (const [key, p] of Object.entries(PERIODS)) {
+      host.append(h('button', { type: 'button', 'data-period': key, 'aria-pressed': String(key === state.period), text: p.label, onclick: () => { state.period = key; render(); } }));
+    }
+    host.append(h('button', { type: 'button', disabled: true, title: 'Custom range opens a date picker in the live dashboard', text: 'Custom range' }));
+  }
+  const CARDS = [
+    { id: 'cTrend', span: 'span-4 wide-md', icon: 'up', title: 'On-time completion by month', more: () => openMeasure('onTime') },
+    { id: 'cTeam', span: 'span-4', icon: 'users', title: 'Team workload', sub: 'Active cases now and completions in the period', more: () => openTeam() },
+    { id: 'cTargets', span: 'span-4', icon: 'target', title: 'Performance against target', sub: 'The tick marks the target your administrator set', more: () => openTargets() },
+    { id: 'cStatus', span: 'span-4', icon: 'pie', title: 'Active case load by status', more: () => openMeasure('caseload') },
+    { id: 'cHigh', span: 'span-4', icon: 'sparkles', title: 'Highlights', sub: 'Written from the figures of the period', more: () => openSummary() },
+    { id: 'cHealth', span: 'span-4', icon: 'activity', title: 'Operational health', sub: 'Items that need follow-up', more: () => openHealth() },
+    { id: 'cReasons', span: 'span-4', icon: 'undo', title: 'Why cases go back', more: () => openReasons() },
+    { id: 'cQueues', span: 'span-4', icon: 'inbox', title: 'Queues and intake', sub: 'Live counts', more: () => openQueues() },
+    { id: 'cQC', span: 'span-4', icon: 'shield', title: 'Quality control reviews', sub: 'Live counts', more: () => openQC() }
+  ];
+  function buildCards() {
+    const host = $('#cards');
+    for (const c of CARDS) {
+      host.append(h('article', { class: `card ${c.span}`, id: c.id, 'aria-labelledby': c.id + 'T' },
+        h('header', { class: 'card-head' },
+          h('span', { class: 'card-ic' }, ic(c.icon)),
+          h('div', { class: 'card-titles' }, h('h3', { class: 'card-title', id: c.id + 'T', text: c.title }), h('p', { class: 'card-sub', text: c.sub || '' })),
+          h('button', { class: 'more', type: 'button', 'aria-label': `Details: ${c.title}`, onclick: c.more }, 'Details', ic('chev', 'ic-sm'))),
+        h('div', { class: 'card-body' })));
+    }
+  }
+  const body = id => $(`#${id} .card-body`);
+  const sub = (id, text) => { $(`#${id} .card-sub`).textContent = text; };
+
+  /* ---------- renderers ---------- */
+  function renderScore() {
+    const host = $('#score');
+    host.textContent = '';
+    const n = M.within.length;
+    const total = RATE_KEYS.length;
+    const r = 14;
+    const c = 2 * Math.PI * r;
+    const g = s('svg', { width: 34, height: 34, viewBox: '0 0 34 34', 'aria-hidden': 'true' });
+    g.append(s('circle', { cx: 17, cy: 17, r, class: 'ring-track' }));
+    if (n > 0) g.append(s('circle', { cx: 17, cy: 17, r, class: 'ring-fill', 'stroke-dasharray': `${(c * n / total).toFixed(2)} ${c.toFixed(2)}`, transform: 'rotate(-90 17 17)' }));
+    const label = s('text', { x: 17, y: 21, 'text-anchor': 'middle', class: 'ring-text' });
+    label.textContent = String(n);
+    g.append(label);
+    host.append(g, h('span', null, h('span', { class: 'score-main', text: `${n} of ${total} measures within target` }), h('br'), h('span', { class: 'score-sub', text: 'Targets set by your administrator' })));
+    host.setAttribute('aria-label', `${n} of ${total} measures within target. Open the targets.`);
+  }
+
+  function renderAttention() {
+    const host = $('#attn');
+    host.textContent = '';
+    host.append(h('div', { class: 'attn-head' }, ic('flag'), h('span', { text: 'Needs attention today' }), pill('Live', 'live')));
+    const list = h('div', { class: 'attn-items' });
+    for (const item of ATTENTION) {
+      list.append(h('button', { class: 'chip', type: 'button', onclick: () => toast(`Prototype: opens the list of ${item.count} ${item.label}.`) },
+        h('span', { class: `n ${item.tone}-bg`, text: fmtN(item.count) }), h('span', { text: item.label }), ic('chev', 'ic-sm chev')));
+    }
+    host.append(list);
+  }
+
+  const KPI_KEYS = ['caseload', 'completed', 'onTime', 'days', 'returns', 'automated'];
+  function renderKpis() {
+    const host = $('#kpis');
+    host.textContent = '';
+    const cmpLabel = M.p.cmp ? M.p.cmp.short : '';
+    for (const key of KPI_KEYS) {
+      const meta = META[key];
+      let value;
+      let unit = '';
+      let d;
+      let foot;
+      let status = null;
+      if (key === 'caseload') {
+        value = fmtN(M.caseload);
+        d = deltaInfo(key, M.caseload, M.caseloadPrev, CASELOAD_SINCE[state.period], '');
+        d.text = d.text.replace(/\s+/g, ' ').trim();
+        status = pill(CASELOAD_PILL[state.period], CASELOAD_PILL[state.period] === 'Live' ? 'live' : 'neutral');
+        foot = [h('span', { text: `${fmtN(M.status[3])} ready for review` })];
+      } else if (key === 'completed') {
+        value = fmtN(M.completed.value);
+        d = deltaInfo(key, M.completed.value, M.completed.prev, cmpLabel, 'vs');
+        foot = [h('span', { text: `Across ${M.team.length} caseworkers` })];
+      } else {
+        const rv = M.rates[key];
+        value = f1(rv.value);
+        unit = meta.kind === 'days' ? 'days' : '%';
+        d = deltaInfo(key, rv.value, rv.prev, cmpLabel, 'vs');
+        status = statusPill(key, rv.value);
+        foot = [h('span', { text: `Target ${TARGETS[key].text}` })];
+      }
+      host.append(h('button', { class: 'tile', type: 'button', 'aria-label': `${meta.label}: ${value}${unit === '%' ? '%' : unit ? ' ' + unit : ''}. ${d.text}. Open details.`, onclick: () => openMeasure(key) },
+        h('span', { class: `tile-icon ${meta.tone}` }, ic(meta.icon)),
+        h('span', { class: 'tile-status' }, status),
+        h('span', { class: 'tile-label', text: meta.label }),
+        h('span', { class: 'tile-value' }, value, unit ? h('small', { text: unit === '%' ? '%' : ' ' + unit }) : null),
+        h('span', { class: `delta ${d.cls}` }, ic(d.icon, 'ic-sm'), h('span', { text: d.text })),
+        h('span', { class: 'tile-foot' }, foot)));
+    }
+  }
+
+  function drawTrend() {
+    const host = $('#trendChart');
+    if (!host) return;
+    host.textContent = '';
+    const values = M.monthly.onTime;
+    const W = Math.max(260, Math.floor(host.clientWidth));
+    const H = 200;
+    const m = { l: 40, r: 50, t: 12, b: 28 };
+    const iw = W - m.l - m.r;
+    const ih = H - m.t - m.b;
+    const lo = 88;
+    const hi = 100;
+    const step = iw / (values.length - 1);
+    const x = i => m.l + step * i;
+    const y = v => m.t + ih * (1 - (Math.min(Math.max(v, lo), hi) - lo) / (hi - lo));
+    const svgEl = s('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}`, role: 'img',
+      'aria-label': `On-time completion by month, January to September 2026, from ${f1(values[0])}% to ${f1(values[8])}%. Target 95%.` });
+    const idx = M.p.idx;
+    const a = Math.max(m.l - 6, x(idx[0]) - step / 2);
+    const b = Math.min(m.l + iw + 6, x(idx[idx.length - 1]) + step / 2);
+    svgEl.append(s('rect', { x: a.toFixed(1), y: m.t, width: Math.max(10, b - a).toFixed(1), height: ih, rx: 6, class: 'c-band' }));
+    for (const v of [88, 92, 96, 100]) {
+      svgEl.append(s('line', { x1: m.l, x2: m.l + iw, y1: y(v), y2: y(v), class: v === lo ? 'c-base' : 'c-grid' }));
+      const t = s('text', { x: m.l - 8, y: y(v) + 4, 'text-anchor': 'end', class: 'c-axis' });
+      t.textContent = `${v}%`;
+      svgEl.append(t);
+    }
+    MONTHS.forEach((label, i) => {
+      const t = s('text', { x: x(i), y: H - 8, 'text-anchor': 'middle', class: 'c-axis' });
+      t.textContent = label;
+      svgEl.append(t);
+    });
+    const yT = y(TARGETS.onTime.v);
+    svgEl.append(s('line', { x1: m.l, x2: m.l + iw, y1: yT, y2: yT, class: 'c-target' }));
+    const tl = s('text', { x: m.l + 6, y: yT - 6, class: 'c-tlabel' });
+    tl.textContent = 'Target 95%';
+    svgEl.append(tl);
+    const pts = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+    svgEl.append(s('path', { d: `M${pts.join(' L')} L${x(values.length - 1).toFixed(1)},${y(lo).toFixed(1)} L${x(0).toFixed(1)},${y(lo).toFixed(1)} Z`, class: 'c-area' }));
+    svgEl.append(s('path', { d: `M${pts.join(' L')}`, class: 'c-line' }));
+    const cross = s('line', { x1: 0, x2: 0, y1: m.t, y2: m.t + ih, class: 'c-cross', visibility: 'hidden' });
+    svgEl.append(cross);
+    values.forEach((v, i) => svgEl.append(s('circle', { cx: x(i), cy: y(v), r: i === values.length - 1 ? 5 : 4, class: 'c-dot' })));
+    const last = values.length - 1;
+    const end = s('text', { x: x(last) + 9, y: y(values[last]) + 4, class: 'c-end' });
+    end.textContent = `${f1(values[last])}%`;
+    svgEl.append(end);
+    const hit = s('rect', { x: m.l - step / 2, y: m.t, width: iw + step, height: ih, class: 'c-hit' });
+    hit.addEventListener('pointermove', e => {
+      const box = svgEl.getBoundingClientRect();
+      const i = Math.max(0, Math.min(values.length - 1, Math.round((e.clientX - box.left - m.l) / step)));
+      cross.setAttribute('x1', x(i));
+      cross.setAttribute('x2', x(i));
+      cross.setAttribute('visibility', 'visible');
+      const v = values[i];
+      showTip(e.clientX, e.clientY, [[`${f1(v)}%`, monthLabel(i)], [isWithin('onTime', v) ? 'Within target' : 'Outside target', 'target 95% or more']]);
+    });
+    hit.addEventListener('pointerleave', () => { cross.setAttribute('visibility', 'hidden'); hideTip(); });
+    svgEl.append(hit);
+    host.append(svgEl);
+  }
+  function renderTrend() {
+    const b = body('cTrend');
+    sub('cTrend', 'Share completed by the due date in 2026 · shaded: selected period');
+    if (!$('#trendChart')) b.append(h('div', { class: 'chart', id: 'trendChart' }));
+    drawTrend();
+  }
+
+  function teamRow(name, active, done, days, max, isUnassigned) {
+    const bar = h('span', { class: 'bar' + (isUnassigned ? ' muted-bar' : '') });
+    bar.style.width = `calc((100% - 40px) * ${Math.max(0.02, active / max).toFixed(3)})`;
+    const cell = h('span', { class: 'barcell' }, bar, h('span', { class: 'barval', text: fmtN(active) }));
+    hoverTip(cell, () => [[`${fmtN(active)} active`, name], ...(isUnassigned ? [] : [[fmtN(done), 'completed in the period'], [`${days} days`, 'average to complete']])]);
+    return [h('span', { class: 'name' + (isUnassigned ? ' soft' : ''), text: name }), cell,
+      h('span', { class: 'num', text: isUnassigned ? '' : fmtN(done) }), h('span', { class: 'num', text: isUnassigned ? '' : days })];
+  }
+  function renderTeam() {
+    const b = body('cTeam');
+    b.textContent = '';
+    const rows = [...M.team].sort((p, q) => q.active - p.active).slice(0, 6);
+    const max = Math.max(M.unassigned, ...M.team.map(r => r.active));
+    const grid = h('div', { class: 'team' },
+      h('span', { class: 'th', text: 'Caseworker' }), h('span', { class: 'th', text: 'Active cases' }),
+      h('span', { class: 'th num', text: 'Done' }), h('span', { class: 'th num', text: 'Avg days' }));
+    for (const r of rows) grid.append(...teamRow(r.name, r.active, r.done, f1(r.days), max, false));
+    grid.append(...teamRow('Unassigned', M.unassigned, 0, '', max, true));
+    b.append(grid, h('button', { class: 'link', type: 'button', text: `View all ${M.team.length} caseworkers`, onclick: () => openTeam() }));
+  }
+
+  function meter(value, target, max, ok) {
+    const node = h('span', { class: 'meter' + (ok ? '' : ' out'), 'aria-hidden': 'true' });
+    const fill = h('span', { class: 'fill' });
+    fill.style.width = Math.min(100, value / max * 100).toFixed(1) + '%';
+    const tick = h('span', { class: 'tick' });
+    tick.style.left = `calc(${Math.min(100, target / max * 100).toFixed(1)}% - 1px)`;
+    node.append(fill, tick);
+    return node;
+  }
+  function renderTargets() {
+    const b = body('cTargets');
+    b.textContent = '';
+    const wrap = h('div', { class: 'tgt' });
+    for (const k of RATE_KEYS) {
+      const v = M.rates[k].value;
+      const ok = isWithin(k, v);
+      const row = h('div', { class: 'tgt-row' },
+        h('span', { class: 'tgt-label' }, ic(ok ? 'tick' : 'alert', 'ic-xs ' + (ok ? 'ok' : 'bad')), h('span', { text: META[k].label }), h('span', { class: 'sr', text: ok ? ', within target' : ', outside target' })),
+        h('span', { class: 'tgt-val', text: fmtVal(k, v) }),
+        meter(v, TARGETS[k].v, TARGETS[k].max, ok));
+      hoverTip(row, () => [[fmtVal(k, v), META[k].label], [ok ? 'Within target' : 'Outside target', TARGETS[k].text]]);
+      wrap.append(row);
+    }
+    b.append(wrap);
+  }
+
+  function drawDonut(parts, total) {
+    const W = 150;
+    const cx = 75;
+    const cy = 75;
+    const R = 70;
+    const r = 46;
+    const g = s('svg', { width: W, height: W, viewBox: `0 0 ${W} ${W}`, role: 'img', class: 'donut', 'aria-label': `Active case load by status, ${fmtN(total)} cases` });
+    const gap = 2 / R;
+    const pt = (rad, ang) => `${(cx + rad * Math.cos(ang)).toFixed(2)} ${(cy + rad * Math.sin(ang)).toFixed(2)}`;
+    let a = -Math.PI / 2;
+    parts.forEach((n, i) => {
+      const span = total ? n / total * Math.PI * 2 : 0;
+      const a0 = a + gap / 2;
+      const a1 = a + span - gap / 2;
+      a += span;
+      if (a1 <= a0) return;
+      const large = a1 - a0 > Math.PI ? 1 : 0;
+      const d = `M ${pt(R, a0)} A ${R} ${R} 0 ${large} 1 ${pt(R, a1)} L ${pt(r, a1)} A ${r} ${r} 0 ${large} 0 ${pt(r, a0)} Z`;
+      const seg = s('path', { d, class: `seg-path c-s${i + 1}`, tabindex: '0', 'aria-label': `${STATUS_KEYS[i]}: ${fmtN(n)} cases` });
+      const rows = () => [[`${fmtN(n)} cases`, STATUS_KEYS[i]], [`${f1(n / total * 100)}%`, 'of the active case load']];
+      seg.addEventListener('pointermove', e => { g.classList.add('hovering'); seg.classList.add('on'); showTip(e.clientX, e.clientY, rows()); });
+      seg.addEventListener('pointerleave', () => { g.classList.remove('hovering'); seg.classList.remove('on'); hideTip(); });
+      seg.addEventListener('focus', () => { const bx = seg.getBoundingClientRect(); showTip(bx.left + bx.width / 2, bx.top, rows()); });
+      seg.addEventListener('blur', hideTip);
+      g.append(seg);
+    });
+    const t1 = s('text', { x: cx, y: cy + 3, 'text-anchor': 'middle', class: 'donut-total' });
+    t1.textContent = fmtN(total);
+    const t2 = s('text', { x: cx, y: cy + 20, 'text-anchor': 'middle', class: 'donut-cap' });
+    t2.textContent = 'active cases';
+    g.append(t1, t2);
+    return g;
+  }
+  function renderStatus() {
+    const b = body('cStatus');
+    b.textContent = '';
+    sub('cStatus', CASELOAD_AT[state.period]);
+    const legend = h('div', { class: 'legend' });
+    STATUS_KEYS.forEach((label, i) => {
+      const n = M.status[i];
+      legend.append(h('span', { class: `sw bg-s${i + 1}` }), h('span', { text: label }), h('span', { class: 'num', text: fmtN(n) }), h('span', { class: 'num muted', text: `${f1(n / M.caseload * 100)}%` }));
+    });
+    b.append(h('div', { class: 'donut-wrap' }, drawDonut(M.status, M.caseload), legend));
+  }
+
+  function phrase(k) {
+    const { value: v, prev } = M.rates[k];
+    const t = TARGETS[k];
+    const ok = isWithin(k, v);
+    const meta = META[k];
+    const cmp = M.p.cmp ? M.p.cmp.label : '';
+    const val = fmtVal(k, v);
+    if (prev == null) {
+      return { text: `${meta.phrase} averages ${val} this year, ${ok ? 'within' : 'outside'} the target of ${t.text}.`, tone: ok ? 'good' : 'bad', icon: ok ? 'tick' : 'alert', weight: ok ? 0 : 2 };
+    }
+    const diff = r1(v - prev);
+    const improved = diff === 0 ? null : (meta.better === 'up') === (diff > 0);
+    const amt = meta.kind === 'days' ? `${f1(Math.abs(diff))} days` : `${f1(Math.abs(diff))} points`;
+    let text;
+    if (diff === 0) text = `${meta.phrase} held at ${val}.`;
+    else if (k === 'days') text = `Recertifications took ${val} on average, ${amt} ${diff < 0 ? 'faster' : 'slower'} than ${cmp}.`;
+    else text = `${meta.phrase} ${diff > 0 ? 'rose' : 'fell'} to ${val}, ${diff > 0 ? 'up' : 'down'} ${amt} from ${cmp}.`;
+    if (!ok) text += ` ${t.sentence}`;
+    if (k === 'returns' && diff > 0) text += ` Most returns: ${M.reasons[0].label.charAt(0).toLowerCase() + M.reasons[0].label.slice(1)}.`;
+    const tone = improved === false || !ok ? 'bad' : 'good';
+    return { text, tone, icon: diff === 0 ? 'minus' : diff > 0 ? 'up' : 'down', weight: (ok ? 0 : 2) + (improved === false ? 1 : 0) + Math.abs(diff) / 10 };
+  }
+  function highlightItems() {
+    const items = RATE_KEYS.map(phrase).sort((p, q) => q.weight - p.weight).slice(0, 4);
+    items.push({ text: '23 vouchers expire within the next 30 days, and 3 families are waiting for voucher approval.', tone: 'warn', icon: 'clock' });
+    return items;
+  }
+  function renderHighlights() {
+    const b = body('cHigh');
+    b.textContent = '';
+    const list = h('ul', { class: 'hl' });
+    for (const item of highlightItems()) {
+      const toneBg = item.tone === 'good' ? 'good-bg' : item.tone === 'bad' ? 'crit-bg' : 'warn-bg';
+      list.append(h('li', null, h('span', { class: `hi ${toneBg}` }, ic(item.icon)), h('span', { text: item.text })));
+    }
+    b.append(list, h('button', { class: 'link', type: 'button', text: 'Open the written summary', onclick: () => openSummary() }));
+  }
+
+  function healthRows() {
+    const closed = state.period === 'last_month' || state.period === 'last_quarter';
+    return [
+      { icon: 'alert', tone: 'warn', label: 'Cases past deadline, family never started', value: fmtN(M.pastDeadline), pill: ['Follow up', 'warn'] },
+      { icon: 'file', tone: 'warn', label: 'Cases past due for documents', value: '58', pill: ['Follow up', 'warn'], note: 'Live' },
+      { icon: 'shield', tone: 'crit', label: 'QC reviews open longer than 10 days', value: '1', pill: ['Outside target', 'crit'], note: 'Live' },
+      { icon: 'user', tone: 'warn', label: 'Cases without a caseworker', value: fmtN(M.unassigned), pill: ['Follow up', 'warn'] },
+      closed
+        ? { icon: 'tick', tone: 'good', label: `${state.period === 'last_month' ? 'August' : 'June'} closed and compiled`, value: '', pill: ['Final', 'good'] }
+        : { icon: 'tick', tone: 'good', label: 'Figures compiled through Sep 23, refreshed 6:05 AM', value: '', pill: ['Up to date', 'good'] }
+    ];
+  }
+  function renderHealth() {
+    const b = body('cHealth');
+    b.textContent = '';
+    const rows = h('div', { class: 'rows' });
+    for (const r of healthRows()) {
+      rows.append(h('div', { class: 'row-item' },
+        h('span', { class: `ric ${r.tone}-bg` }, ic(r.icon)),
+        h('span', { text: r.label }),
+        h('span', { class: 'val', text: r.value }),
+        h('span', { class: 'sub' }, pill(r.pill[0], r.pill[1]), r.note ? h('span', { text: r.note }) : null)));
+    }
+    b.append(rows);
+  }
+
+  function renderReasons() {
+    const b = body('cReasons');
+    b.textContent = '';
+    sub('cReasons', `Top reasons among ${fmtN(M.returned)} cases returned in the period`);
+    const max = Math.max(...M.reasons.map(r => r.n), 1);
+    const wrap = h('div', { class: 'reasons' });
+    for (const r of M.reasons) {
+      const bar = h('span', { class: 'bar' });
+      bar.style.width = `calc((100% - 84px) * ${Math.max(0.02, r.n / max).toFixed(3)})`;
+      const share = `${f1(r.n / M.returned * 100)}%`;
+      const line = h('div', null, h('div', { class: 'reason-label', text: r.label }), h('span', { class: 'barcell' }, bar, h('span', { class: 'barval', text: `${fmtN(r.n)} · ${share}` })));
+      hoverTip(line, () => [[`${fmtN(r.n)} cases`, r.label], [share, 'of the returned cases']]);
+      wrap.append(line);
+    }
+    b.append(wrap);
+  }
+
+  function renderQueues() {
+    const b = body('cQueues');
+    b.textContent = '';
+    const rows = h('div', { class: 'rows' });
+    for (const q of QUEUES) {
+      rows.append(h('button', { class: 'queue', type: 'button', onclick: () => toast(`Prototype: opens the ${q.label.toLowerCase()} queue.`) },
+        h('span', { class: 'q-label', text: q.label }), h('span', { class: 'q-count', text: fmtN(q.count) }), ic('chev', 'ic-sm'), h('span', { class: 'q-note', text: q.note })));
+    }
+    b.append(rows);
+  }
+
+  function renderQC() {
+    const b = body('cQC');
+    b.textContent = '';
+    const closedLabel = { this_month: 'Closed this month', last_month: 'Closed in August', last_quarter: 'Closed in Q2', ytd: 'Closed this year' }[state.period];
+    b.append(h('div', { class: 'qc-stats' },
+      h('div', { class: 'qc-stat' }, h('b', { text: String(QC.open) }), h('span', { text: 'Open' })),
+      h('div', { class: 'qc-stat' }, h('b', { text: String(QC.inProgress) }), h('span', { text: 'In progress' })),
+      h('div', { class: 'qc-stat' }, h('b', { text: fmtN(QC.closed[state.period]) }), h('span', { text: closedLabel }))));
+    b.append(h('div', { class: 'qc-age' },
+      h('p', null, 'Oldest open review: ', h('b', { text: `${QC.oldest} days` }), ` · ageing limit ${QC.limit} days`),
+      meter(QC.oldest, QC.limit, 15, false),
+      h('span', { class: 'tgt-note' }, ic('alert', 'ic-xs bad'), h('span', { text: '1 review is past the ageing limit' }))));
+    b.append(h('button', { class: 'link', type: 'button', text: 'Open the review list', onclick: () => openQC() }));
+  }
+
+  function render() {
+    M = compute();
+    $('#subtitle').textContent = `Housing Choice Voucher Program · ${M.p.range}`;
+    const fine = $('#fine');
+    fine.textContent = `${M.p.range} · ${TYPES[state.type].label} · every date read in America/Denver`;
+    if (state.period === 'this_month') fine.append(' · ', h('span', { class: 'run', text: 'the month is still running, so figures are partial' }));
+    document.querySelectorAll('#periods [data-period]').forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.period === state.period)));
+    renderScore();
+    renderAttention();
+    renderKpis();
+    renderTrend();
+    renderTeam();
+    renderTargets();
+    renderStatus();
+    renderHighlights();
+    renderHealth();
+    renderReasons();
+    renderQueues();
+    renderQC();
+  }
+
+  /* ---------- drawer ---------- */
+  let lastFocus = null;
+  function openDrawer(title, subtitle, build) {
+    lastFocus = document.activeElement;
+    hideTip();
+    $('#dTitle').textContent = title;
+    $('#dSub').textContent = subtitle || '';
+    const b = $('#dBody');
+    b.textContent = '';
+    build(b);
+    b.scrollTop = 0;
+    $('#drawer').classList.add('open');
+    $('#drawer').setAttribute('aria-hidden', 'false');
+    $('#scrim').classList.add('open');
+    setTimeout(() => $('#dClose').focus({ preventScroll: true }), 40);
+  }
+  function closeDrawer() {
+    if (!$('#drawer').classList.contains('open')) return;
+    $('#drawer').classList.remove('open');
+    $('#drawer').setAttribute('aria-hidden', 'true');
+    $('#scrim').classList.remove('open');
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+  const periodSub = () => `${M.p.range} · ${TYPES[state.type].label}`;
+  function dSec(title, ...nodes) { return h('section', { class: 'd-sec' }, h('h4', { text: title }), nodes); }
+  function dTable(head, rows, opts = {}) {
+    const numCols = opts.num || [];
+    const table = h('table', { class: 'tbl' });
+    table.append(h('thead', null, h('tr', null, head.map((c, i) => h('th', { class: numCols.includes(i) ? 'num' : null, scope: 'col', text: c })))));
+    const tb = h('tbody');
+    rows.forEach((row, ri) => {
+      const cls = (opts.hl || []).includes(ri) ? 'hl-row' : (opts.total && ri === rows.length - 1 ? 'total' : null);
+      tb.append(h('tr', { class: cls }, row.map((c, i) => h('td', { class: numCols.includes(i) ? 'num' : null, text: c }))));
+    });
+    table.append(tb);
+    return h('div', { class: 'tbl-wrap' }, table);
+  }
+  function dActions(list) {
+    return h('div', { class: 'd-actions' }, list.map(([iconName, label, msg], i) => h('button', { class: 'btn' + (i === 0 ? ' primary' : ''), type: 'button', onclick: () => toast(msg) }, ic(iconName, 'ic-sm'), label)));
+  }
+  const dToday = text => h('p', { class: 'd-today' }, h('strong', { text: 'On today’s dashboard: ' }), text);
+  const CASE_LIST = ['list', 'Open the case list', 'Prototype: opens the list of cases behind this figure, with the same columns and download as today.'];
+  const EXCEL = ['download', 'Download as Excel', 'Prototype: downloads this table as an Excel file.'];
+
+  function openMeasure(key) {
+    const meta = META[key];
+    openDrawer(meta.label, periodSub(), b => {
+      b.append(dSec('What it counts', h('p', { text: meta.def })));
+      if (key === 'caseload') {
+        const rows = STATUS_KEYS.map((label, i) => [label, fmtN(M.status[i]), `${f1(M.status[i] / M.caseload * 100)}%`]);
+        rows.push(['Total active', fmtN(M.caseload), '100%']);
+        b.append(dSec(`By status · ${CASELOAD_AT[state.period].toLowerCase()}`, dTable(['Status', 'Cases', 'Share'], rows, { num: [1, 2], total: true })));
+      } else if (key === 'completed') {
+        b.append(dSec('This period', h('div', { class: 'd-stat' }, h('strong', { text: fmtN(M.completed.value) }), h('span', { class: 'muted', text: M.completed.prev != null ? `against ${fmtN(M.completed.prev)} in ${M.p.cmp.label}` : 'recertifications completed' }))));
+        b.append(dSec('By month, 2026', dTable(['Month', 'Completed'], MONTH_NAMES.map((_, i) => [monthLabel(i), fmtN(M.monthlyCompleted[i])]), { num: [1], hl: M.p.idx })));
+      } else {
+        const rv = M.rates[key];
+        b.append(dSec('This period', h('div', { class: 'd-stat' }, h('strong', { text: fmtVal(key, rv.value) }), statusPill(key, rv.value), h('span', { class: 'muted', text: `Target ${TARGETS[key].text}` }))));
+        b.append(dSec('By month, 2026', dTable(['Month', 'Value', 'Against target'], MONTH_NAMES.map((_, i) => {
+          const v = M.monthly[key][i];
+          return [monthLabel(i), fmtVal(key, v), isWithin(key, v) ? 'Within' : 'Outside'];
+        }), { num: [1], hl: M.p.idx })));
+      }
+      b.append(dActions([CASE_LIST, EXCEL]));
+      b.append(dToday(meta.today));
+    });
+  }
+  function openTeam() {
+    openDrawer('Team workload', periodSub(), b => {
+      b.append(dSec('What it shows', h('p', { text: 'Active cases per caseworker right now, the recertifications each one completed in the period and their average days to complete. Unassigned cases have no caseworker yet.' })));
+      const rows = [...M.team].sort((p, q) => q.active - p.active).map(r => [r.name, fmtN(r.active), fmtN(r.done), f1(r.days)]);
+      rows.push(['Unassigned', fmtN(M.unassigned), '', '']);
+      rows.push(['Team', fmtN(M.caseload), fmtN(M.team.reduce((a, r) => a + r.done, 0)), f1(M.rates.days.value)]);
+      b.append(dSec('All caseworkers', dTable(['Caseworker', 'Active', 'Done', 'Avg days'], rows, { num: [1, 2, 3], total: true })));
+      b.append(dActions([['list', 'Open a caseworker’s cases', 'Prototype: opens the case list filtered to one caseworker.'], EXCEL]));
+      b.append(dToday('Recertification tab, "Active caseload by caseworker" and "Throughput by caseworker"; Team tab, "Team Performance (This Week)".'));
+    });
+  }
+  function openTargets() {
+    openDrawer('Performance against target', periodSub(), b => {
+      b.append(dSec('How the status is set', h('p', { text: 'Each measure is compared with the target your administrator records under Metric Thresholds. A measure without a target shows its figure and change, but no status.' })));
+      b.append(dSec(`${M.within.length} of ${RATE_KEYS.length} within target`, dTable(['Measure', 'Value', 'Target', 'Status'], RATE_KEYS.map(k => [META[k].label, fmtVal(k, M.rates[k].value), TARGETS[k].text, isWithin(k, M.rates[k].value) ? 'Within' : 'Outside']), { num: [1] })));
+      b.append(dActions([['sliders', 'Open Metric Thresholds', 'Prototype: opens Metric Thresholds, where the administrator records each target.'], EXCEL]));
+      b.append(dToday('Metric Thresholds (administrator) and the notice of figures outside their configured range at the top of the Recertification tab.'));
+    });
+  }
+  function openSummary() {
+    openDrawer('Written summary', periodSub(), b => {
+      const running = state.period === 'this_month' || state.period === 'ytd';
+      const cmp = M.completed.prev != null ? `, against ${fmtN(M.completed.prev)} in ${M.p.cmp.label}` : '';
+      const outside = RATE_KEYS.filter(k => !M.within.includes(k)).map(k => META[k].label.toLowerCase());
+      b.append(dSec('Summary',
+        h('p', { text: `${fmtN(M.completed.value)} recertifications were completed in ${M.p.range}${cmp}. The active case load ${running ? 'stands' : 'stood'} at ${fmtN(M.caseload)}, with ${fmtN(M.status[3])} cases ready for review and ${fmtN(M.unassigned)} without a caseworker.` }),
+        h('p', { text: highlightItems().slice(0, 4).map(item => item.text).join(' ') }),
+        h('p', { text: `${M.within.length} of ${RATE_KEYS.length} measures are within target.${outside.length ? ' Outside target: ' + outside.join(', ') + '.' : ''}` }),
+        h('p', { text: `Quality control: ${QC.open} reviews open and ${QC.inProgress} in progress; the oldest has been open ${QC.oldest} days against a ${QC.limit}-day limit.` })));
+      b.append(dActions([['download', 'Download the PDF', 'Prototype: downloads the written summary as a PDF, the same document the dashboard produces today.']]));
+      b.append(dToday('"Request Written Summary" under the Recertification controls, delivered as a PDF.'));
+    });
+  }
+  function openHealth() {
+    openDrawer('Operational health', periodSub(), b => {
+      b.append(dSec('What it shows', h('p', { text: 'Counts that call for a follow-up, and whether the figures on this page are up to date.' })));
+      b.append(dSec('Items', dTable(['Item', 'Count', 'Status'], healthRows().map(r => [r.label, r.value, r.pill[0]]), { num: [1] })));
+      b.append(dActions([CASE_LIST, EXCEL]));
+      b.append(dToday('Recertification tab, "Past-deadline cases by population", "Case load as it stands now" and "Open quality control reviews"; the data notices under the controls.'));
+    });
+  }
+  function openReasons() {
+    openDrawer('Why cases go back', periodSub(), b => {
+      b.append(dSec('What it shows', h('p', { text: 'The reasons recorded when a case is sent back to the family for a correction, counted once per returned case.' })));
+      const rows = M.reasons.map(r => [r.label, fmtN(r.n), `${f1(r.n / M.returned * 100)}%`]);
+      rows.push(['Other reasons', fmtN(M.reasonsOther), `${f1(M.reasonsOther / M.returned * 100)}%`]);
+      rows.push(['Cases returned', fmtN(M.returned), '100%']);
+      b.append(dSec('Reasons', dTable(['Reason', 'Cases', 'Share'], rows, { num: [1, 2], total: true })));
+      b.append(dActions([CASE_LIST, EXCEL]));
+      b.append(dToday('Recertification tab, "Validation errors", "Returned documents by type" and "Return rate".'));
+    });
+  }
+  function openQueues() {
+    openDrawer('Queues and intake', 'Live counts', b => {
+      b.append(dSec('Queues', dTable(['Queue', 'Items', 'Note'], QUEUES.map(q => [q.label, fmtN(q.count), q.note]), { num: [1] })));
+      b.append(dActions([['inbox', 'Open a queue', 'Prototype: opens the queue with the same rows and actions as today.']]));
+      b.append(dToday('Queues tab: New Applications, Waitlist, Failed Reviews, No Screening on Record and the Voucher Approval Queue.'));
+    });
+  }
+  function openQC() {
+    openDrawer('Quality control reviews', periodSub(), b => {
+      b.append(dSec('Reviews', dTable(['State', 'Reviews'], [['Open', String(QC.open)], ['In progress', String(QC.inProgress)], ['Closed in the period', fmtN(QC.closed[state.period])]], { num: [1] })));
+      b.append(dSec('Ageing', h('p', { text: `The oldest open review has been open ${QC.oldest} days. The ageing limit is ${QC.limit} days; one review is past it and 2 reviews have no reviewer yet.` })));
+      b.append(dActions([['list', 'Open the review list', 'Prototype: opens the list of quality control reviews with status, reviewer and age.']]));
+      b.append(dToday('Recertification tab, "Open quality control reviews"; the review list; Supervisor Metrics Settings for the ageing limit.'));
+    });
+  }
+
+  /* ---------- wiring ---------- */
+  buildNav();
+  buildPeriods();
+  buildCards();
+  $('#type').addEventListener('change', e => { state.type = e.target.value; render(); });
+  $('#score').addEventListener('click', () => openTargets());
+  $('#btnSummary').addEventListener('click', () => openSummary());
+  $('#btnExport').addEventListener('click', () => toast('Prototype: downloads one Excel workbook with every figure on this page for the selected period.'));
+  $('#btnSaved').addEventListener('click', () => toast('Prototype: opens Saved Reports. A saved report keeps the period and filters.'));
+  $('#dClose').addEventListener('click', closeDrawer);
+  $('#scrim').addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+  render();
+  let raf = 0;
+  const ro = new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(drawTrend); });
+  ro.observe($('#cTrend .card-body'));
+})();
+</script>
+</body>
+</html>

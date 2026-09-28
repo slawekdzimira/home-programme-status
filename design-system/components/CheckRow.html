@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="resident">
+<div class="pv" style="padding:0;gap:40px">
+<label class="ds-check"><input type="checkbox" checked><span class="ds-check__mark"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg></span><span><b style="font-weight:500">I don't have it</b> - type it in instead</span></label>
+<label class="ds-check"><input type="checkbox"><span class="ds-check__mark"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg></span>I don't have anyone to list</label>
+</div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

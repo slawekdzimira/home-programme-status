@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:0px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="resident">
+<header class="ds-band" style="padding:32px 40px 110px">
+<div class="ds-band__bar">
+<a class="ds-band__brand" href="#home"><img src="../assets/caraway-lockup-header.png" alt="Caraway" height="52" style="display:block;mix-blend-mode:lighten"></a>
+<nav class="ds-band__nav" aria-label="Main"><a class="ds-navpill" href="#m">Messages</a><a class="ds-navpill" href="#mt">Maintenance</a><a class="ds-navpill" href="#a">Account</a></nav>
+<div class="ds-band__tools"><button class="ds-icon-btn ds-icon-btn--band" type="button" aria-label="Get help"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z"/></svg></button><button class="ds-icon-btn ds-icon-btn--band" type="button" aria-label="Sign out"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9"/></svg></button></div>
+</div>
+</header>
+<div class="ds-card" style="margin:-80px 40px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border:1px solid var(--border)">
+<div><div class="ds-card__eyebrow"><b style="font-weight:600">Caraway Heights</b> TC-9031</div><h1 style="margin:12px 0 0;font:700 40px/48px var(--font-sans)">Good evening, <span style="font-weight:400">John</span></h1></div>
+<span class="ds-progress"><span class="ds-progress__track"><span class="ds-progress__fill" style="width:25%"></span></span>25%</span>
+</div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

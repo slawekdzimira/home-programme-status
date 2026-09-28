@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="resident">
+<div class="pv pv--col" style="padding:0;gap:12px">
+<div class="ds-member"><svg class="ds-icon ds-icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z"/></svg><span class="ds-member__name">John Doe (you) <span class="ds-member__done" aria-label="Complete"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg></span></span><span class="ds-member__chips"><span class="ds-chip">Head of household</span><span class="ds-chip ds-chip--lilac">7 to go</span></span><a class="ds-icon-btn ds-icon-btn--square" href="#edit1" aria-label="Edit John Doe"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m2.695 14.762-1.262 3.155a.5.5 0 0 0 .65.65l3.155-1.262a4 4 0 0 0 1.343-.886L17.5 5.501a2.121 2.121 0 0 0-3-3L3.58 13.419a4 4 0 0 0-.885 1.343Z"/></svg></a></div>
+<div class="ds-member"><svg class="ds-icon ds-icon--lg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z"/></svg><span class="ds-member__name">Jessica Doe</span><span class="ds-member__chips"></span><a class="ds-icon-btn ds-icon-btn--square" href="#edit2" aria-label="Edit Jessica Doe"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m2.695 14.762-1.262 3.155a.5.5 0 0 0 .65.65l3.155-1.262a4 4 0 0 0 1.343-.886L17.5 5.501a2.121 2.121 0 0 0-3-3L3.58 13.419a4 4 0 0 0-.885 1.343Z"/></svg></a></div>
+<div><button class="ds-btn ds-btn--success ds-btn--arrow" type="button" style="min-width:424px">Add someone to my household <svg class="ds-icon ds-icon--lg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/></svg></button></div>
+</div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

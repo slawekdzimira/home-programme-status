@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="staff">
+<div class="pv" style="padding:0;gap:12px">
+<span class="ds-select"><select aria-label="Status"><option>Status</option><option>Corrections</option><option>In progress</option></select><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg></span>
+<span class="ds-select"><select aria-label="Case type"><option>Case type</option></select><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg></span>
+<span class="ds-select"><select aria-label="All properties"><option>All properties</option></select><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"/></svg></span>
+</div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

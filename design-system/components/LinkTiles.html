@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="resident">
+<nav class="ds-tiles" aria-label="Quick actions">
+<a class="ds-tile-link" href="#a"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"/></svg><span class="ds-tile-link__title">My applications</span><span class="ds-tile-link__text">Waiting lists and where you stand</span></a>
+<a class="ds-tile-link" href="#b"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"/></svg><span class="ds-tile-link__title">My voucher</span><span class="ds-tile-link__text">Voucher details and what you can afford</span></a>
+<a class="ds-tile-link" href="#c"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="m2.695 14.762-1.262 3.155a.5.5 0 0 0 .65.65l3.155-1.262a4 4 0 0 0 1.343-.886L17.5 5.501a2.121 2.121 0 0 0-3-3L3.58 13.419a4 4 0 0 0-.885 1.343Z"/></svg><span class="ds-tile-link__title">Report a change</span><span class="ds-tile-link__text">New job, new baby, someone moved out</span></a>
+</nav>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

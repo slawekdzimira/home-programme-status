@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="staff">
+<div class="ds-table-wrap"><table class="ds-table">
+<thead><tr><th scope="col">Case ID</th><th scope="col">Resident / household</th><th scope="col">What it needs</th><th scope="col">Owner</th><th scope="col">Status</th><th scope="col">Due date</th></tr></thead>
+<tbody>
+<tr><td class="ds-table__id">TC-CARA-007</td><td>Viktor Petrov<span class="ds-table__sub">Unit 210</span></td><td class="ds-table__muted">14 documents still missing</td><td>Marcus Lee</td><td><span class="ds-tag ds-tag--steel">Corrections</span></td><td class="ds-table__muted">Aug 01, 2026</td></tr>
+<tr><td class="ds-table__id">TC-CARA-011</td><td>Ana Ruiz<span class="ds-table__sub">Unit 104</span></td><td class="ds-table__muted">7 documents still missing</td><td>Dana Whitefield</td><td><span class="ds-tag ds-tag--violet">In progress</span></td><td class="ds-table__muted">Aug 01, 2026</td></tr>
+<tr><td class="ds-table__id">TC-CARA-015</td><td>Lee Chen<span class="ds-table__sub">Unit 305</span></td><td class="ds-table__muted">Assemble and finalize the packet</td><td>Unassigned</td><td><span class="ds-tag ds-tag--steel">Corrections</span></td><td class="ds-table__muted">-</td></tr>
+</tbody></table></div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

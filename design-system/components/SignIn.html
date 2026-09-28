@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:16px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="resident">
+<div class="ds-signin" style="border-radius:var(--radius-xl);overflow:hidden">
+<div class="ds-signin__brand"><img src="../assets/caraway-lockup-on-band.png" alt="Caraway" height="70" style="mix-blend-mode:lighten"></div>
+<div class="ds-signin__card" style="border-radius:60px 60px 0 0">
+<h1 class="ds-signin__title">Sign in <b>Caraway</b></h1>
+<p class="ds-signin__lede">Sign in to check your application status, upload documents, and complete tasks.</p>
+<form class="ds-signin__form" onsubmit="return false">
+<div class="ds-field"><label class="ds-field__label" for="em">Email</label><input class="ds-input" id="em" type="email" placeholder="your@email.com"></div>
+<div class="ds-field"><label class="ds-field__label" for="pw">Password</label><input class="ds-input" id="pw" type="password" placeholder="Enter your password"></div>
+<a class="ds-signin__forgot" href="#forgot">Forgot your password?</a>
+<button class="ds-btn ds-btn--primary ds-btn--lg ds-btn--arrow" type="submit">Sign in <svg class="ds-icon ds-icon--lg" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg></button>
+</form>
+<p class="ds-signin__alt">Are you a staff member? <b>Staff login</b></p>
+</div></div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

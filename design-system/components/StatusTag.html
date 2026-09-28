@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="staff">
+<div class="pv" style="padding:0;gap:10px">
+<span class="ds-tag ds-tag--magenta">Missing</span><span class="ds-tag ds-tag--brown">Uploaded</span><span class="ds-tag ds-tag--green">Pending</span>
+<span class="ds-tag ds-tag--steel">Corrections</span><span class="ds-tag ds-tag--violet">In progress</span><span class="ds-tag ds-tag--blue">Intake</span>
+<span class="ds-tag ds-tag--olive">Caraway Commons (LIHTC 4% + HOME)</span><span class="ds-tag ds-tag--red">11</span>
+<span class="ds-tag ds-tag--neutral">TC-CARA-001</span><span class="ds-tag ds-tag--neutral">Unit 103</span><span class="ds-tag ds-tag--blue ds-tag--lg">Unassigned</span>
+</div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

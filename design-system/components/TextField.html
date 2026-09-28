@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>body{margin:0}.pv{padding:24px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pv--col{flex-direction:column;align-items:stretch;flex-wrap:nowrap}.pv--grid{display:grid;gap:16px}</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="ds-root" data-portal="resident">
+<div class="pv pv--grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));padding:0">
+<div class="ds-field"><label class="ds-field__label" for="f1">Whose income is this?*</label>
+<span class="ds-field__hint">Use their name exactly as you listed them under your household members.</span>
+<input class="ds-input" id="f1" placeholder="Your name"></div>
+<div class="ds-field"><label class="ds-field__label" for="f2">What is your date of birth?*</label>
+<span class="ds-field__hint">Photograph your ID or type it below.</span>
+<div class="ds-input-wrap"><span class="ds-input-wrap__icon"><svg class="ds-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"/></svg></span><input class="ds-input" id="f2" value="10.10.2026"></div></div>
+<div class="ds-field"><label class="ds-field__label" for="f3">Tell us why you can't provide this</label>
+<textarea class="ds-input ds-input--area" id="f3" placeholder="Type text" style="min-height:96px"></textarea></div>
+<div class="ds-field ds-field--invalid"><label class="ds-field__label" for="f4">How much each time?*</label>
+<input class="ds-input" id="f4" value="12,40o"><span class="ds-field__error">Enter an amount in dollars, like 1240.00</span></div>
+</div>
+</div>
+<script>
+(function () {
+  var root = document.documentElement;
+  function paint() {
+    var aa = /-aa$/.test(root.getAttribute('data-theme') || '');
+    document.querySelectorAll('[data-portal]').forEach(function (el) {
+      el.setAttribute('data-theme', el.getAttribute('data-portal') + (aa ? '-aa' : ''));
+    });
+  }
+  paint();
+  new MutationObserver(paint).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  document.addEventListener('click', function (e) {
+    var opt = e.target.closest('.ds-seg__opt, .ds-tabs__tab');
+    if (!opt) return;
+    var group = opt.parentElement;
+    var attr = opt.classList.contains('ds-tabs__tab') ? 'aria-selected' : 'aria-pressed';
+    group.querySelectorAll('[' + attr + ']').forEach(function (b) { b.setAttribute(attr, 'false'); });
+    opt.setAttribute(attr, 'true');
+  });
+})();
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

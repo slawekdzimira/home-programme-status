@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body { margin: 0; }
+  .cover { position: relative; width: 960px; height: 288px; overflow: hidden; background: var(--surface-page); font-family: var(--font-sans); }
+  .cover svg { position: absolute; inset: 0; }
+  .b-res { fill: var(--brand); }
+  .b-res-raised { fill: var(--brand-raised); }
+  .b-staff { fill: var(--brand); }
+  .b-accent { fill: var(--accent); }
+  .b-success { fill: var(--success); }
+  .b-lilac { fill: var(--chip-lilac); }
+  .r-card { rx: var(--radius-card); }
+  .r-shell { rx: var(--radius-shell); }
+  .r-xl { rx: var(--radius-xl); }
+  .r-pill-52 { rx: 26px; }
+  .r-pill-26 { rx: 13px; }
+  .name { position: absolute; left: 40px; bottom: 44px; width: 440px; }
+  .name h1 { margin: 0; font: 700 88px/0.95 var(--font-sans); color: var(--ink); letter-spacing: -1px; }
+  .name p { margin: 12px 0 0; font: 400 14px/20px var(--font-sans); color: var(--ink-muted); }
+</style>
+<link rel="stylesheet" href="../css/ds-tokens.css"><link rel="stylesheet" href="../css/ds.css"><meta name="robots" content="noindex, nofollow"></head>
+<body>
+<div class="cover">
+<svg viewBox="0 0 960 288" width="960" height="288" aria-hidden="true">
+  <!-- blocks: resident brand slab 200x288 (radius-card), staff brand 244x132 bleeding right (radius-shell),
+       success pill 180x52 (size-field, half-height radius), accent disc 52, chip-lilac 120x48 (radius-xl).
+       arrangement: one tall slab with satellites, the staff block running off the right edge.
+       pattern: pills from radius-pill, three nav pills in brand-raised stacked on the resident slab - the
+       header band's nav pills, chosen because the system's shapes are soft, large-radius pills and cards.
+       steps and radii: space-24 gaps, space-16 insets, radius-card 36, radius-shell 40, radius-xl 16, pills at half height. -->
+  <rect class="b-res r-card" x="500" y="-36" width="200" height="324"/>
+  <rect class="b-res-raised r-pill-26" x="520" y="40" width="160" height="26"/>
+  <rect class="b-res-raised r-pill-26" x="520" y="78" width="116" height="26"/>
+  <rect class="b-res-raised r-pill-26" x="520" y="116" width="136" height="26"/>
+  <g data-theme="staff">
+    <rect class="b-staff r-shell" x="724" y="24" width="276" height="132"/>
+    <rect class="b-accent r-pill-52" x="908" y="180" width="52" height="52"/>
+  </g>
+  <rect class="b-success r-pill-52" x="724" y="180" width="160" height="52"/>
+  <rect class="b-lilac r-xl" x="724" y="256" width="120" height="48"/>
+</svg>
+<div class="name"><h1>Home ERP</h1><p>One component layer for the resident portal and the staff portal.</p></div>
+</div>
+<script>
+  document.querySelectorAll('[data-theme="staff"]').forEach(function (g) {
+    var aa = /-aa$/.test(document.documentElement.getAttribute('data-theme') || '');
+    g.setAttribute('data-theme', aa ? 'staff-aa' : 'staff');
+  });
+</script>
+<script src="../js/bundle.js"></script><script>(function(){var aa=/[?&]aa=1/.test(location.search);document.documentElement.setAttribute("data-theme", aa ? "resident-aa" : "resident");if(window.HomeERP) HomeERP.paint();})();</script></body>
+</html>

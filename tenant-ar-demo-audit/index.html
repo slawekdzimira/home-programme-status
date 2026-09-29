@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Tenant AR Demo Defects</title>
+<meta name="description" content="Defects found by clicking through the tenant annual recertification demo, compared screen by screen with DMS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Poppins:wght@500;600&display=swap">
+<style>
+:root {
+  --ground: #f4f3f8;
+  --surface: #ffffff;
+  --sunk: #eeecf5;
+  --ink: #1a1530;
+  --muted: #5d5873;
+  --line: #e0dcea;
+  --brand: #2f0b7c;
+  --brand-soft: #ebe5fa;
+  --dms: #00665c;
+  --dms-soft: #dff5f1;
+  --blocker: #b3261e;
+  --blocker-soft: #fbe7e5;
+  --major: #8a4c00;
+  --major-soft: #fdf0dc;
+  --minor: #3f4a63;
+  --minor-soft: #e7ebf3;
+  --focus: #622cd6;
+  --shadow: 0 1px 2px rgb(26 21 48 / 0.06), 0 8px 24px rgb(26 21 48 / 0.06);
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --display: "Poppins", "IBM Plex Sans", "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --ground: #121019; --surface: #1b1826; --sunk: #231f31; --ink: #ece9f6; --muted: #a49eba; --line: #302b41;
+    --brand: #c2adff; --brand-soft: #2a2144; --dms: #6fe0cf; --dms-soft: #14302c;
+    --blocker: #ff9a90; --blocker-soft: #3a1714; --major: #ffc46b; --major-soft: #33240d; --minor: #b5c0da; --minor-soft: #232a3a;
+    --focus: #b9a2ff; --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ground: #121019; --surface: #1b1826; --sunk: #231f31; --ink: #ece9f6; --muted: #a49eba; --line: #302b41;
+  --brand: #c2adff; --brand-soft: #2a2144; --dms: #6fe0cf; --dms-soft: #14302c;
+  --blocker: #ff9a90; --blocker-soft: #3a1714; --major: #ffc46b; --major-soft: #33240d; --minor: #b5c0da; --minor-soft: #232a3a;
+  --focus: #b9a2ff; --shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+}
+* { box-sizing: border-box; }
+body { background: var(--ground); color: var(--ink); font: 16px/1.6 var(--sans); padding-inline: 16px; padding-block: 0 64px; }
+a { color: var(--brand); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+code { font: 0.86em/1.4 var(--mono); background: var(--sunk); padding: 0.05em 0.35em; border-radius: 4px; overflow-wrap: anywhere; }
+.wrap { max-width: 1120px; margin: 0 auto; }
+.masthead { padding-block: 40px 24px; border-bottom: 1px solid var(--line); }
+.eyebrow { font: 500 0.78rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+h1 { font: 600 clamp(1.8rem, 4vw, 2.6rem)/1.15 var(--display); letter-spacing: -0.015em; margin: 0 0 14px; text-wrap: balance; max-width: 22ch; }
+.lead { font-size: 1.1rem; max-width: 68ch; margin: 0 0 22px; }
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 28px; margin: 0; }
+.meta div { min-width: 0; }
+.meta dt { font: 500 0.74rem/1.2 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.meta dd { margin: 0; font-size: 0.93rem; overflow-wrap: anywhere; }
+.overview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 20px; padding-block: 28px; }
+@media (max-width: 820px) { .overview { grid-template-columns: 1fr; } }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; box-shadow: var(--shadow); min-width: 0; }
+.panel h2 { font: 600 1.05rem/1.3 var(--display); margin: 0 0 14px; }
+.tally { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.tally div { flex: 1 1 90px; border-radius: 10px; padding: 10px 12px; }
+.tally b { display: block; font: 600 1.9rem/1 var(--display); font-variant-numeric: tabular-nums; }
+.tally span { font-size: 0.85rem; }
+.tally .blocker { background: var(--blocker-soft); color: var(--blocker); }
+.tally .major { background: var(--major-soft); color: var(--major); }
+.tally .minor { background: var(--minor-soft); color: var(--minor); }
+.legend { font-size: 0.88rem; color: var(--muted); margin: 0; padding-left: 18px; }
+.legend li + li { margin-top: 4px; }
+.legend b { color: var(--ink); }
+.toc { list-style: none; margin: 16px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.toc li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); font-size: 0.93rem; }
+.mini { display: flex; gap: 4px; flex-shrink: 0; }
+.dot { font: 500 0.72rem/1 var(--mono); font-style: normal; min-width: 22px; text-align: center; padding: 4px 5px; border-radius: 99px; }
+.dot.blocker { background: var(--blocker-soft); color: var(--blocker); }
+.dot.major { background: var(--major-soft); color: var(--major); }
+.dot.minor { background: var(--minor-soft); color: var(--minor); }
+.first { margin: 0; padding-left: 26px; }
+.first li { padding: 6px 0; border-bottom: 1px dashed var(--line); font-size: 0.95rem; }
+.first li:last-child { border-bottom: 0; }
+.first a { color: var(--ink); text-decoration: none; }
+.first a:hover { color: var(--brand); text-decoration: underline; }
+.note { font-size: 0.86rem; color: var(--muted); margin: 14px 0 0; }
+.filters { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ground); padding-block: 12px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; border-bottom: 1px solid var(--line); }
+.filters span { font: 500 0.78rem/1 var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-right: 4px; }
+.chip { font: 500 0.88rem/1 var(--sans); border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 99px; padding: 8px 14px; cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.area h2 { font: 600 1.35rem/1.25 var(--display); margin: 40px 0 16px; padding-top: 8px; }
+.finding { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; box-shadow: var(--shadow); scroll-margin-top: 72px; }
+.finding[data-sev="blocker"] { border-left: 4px solid var(--blocker); }
+.finding[data-sev="major"] { border-left: 4px solid var(--major); }
+.finding[data-sev="minor"] { border-left: 4px solid var(--minor); }
+.fhead { display: grid; grid-template-columns: auto auto 1fr; gap: 6px 10px; align-items: baseline; }
+.fhead h3 { font: 600 1.08rem/1.35 var(--display); margin: 0; text-wrap: balance; }
+@media (max-width: 560px) { .fhead { grid-template-columns: auto 1fr; } .fhead h3 { grid-column: 1 / -1; } }
+.fid { font: 500 0.82rem/1 var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.sev { font: 600 0.72rem/1 var(--sans); letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; }
+.sev.blocker { background: var(--blocker-soft); color: var(--blocker); }
+.sev.major { background: var(--major-soft); color: var(--major); }
+.sev.minor { background: var(--minor-soft); color: var(--minor); }
+.where { font-size: 0.86rem; color: var(--muted); margin: 8px 0 14px; }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 760px) { .compare { grid-template-columns: 1fr; } }
+.col { border-radius: 10px; padding: 12px 14px; min-width: 0; }
+.col.now { background: var(--sunk); }
+.col.target { background: var(--dms-soft); }
+.col h4 { font: 500 0.74rem/1 var(--mono); letter-spacing: 0.07em; text-transform: uppercase; margin: 0 0 8px; color: var(--muted); }
+.col.target h4 { color: var(--dms); }
+.col p { margin: 0; font-size: 0.94rem; }
+.col .ref { margin-top: 10px; font-size: 0.8rem; color: var(--muted); }
+.fix { margin: 14px 0 0; font-size: 0.95rem; display: flex; gap: 10px; align-items: flex-start; }
+.fix p { margin: 0; min-width: 0; flex: 1; }
+.fix .lbl { flex-shrink: 0; font: 600 0.72rem/1.9 var(--sans); letter-spacing: 0.05em; text-transform: uppercase; color: var(--brand); background: var(--brand-soft); padding: 0 8px; border-radius: 6px; height: fit-content; }
+.repro { margin-top: 12px; font-size: 0.92rem; }
+.repro summary { cursor: pointer; color: var(--brand); font-weight: 500; }
+.repro ol { margin: 8px 0 0; padding-left: 22px; }
+.evidence { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 16px; }
+.shot { margin: 0; min-width: 0; }
+.zoom { display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--sunk); cursor: zoom-in; }
+.zoom img { display: block; width: 100%; height: 200px; object-fit: cover; object-position: top center; }
+.shot figcaption { font-size: 0.82rem; color: var(--muted); margin-top: 6px; display: flex; gap: 6px; align-items: baseline; }
+.tag { font: 600 0.68rem/1 var(--sans); text-transform: uppercase; letter-spacing: 0.04em; padding: 3px 6px; border-radius: 4px; flex-shrink: 0; }
+.tag.demo { background: var(--sunk); color: var(--ink); border: 1px solid var(--line); }
+.tag.dms { background: var(--dms-soft); color: var(--dms); }
+.sources { margin-top: 44px; }
+.sources h2 { font: 600 1.2rem/1.3 var(--display); margin: 0 0 12px; }
+.sources dl { display: grid; grid-template-columns: 200px 1fr; gap: 8px 18px; margin: 0; font-size: 0.92rem; }
+@media (max-width: 640px) { .sources dl { grid-template-columns: 1fr; } }
+.sources dt { color: var(--muted); }
+.sources dd { margin: 0; overflow-wrap: anywhere; }
+dialog.lightbox { border: 0; padding: 0; background: transparent; max-width: min(1200px, 96vw); max-height: 94vh; }
+dialog.lightbox::backdrop { background: rgb(10 8 18 / 0.78); }
+dialog.lightbox img { display: block; max-width: 100%; max-height: 86vh; border-radius: 8px; }
+dialog.lightbox p { color: #fff; font-size: 0.9rem; margin: 8px 0 0; }
+dialog.lightbox button { position: absolute; top: 8px; right: 8px; border: 0; border-radius: 99px; background: rgb(0 0 0 / 0.6); color: #fff; font-size: 1rem; width: 36px; height: 36px; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <p class="eyebrow">Defect report &middot; 29 Sep 2026</p>
+    <h1>Tenant AR demo against the real DMS flow</h1>
+    <p class="lead">The hidden demo at <code>tenant-ar-demo.html</code> is meant to show the DMS tenant annual recertification one to one. It does not yet: 4 defects break it in front of a viewer or lose their progress, and most screens differ from DMS in steps, copy, components, loaders and images. 44 findings below, each with where it happens in the demo, what DMS does, the fix and a way to reproduce.</p>
+    <dl class="meta">
+      <div><dt>Tested</dt><dd><a href="https://hcv-portal-stage.home.kruko.co/tenant-ar-demo.html?fresh=1#/family-members/edit">hcv-portal-stage.home.kruko.co/tenant-ar-demo.html</a>, assets as deployed on 29 Sep 2026 07:58 UTC</dd></div>
+      <div><dt>How</dt><dd>Every screen clicked in Chromium (Playwright): desktop 1440&times;900, phone 390&times;844, Slow 4G, plus targeted probes of storage, routing and modals</dd></div>
+      <div><dt>Compared with</dt><dd>DMS.UI.Tenant <code>main</code> at <code>d7adaf8b</code> (code and <code>messages/en-us.json</code>), and a screen recording of the live participant portal from August 2026 for the visuals</dd></div>
+      <div><dt>Scope</dt><dd>HCV annual flow. PBRA-only and interim screens are left out</dd></div>
+    </dl>
+  </header>
+
+  <div class="overview">
+    <div class="panel">
+      <h2>What was found</h2>
+      <div class="tally">
+        <div class="blocker"><b>4</b><span>Blocker</span></div>
+        <div class="major"><b>34</b><span>Major</span></div>
+        <div class="minor"><b>6</b><span>Minor</span></div>
+      </div>
+      <ul class="legend">
+        <li><b>Blocker</b>: breaks the demo in front of a viewer or loses what they entered.</li>
+        <li><b>Major</b>: someone who knows DMS sees a different screen, step or behaviour.</li>
+        <li><b>Minor</b>: a copy, icon or style detail.</li>
+      </ul>
+      <ul class="toc"><li><a href="#area-loaders">Loaders and saving feedback</a><span class="mini"><i class="dot major" title="3 Major">3</i></span></li><li><a href="#area-documents">Documents, uploads and photos</a><span class="mini"><i class="dot blocker" title="2 Blocker">2</i> <i class="dot major" title="5 Major">5</i></span></li><li><a href="#area-chrome">Menu, navigation and page chrome</a><span class="mini"><i class="dot blocker" title="2 Blocker">2</i> <i class="dot major" title="7 Major">7</i></span></li><li><a href="#area-household">Household members</a><span class="mini"><i class="dot major" title="6 Major">6</i> <i class="dot minor" title="2 Minor">2</i></span></li><li><a href="#area-finances">Family finances</a><span class="mini"><i class="dot major" title="4 Major">4</i> <i class="dot minor" title="2 Minor">2</i></span></li><li><a href="#area-ack">Acknowledgement and emergency contact</a><span class="mini"><i class="dot major" title="3 Major">3</i></span></li><li><a href="#area-sign">Summary, signing and completion</a><span class="mini"><i class="dot major" title="4 Major">4</i> <i class="dot minor" title="1 Minor">1</i></span></li><li><a href="#area-phone">Phone layout</a><span class="mini"><i class="dot major" title="1 Major">1</i> <i class="dot minor" title="1 Minor">1</i></span></li><li><a href="#area-demo">Demo-only controls</a><span class="mini"><i class="dot major" title="1 Major">1</i></span></li></ul>
+    </div>
+    <div class="panel">
+      <h2>Fix these first</h2>
+      <ol class="first"><li><a href="#AR-04"><span class="fid">AR-04</span> Every sample document image is broken</a></li><li><a href="#AR-05"><span class="fid">AR-05</span> One real phone photo silently stops all saving, and a reload loses the progress</a></li><li><a href="#AR-11"><span class="fid">AR-11</span> On a phone the menu opens underneath the page and cannot be used</a></li><li><a href="#AR-18"><span class="fid">AR-18</span> Anyone can submit an empty recertification from a link, and a submitted one stays editable</a></li><li><a href="#AR-01"><span class="fid">AR-01</span> No loader anywhere: a blank white page on open, and every step jumps without feedback</a></li><li><a href="#AR-02"><span class="fid">AR-02</span> The file-processing screen is the wrong screen with the wrong copy</a></li><li><a href="#AR-06"><span class="fid">AR-06</span> The review screen shows a document preview that DMS does not have, and it fails for photos, PDFs and HEIC</a></li><li><a href="#AR-17"><span class="fid">AR-17</span> Confirmation modals stay open on the next screen and look different from DMS</a></li><li><a href="#AR-16"><span class="fid">AR-16</span> The scroll position carries over, so new screens open halfway down</a></li><li><a href="#AR-19"><span class="fid">AR-19</span> The <code>?fresh=1</code> in the shared link does nothing</a></li></ol>
+      <p class="note">Quoted DMS copy comes from <code>messages/en-us.json</code> at <code>d7adaf8b</code>; punctuation is normalised on this page, so copy the strings from the file (line numbers are given). File references in the demo point at the deployed <code>assets/pha-ar-demo/</code> files. Recording timestamps refer to the August capture.</p>
+    </div>
+  </div>
+
+  <nav class="filters" aria-label="Filter by severity">
+    <span>Show</span>
+    <button type="button" class="chip" data-filter="all" aria-pressed="true">All 44</button>
+    <button type="button" class="chip" data-filter="blocker" aria-pressed="false">Blocker 4</button>
+    <button type="button" class="chip" data-filter="major" aria-pressed="false">Major 34</button>
+    <button type="button" class="chip" data-filter="minor" aria-pressed="false">Minor 6</button>
+  </nav>
+
+  <section class="area" id="area-loaders"><h2>Loaders and saving feedback</h2>
+<article class="finding" id="AR-01" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-01</span>
+    <span class="sev major">Major</span>
+    <h3>No loader anywhere: a blank white page on open, and every step jumps without feedback</h3>
+  </header>
+  <p class="where">every route &middot; <code>tenant-ar-demo.html</code> (empty <code>&lt;div data-tenant-root&gt;</code>), <code>tenant.js:1658-1667</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Nothing is painted until <code>persona.json</code> has loaded: the page is plain white for about 1.0 s on desktop and 2 s on a phone on a Slow 4G profile (measured, frames below). After that, every button swaps the screen instantly, so answers and saves give no sign that anything happened.</p></div>
+    <div class="col target"><h4>In DMS</h4><p><code>LoadingView</code> opens on page load and on every save: blurred backdrop, the 94 px modal banner strip, a 65 px turquoise circle with a purple cog turning once every 4 s, the title &ldquo;Please take a moment of patience&rdquo; with animated trailing dots, and the body &ldquo;We are downloading the latest data&rdquo; (loading) or &ldquo;We are processing your request&rdquo; (saving). It is a native <code>&lt;dialog&gt;</code>, so focus is trapped. Buttons never show their own spinner; they are only disabled.</p><p class="ref">Source: <code>src/components/loading-view/LoadingView.tsx:33-53</code>, <code>src/styles/animations.css:1-50</code>, <code>en-us.json:15-17</code>; seen at 0:28, 0:36 and 11:40 of the recording</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Put the purple solid-layout ground and a static copy of the LoadingView card straight into <code>tenant-ar-demo.html</code>, so the first paint is never white, and remove it once <code>demo.init()</code> resolves. Show the same card with the &ldquo;processing your request&rdquo; body for 600 to 900 ms on every action that saves in DMS: Yes/No answers, Save, Confirm, Sign, Submit.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open a private window with DevTools &gt; Network set to Slow 4G.</li><li>Load <code>https://hcv-portal-stage.home.kruko.co/tenant-ar-demo.html?fresh=1#/family-members/edit</code> and watch the first 2 seconds.</li><li>Click <b>Skip</b>: the next screen appears with no loader.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-slow-strip.jpg" data-cap="Demo: Demo on a phone, Slow 4G, at 0.5 s, 1.0 s, 1.5 s and 2.0 s"><img src="img/demo-slow-strip.jpg" alt="Demo: Demo on a phone, Slow 4G, at 0.5 s, 1.0 s, 1.5 s and 2.0 s" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo on a phone, Slow 4G, at 0.5 s, 1.0 s, 1.5 s and 2.0 s</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-loader.jpg" data-cap="DMS: DMS while loading the next step"><img src="img/dms-loader.jpg" alt="DMS: DMS while loading the next step" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS while loading the next step</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-action-loader.jpg" data-cap="DMS: DMS while saving the member summary"><img src="img/dms-action-loader.jpg" alt="DMS: DMS while saving the member summary" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS while saving the member summary</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-02" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-02</span>
+    <span class="sev major">Major</span>
+    <h3>The file-processing screen is the wrong screen with the wrong copy</h3>
+  </header>
+  <p class="where"><code>#/document/&lt;id&gt;/process</code> &middot; <code>tenant.js:927-942</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Processing reuses the content layout: the document name as the page title, the processing sentence as the paragraph, and inside a dashed dropzone a purple cog with &ldquo;Please wait, file is being uploaded&rdquo;. The text is shown even after <b>Use demo packet</b>, when nothing is uploaded. It always lasts exactly 1.8 s.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Two separate states. While a file is uploading, the dropzone content becomes a slowly turning cog and &ldquo;Please wait, file is being uploaded&rdquo; with animated dots. After <b>Continue</b>, a full-page splash (<code>DropzoneProcessing</code>): turquoise circle with a turning cog, header &ldquo;Processing&rdquo; with animated dots, and &ldquo;We&rsquo;re currently processing your file. This may take a few seconds, please don&rsquo;t close the window.&rdquo; After 20 s the text fades to &ldquo;It&rsquo;s taking longer than expected. Please, be patient.&rdquo; No percentage, no progress bar.</p><p class="ref">Source: <code>src/components/dropzone/DropzoneProcessing.tsx:7-43</code>, <code>src/components/dropzone/Dropzone.tsx:22-26</code>, <code>en-us.json:260, 368-372</code>; recording 9:46</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Render the process route with <code>mountSolid()</code> and a turquoise cog circle, header &ldquo;Processing&rdquo; with the dot animation and the DMS sentence. Move &ldquo;Please wait, file is being uploaded&rdquo; into the dropzone and show it only while <code>FileReader</code> is reading a real file.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Menu &gt; Family Members &gt; pencil on Maya Solis &gt; <b>Social Security card</b>.</li><li>Click <b>Use demo packet</b> and look at the next screen.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-processing.jpg" data-cap="Demo: Demo processing"><img src="img/demo-processing.jpg" alt="Demo: Demo processing" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo processing</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-processing.jpg" data-cap="DMS: DMS processing"><img src="img/dms-processing.jpg" alt="DMS: DMS processing" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS processing</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-03" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-03</span>
+    <span class="sev major">Major</span>
+    <h3>No confirmation toasts after saving</h3>
+  </header>
+  <p class="where">all save actions</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Nothing confirms a save. The viewer cannot tell whether an answer was recorded.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>react-toastify, top right, 5 s auto-close, green check, close button and a progress line. Examples: &ldquo;Documents acknowledgement saved.&rdquo;, &ldquo;Acknowledgement questions saved.&rdquo;, &ldquo;Accommodation information saved.&rdquo;, &ldquo;Emergency contact saved successfully.&rdquo;, &ldquo;Data saved successfully&rdquo;, &ldquo;Document updated successfully.&rdquo; (after Yes on an existing income), &ldquo;Signature style saved successfully.&rdquo;, &ldquo;Document signed successfully.&rdquo;, &ldquo;Data removed successfully&rdquo;, and the info toast &ldquo;You do not have a Head of Household.&rdquo; when the head is removed.</p><p class="ref">Source: <code>src/app/[locale]/layout.tsx:133</code>, <code>src/components/toast/utils.ts:4-26</code>, <code>src/styles/ux.css:63-77</code>; recording 3:16</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Add one toast helper and call it at the same points as DMS, with the same strings.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Go through Acknowledgment &gt; Reasonable Accommodation &gt; Emergency Contact &gt; Continue.</li></ol></details>
+  <div class="evidence"><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-toast.jpg" data-cap="DMS: DMS toast after the reasonable accommodation step"><img src="img/dms-toast.jpg" alt="DMS: DMS toast after the reasonable accommodation step" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS toast after the reasonable accommodation step</figcaption></figure></div>
+</article></section><section class="area" id="area-documents"><h2>Documents, uploads and photos</h2>
+<article class="finding" id="AR-04" data-sev="blocker">
+  <header class="fhead">
+    <span class="fid">AR-04</span>
+    <span class="sev blocker">Blocker</span>
+    <h3>Every sample document image is broken</h3>
+  </header>
+  <p class="where">all <code>Review &amp; Confirm Information</code> screens &middot; <code>assets/pha-ar-demo/docs/{id,ssc,birth-cert,ssi,bank,medicare}.svg</code>, lines 4 and 11</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>All six sample SVGs contain the control byte <code>0x14</code> (a mangled dash) in the banner text on line 4 (<code>CARD \x14 DEMO</code>) and an invalid byte in the footer on line 11. XML does not allow that byte, so the browser refuses the file and shows a broken-image icon with the alt text (&ldquo;Social Security card preview&rdquo;). Checked: <code>naturalWidth</code> is 0 for all six, and an XML parser reports &ldquo;not well-formed (invalid token): line 4&rdquo;.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>DMS shows no image here at all (see <a href="#AR-06">AR-06</a>).</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Replace the byte with a plain hyphen, save the files as UTF-8 and add <code>xmllint --noout assets/pha-ar-demo/docs/*.svg</code> to the build. The files are still needed as the thing the file-name link opens (<a href="#AR-10">AR-10</a>).</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Pencil on Maya Solis &gt; <b>Social Security card</b> &gt; <b>Use demo packet</b>.</li><li>Wait for the review screen: the top of the card shows a broken image.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-preview-broken.jpg" data-cap="Demo: Demo review screen: broken image above the fields"><img src="img/demo-preview-broken.jpg" alt="Demo: Demo review screen: broken image above the fields" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo review screen: broken image above the fields</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-05" data-sev="blocker">
+  <header class="fhead">
+    <span class="fid">AR-05</span>
+    <span class="sev blocker">Blocker</span>
+    <h3>One real phone photo silently stops all saving, and a reload loses the progress</h3>
+  </header>
+  <p class="where">any upload &middot; <code>store.js:133-139</code> (<code>persist()</code>), <code>store.js:368-373</code>, <code>tenant.js:326-337</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Uploads are stored as <code>data:</code> URLs inside the one localStorage entry. A 5.6 MB phone JPEG becomes 7.4 million characters, <code>setItem</code> throws <code>QuotaExceededError</code>, and <code>persist()</code> ignores it. From then on nothing is saved. In the test, after the photo the Social Security card and the birth certificate of the new member were confirmed; a reload brought the viewer back to the ID upload with both confirmations gone, and the Summary then listed 3 issues.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Files are uploaded to the server; nothing is lost on reload.</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Never put file bytes in localStorage. Keep the <code>File</code> in memory or in IndexedDB keyed by slot id and store only <code>{name, size, type}</code> in the state. If any save fails, show an error toast instead of ignoring it.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Menu &gt; Family Members &gt; <b>Add new member +</b> &gt; Continue.</li><li>Choose a real phone photo (3 MB or more) and Continue through two documents.</li><li>Reload the page.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-quota-reload.jpg" data-cap="Demo: After the reload: back on the ID upload, the two confirmed documents are gone"><img src="img/demo-quota-reload.jpg" alt="Demo: After the reload: back on the ID upload, the two confirmed documents are gone" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>After the reload: back on the ID upload, the two confirmed documents are gone</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-summary.jpg" data-cap="Demo: Summary after the reload: 3 issues for the new member"><img src="img/demo-summary.jpg" alt="Demo: Summary after the reload: 3 issues for the new member" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Summary after the reload: 3 issues for the new member</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-06" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-06</span>
+    <span class="sev major">Major</span>
+    <h3>The review screen shows a document preview that DMS does not have, and it fails for photos, PDFs and HEIC</h3>
+  </header>
+  <p class="where"><code>#/document/&lt;id&gt;/review</code> &middot; <code>tenant.js:944-977</code> (preview at 947-951)</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>An <code>&lt;img&gt;</code> preview sits above a single column of fields, with no card title, and the button says <b>Confirm and continue</b>. A portrait phone photo is squeezed into 16 rem of height; a PDF shows a broken image because <code>&lt;img&gt;</code> cannot render <code>application/pdf</code>; HEIC, which the dropzone lists as allowed, cannot be rendered by Chrome, Edge or Firefox.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>There is no preview of an uploaded file anywhere in DMS: no thumbnail, carousel or zoom. The review page is one white card titled &ldquo;Extracted Data&rdquo; with a responsive grid of fields (columns at least 280 px wide) and the buttons <b>Back</b> and <b>Continue</b>. Income, asset and expense documents use stacked cards (&ldquo;Information&rdquo;, &ldquo;Income&rdquo;, &ldquo;Pay period&rdquo; and so on) and <b>Save &amp; continue</b>.</p><p class="ref">Source: <code>src/modules/recertification/documentsReviewForms/*</code>, <code>IncomeReviewForm.tsx:1218-1302</code>; recording 10:16</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Remove <code>.home-preview</code> from the review route, add the &ldquo;Extracted Data&rdquo; card title, lay the fields out in the DMS grid and rename the buttons.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Add new member &gt; Continue &gt; upload a phone photo &gt; Continue, then on the next document upload a PDF &gt; Continue.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-photo-review.jpg" data-cap="Demo: Demo: phone photo squeezed, fields empty"><img src="img/demo-photo-review.jpg" alt="Demo: Demo: phone photo squeezed, fields empty" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: phone photo squeezed, fields empty</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-pdf-review.jpg" data-cap="Demo: Demo: PDF shows a broken image"><img src="img/demo-pdf-review.jpg" alt="Demo: Demo: PDF shows a broken image" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: PDF shows a broken image</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-review.jpg" data-cap="DMS: DMS: Extracted Data card, no preview"><img src="img/dms-review.jpg" alt="DMS: DMS: Extracted Data card, no preview" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS: Extracted Data card, no preview</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-07" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-07</span>
+    <span class="sev major">Major</span>
+    <h3>Extracted fields do not match DMS for any document type</h3>
+  </header>
+  <p class="where"><code>tenant.js:15-49</code> (<code>FIELD_META</code>), <code>persona.json</code> <code>expected</code> values</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Social Security card: Name on card, Last four. Birth certificate: Name, Date of birth, Place of birth. Identity document: Full name, Date of birth, Document type. SSI letter: Income source, Recipient, Monthly amount, Annual amount, Statement date.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Social Security Card: First name*, Middle name, Last name*, Social Security Number* (formatted XXX-XX-XXXX, exactly 9 digits). Birth Certificate: First, Middle and Last name, Date of birth*, City of birth*, State of birth* (US state select), Country of birth*, Gender, Parents*. ID Document: First, Middle and Last name, Document number, Issuing state, Issuing country, Expiration date, and a &ldquo;No expiration date&rdquo; checkbox. Income documents: Type (read only), Income source, frequency amount, Frequency select, Calculated amount, dates.</p><p class="ref">Source: <code>PersonalSsiReviewForm.tsx:76-102</code>, <code>PersonalBirthCertificateReviewForm.tsx:123-192</code>, <code>PersonalIdentificationReviewForm.tsx:117-175</code>, <code>IncomeReviewForm.tsx:310-829</code>; labels <code>en-us.json:2508-2668</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Rewrite <code>FIELD_META</code> per document kind with the DMS labels and controls, and extend the persona's expected values to fill them.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Open each of Maya's three documents with <b>Use demo packet</b> and compare the fields.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-preview-broken.jpg" data-cap="Demo: Demo: Social Security card fields"><img src="img/demo-preview-broken.jpg" alt="Demo: Demo: Social Security card fields" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: Social Security card fields</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-review.jpg" data-cap="DMS: DMS: ID Document fields"><img src="img/dms-review.jpg" alt="DMS: DMS: ID Document fields" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS: ID Document fields</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-08" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-08</span>
+    <span class="sev major">Major</span>
+    <h3>The review says data was pulled from the document, but the fields are empty for any real upload</h3>
+  </header>
+  <p class="where"><code>#/family-members/new/&lt;id&gt;/&lt;doc&gt;/review</code> &middot; <code>store.js:290-299</code> (<code>expected: {}</code>)</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>For documents of a newly added member, and for any real file, every field is blank while the paragraph still says &ldquo;The following details were pulled from the document you uploaded.&rdquo;</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Fields are filled by the extraction. When extraction fails twice, DMS says so: modal &ldquo;Document Issue Detected&rdquo; / &ldquo;Unfortunately, we can't process your document. Please fill the data manually.&rdquo; with <b>Cancel</b> and <b>Fill missing data</b>.</p><p class="ref">Source: <code>src/hooks/useUploadAttemptCounter.ts:124-204</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Give added members canned expected values per document kind (name typed later can overwrite them), or for a real file show the DMS manual-entry modal.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Add new member &gt; Continue &gt; upload any file &gt; Continue.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-photo-review.jpg" data-cap="Demo: Demo: real upload, empty fields"><img src="img/demo-photo-review.jpg" alt="Demo: Demo: real upload, empty fields" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: real upload, empty fields</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-09" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-09</span>
+    <span class="sev major">Major</span>
+    <h3>The upload page is missing the DMS guidance box, copy and phone camera options</h3>
+  </header>
+  <p class="where"><code>#/document/&lt;id&gt;</code> &middot; <code>tenant.js:979-1017</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Title, one sentence (&ldquo;Please upload or scan Maya Solis&rsquo;s Social Security card.&rdquo;), the dropzone, a single file only (the input has no <code>multiple</code>).</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Under the title an info box (blue gradient, purple info icon) with the upload criteria: &ldquo;When uploading your documents for the recertification process, please ensure that the image is clear and fully readable. If the document contains multiple pages, you must include all pages&hellip;&rdquo;. The ID Document title carries a &ldquo;?&rdquo; tooltip &ldquo;State-issued photo ID (like a driver's license or state ID card) or U.S. passport&rdquo;. Multiple files are allowed. On a phone the dropzone reads &ldquo;Browse to select it from your device.&rdquo; and a box offers &ldquo;Open the camera and take a picture&rdquo; (<code>capture="environment"</code>) and &ldquo;Pick one or more pictures from your phone&rdquo;. After a successful upload the page scrolls to the bottom.</p><p class="ref">Source: <code>DocumentUploader.tsx:712-819</code>, <code>DocumentUploaderZone.tsx:75-106</code>, <code>MobileDropzone.tsx:74-120</code>, <code>en-us.json:127-128, 374-416</code>; recording 9:05</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Add the info box and tooltip, use the per-document descriptions from <code>en-us.json</code>, set <code>multiple</code>, and add the two phone options.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Pencil on Maya Solis &gt; <b>Identity document</b>. Repeat at phone width.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-upload.jpg" data-cap="Demo: Demo upload page"><img src="img/demo-upload.jpg" alt="Demo: Demo upload page" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo upload page</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-upload.jpg" data-cap="DMS: DMS upload page (with its help tour open)"><img src="img/dms-upload.jpg" alt="DMS: DMS upload page (with its help tour open)" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS upload page (with its help tour open)</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-10" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-10</span>
+    <span class="sev major">Major</span>
+    <h3>The uploaded file is a bare text chip: no status, no remove, no link</h3>
+  </header>
+  <p class="where"><code>tenant.js:987-999</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>A grey chip with the file name. Choosing another file replaces it silently; there is no way to remove it.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Each file is a <code>bg-home-blue-50</code> row with a 56 px document icon tile, the file name as a link that opens the file in a new tab, a green &ldquo;Uploaded successfully&rdquo; badge (or &ldquo;Ops, Error!&rdquo;, row turns red) and a round red X. The X asks &ldquo;Are you sure you want to delete this file?&rdquo; / &ldquo;This action cannot be undone.&rdquo; with <b>Cancel</b> and <b>Delete</b>.</p><p class="ref">Source: <code>src/components/files/FileItem.tsx:50-145</code>, <code>DropzoneFiles.tsx:36-60</code>; recording 9:32</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Build the file row with badge, link (object URL or the sample SVG) and remove with its confirmation.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Add new member &gt; Continue &gt; choose a file.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-file-chip.jpg" data-cap="Demo: Demo after choosing a file"><img src="img/demo-file-chip.jpg" alt="Demo: Demo after choosing a file" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo after choosing a file</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-file-row.jpg" data-cap="DMS: DMS after choosing a file"><img src="img/dms-file-row.jpg" alt="DMS: DMS after choosing a file" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS after choosing a file</figcaption></figure></div>
+</article></section><section class="area" id="area-chrome"><h2>Menu, navigation and page chrome</h2>
+<article class="finding" id="AR-11" data-sev="blocker">
+  <header class="fhead">
+    <span class="fid">AR-11</span>
+    <span class="sev blocker">Blocker</span>
+    <h3>On a phone the menu opens underneath the page and cannot be used</h3>
+  </header>
+  <p class="where">Welcome, Request to move, every Yes/No and splash screen &middot; <code>tenant.css:193-205</code> vs <code>.home-solid-body</code> (<code>tenant.css:278</code>)</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>The panel is painted below the page heading and text. At the centre of every menu item the topmost element is the page's <code>H1</code>, <code>P</code> or a button (checked with <code>elementFromPoint</code> on Welcome and on the income question), so the items can be neither read nor tapped. The panel has <code>z-index: 40</code> inside the navbar, but the navbar sits in a lower stacking context than <code>.home-solid-body</code>, which comes later in the DOM.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Below md the menu is a full-screen drawer sliding in from the right: purple gradient with the large logo watermark; a top row with a 36 px logo, first and last name and an X; then &ldquo;Menu&rdquo;, the items, &ldquo;Select Language&rdquo; with the locale list, and Logout.</p><p class="ref">Source: <code>src/components/navbar/MobileNavbarMenu.tsx:48-88</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Build the drawer. As a stop-gap, give <code>.home-navbar-wrap</code> <code>position: relative; z-index: 50</code> so it stacks above the page body.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo at 390 px width (DevTools device mode).</li><li>On Welcome, tap the &#9776; icon.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-phone-menu-welcome.jpg" data-cap="Demo: Demo phone menu on Welcome"><img src="img/demo-phone-menu-welcome.jpg" alt="Demo: Demo phone menu on Welcome" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo phone menu on Welcome</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-phone-menu-question.jpg" data-cap="Demo: Demo phone menu on the income question"><img src="img/demo-phone-menu-question.jpg" alt="Demo: Demo phone menu on the income question" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo phone menu on the income question</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-12" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-12</span>
+    <span class="sev major">Major</span>
+    <h3>Menu items are locked, unnumbered and include demo entries; the menu does not close</h3>
+  </header>
+  <p class="where"><code>tenant.js:131-141</code> (<code>navStatus</code>), <code>160-220</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Items stay greyed out and disabled until earlier steps are done; no step numbers; the active item is only bold; &ldquo;Reset demo&rdquo; is a menu item and &ldquo;Logout&rdquo; just jumps to Welcome. The panel is 50% black with blur, so over the white card &ldquo;Reset demo&rdquo; and &ldquo;Logout&rdquo; lose most of their contrast. Escape and a click outside leave it open.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Nothing is ever locked: all six items (Welcome, Family Members, Family Finances, Acknowledgment, Emergency Contact, Summary) are plain links. Each row has a 32 px rounded number chip (1 to 6); the active row is <code>btn-primary</code> turquoise, the others ghost. Logout has the <code>ArrowRightStartOnRectangleIcon</code> and extra space above it.</p><p class="ref">Source: <code>src/hooks/useNavbarMenu.tsx:26-57</code>, <code>DesktopNavbarMenu.tsx:19-34</code>, <code>NavbarMenuItem.tsx:14-29</code>, <code>en-us.json:953-968</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Drop <code>navStatus</code> locking, add the number chips and active style, close on Escape, outside click and route change, and move Reset demo out of the menu (<a href="#AR-44">AR-44</a>).</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Click &#9776; on the Family Members list; press Escape; click outside.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-menu-desktop.jpg" data-cap="Demo: Demo desktop menu"><img src="img/demo-menu-desktop.jpg" alt="Demo: Demo desktop menu" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo desktop menu</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-13" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-13</span>
+    <span class="sev major">Major</span>
+    <h3>The language control is a static label</h3>
+  </header>
+  <p class="where">navbar &middot; <code>tenant.js:180</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>A <code>&lt;span&gt;</code> with a flag and &ldquo;EN&rdquo; that does nothing; hidden on phones.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>A 24 px round flag plus the code (&ldquo;EN&rdquo;/&ldquo;ES&rdquo;), with a chevron on desktop. The dropdown lists 12 locales: English, Espa&ntilde;ol, 中文简体, 中文繁體, 한국어, Tiếng Việt, Tagalog, Gagana Samoa, Lea faka-Tonga, Kajin Maj&omacr;l, Chuukese, Ilocano; the current one is turquoise. On phones the flag and code stay.</p><p class="ref">Source: <code>NavbarLocale.tsx:28-35, 127-178</code>, <code>NavbarLocaleLabel.tsx:16-41</code>, <code>src/constants/locale.ts:32-45</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Replicate the dropdown. Switching can stay stubbed to English, or add Spanish copy from <code>es</code> messages.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Click EN in the navbar.</li></ol></details>
+  
+</article>
+<article class="finding" id="AR-14" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-14</span>
+    <span class="sev major">Major</span>
+    <h3>The floating Need Help button, the Mia chat widget and the help tours are missing</h3>
+  </header>
+  <p class="where">every page</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>None of them.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>A floating <b>Need Help</b> button at bottom left on every page that has a help tour (driver.js popovers with Previous / Next / Done, for example &ldquo;Upload your documents: Drag and drop your documents here or click to upload them.&rdquo;), the chat widget at bottom right with the bubble &ldquo;Hello, I'm Mia, how can I help you?&rdquo; and Mia's photo as the launcher, and a tiny build label at top left. Mia's avatar is the only photo in the real portal.</p><p class="ref">Source: <code>src/components/OnboardingHelpButton.tsx:17-27</code>, <code>src/app/[locale]/layout.tsx:147-158</code>, <code>src/components/Version.tsx:10-15</code>; recording 4:20</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Add the Need Help button and a static replica of the chat launcher and bubble. The tours are optional for the demo, but the button should be there.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open any screen and look at the bottom corners.</li></ol></details>
+  <div class="evidence"><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-chat.jpg" data-cap="DMS: DMS chat widget (bottom right)"><img src="img/dms-chat.jpg" alt="DMS: DMS chat widget (bottom right)" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS chat widget (bottom right)</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-need-help.jpg" data-cap="DMS: DMS Need Help (bottom left)"><img src="img/dms-need-help.jpg" alt="DMS: DMS Need Help (bottom left)" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS Need Help (bottom left)</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-15" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-15</span>
+    <span class="sev major">Major</span>
+    <h3>The DMS entry screens are missing</h3>
+  </header>
+  <p class="where">first screen</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>The demo opens directly on &ldquo;Annual Recertification&rdquo;.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>The tenant lands on &ldquo;Welcome to HOME&rsquo;s Recertification Portal&rdquo; with the button <b>Your Recertifications</b>, then the list &ldquo;Your Recertifications&rdquo; / &ldquo;Select recertification or start a new one.&rdquo; with columns Year, Due Date, Status (Open, Completed badges) and Actions (pencil). The row opens &ldquo;Annual Recertification&rdquo;.</p><p class="ref">Source: <code>en-us.json:4, 1331-1332, 1363-1364</code>, <code>useRecertificationsActions.tsx:34-38</code>; recording 0:00 to 0:16</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Add both screens before Welcome, with one Open row for the demo household and one Completed row from last year.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo.</li></ol></details>
+  <div class="evidence"><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-recert-list.jpg" data-cap="DMS: DMS recertification list"><img src="img/dms-recert-list.jpg" alt="DMS: DMS recertification list" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS recertification list</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-16" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-16</span>
+    <span class="sev major">Major</span>
+    <h3>The scroll position carries over, so new screens open halfway down</h3>
+  </header>
+  <p class="where"><code>tenant.js:1581</code> (<code>render()</code>)</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>The hash router never scrolls back to the top. After <b>Back</b> on the Summary, the Emergency contact screen opened at scrollY 283 with its header and title out of view; after <b>Save &amp; Continue</b> on a member summary the list opened at 176.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Every page starts at the top.</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Call <code>window.scrollTo(0, 0)</code> at the end of <code>render()</code> when the path changes.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Reach the Summary, scroll to the bottom, click <b>Back</b>.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-scroll.jpg" data-cap="Demo: Demo: Emergency contact opened scrolled down"><img src="img/demo-scroll.jpg" alt="Demo: Demo: Emergency contact opened scrolled down" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: Emergency contact opened scrolled down</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-17" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-17</span>
+    <span class="sev major">Major</span>
+    <h3>Confirmation modals stay open on the next screen and look different from DMS</h3>
+  </header>
+  <p class="where"><code>tenant.js:294-311</code> (<code>showModal</code>)</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>The modal is appended to <code>document.body</code> and nothing removes it on navigation. Opening &ldquo;Remove&rdquo; on Maya and pressing browser Back leaves the live &ldquo;remove Maya Solis&rdquo; modal on top of Welcome. Escape does nothing and focus is not moved into the modal. Style: no banner strip, left-aligned small title, no blur.</p></div>
+    <div class="col target"><h4>In DMS</h4><p><code>ConfirmationModal</code>: backdrop <code>bg-black/24 backdrop-blur-md</code>; white box, <code>rounded-3xl</code>, max 700 px; the 94 px <code>modal-banner.png</code> strip (purple with the coloured logo shapes) at the top; centred title at text-2xl / text-3xl; black secondary on the left, turquoise primary on the right (primary on top on phones); a backdrop click closes it.</p><p class="ref">Source: <code>src/components/ConfirmationModal.tsx:15-66</code>, <code>public/images/modal-banner.png</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Render modals inside the root (cleared by <code>render()</code>) or close them on <code>hashchange</code>; use <code>&lt;dialog&gt;.showModal()</code> for focus and Escape; add the banner strip and DMS layout.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Family Members &gt; red icon on Maya Solis &gt; press browser Back.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-modal-leak.jpg" data-cap="Demo: Demo: remove-member modal still open on Welcome"><img src="img/demo-modal-leak.jpg" alt="Demo: Demo: remove-member modal still open on Welcome" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: remove-member modal still open on Welcome</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-remove-modal.jpg" data-cap="Demo: Demo modal style"><img src="img/demo-remove-modal.jpg" alt="Demo: Demo modal style" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo modal style</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-18" data-sev="blocker">
+  <header class="fhead">
+    <span class="fid">AR-18</span>
+    <span class="sev blocker">Blocker</span>
+    <h3>Anyone can submit an empty recertification from a link, and a submitted one stays editable</h3>
+  </header>
+  <p class="where"><code>#/review-and-sign/submit</code> &middot; <code>tenant.js:1548-1559</code>, <code>store.js:467-474</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>In a fresh browser, <code>#/review-and-sign/submit</code> opens the confirmation even though nothing is signed (<code>canSubmit</code> is not checked on that route). <b>Confirm &amp; Submit</b> calls <code>submit()</code>, which marks every document as confirmed, and lands on &ldquo;You have completed your recertification&rdquo;: status &ldquo;Ready for review&rdquo;, 0 of 3 forms signed. <code>#/review-and-sign</code> is equally reachable while the Summary still has issues. After submitting, every screen stays editable, and browser Back reopens the submit modal.</p></div>
+    <div class="col target"><h4>In DMS</h4><p><b>Submit application</b> stays disabled until every document is signed and the recertification is still open; once submitted it shows the tooltip &ldquo;Recertification was already submitted&rdquo;. The Summary's Continue is disabled while there are errors.</p><p class="ref">Source: <code>src/modules/recertification/summary/reviewAndSignGates.ts:16-43</code>, <code>GeneralSummaryWrapper.tsx:15-24</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Guard routes in <code>render()</code>: send <code>/review-and-sign*</code> back to <code>/summary</code> while <code>summaryIssues()</code> is not empty, and <code>/submit</code> back to the list unless all documents are signed. Make <code>submit()</code> refuse instead of auto-confirming. After <code>submittedAt</code>, redirect editing routes to the completion screen.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Private window.</li><li>Open <code>https://hcv-portal-stage.home.kruko.co/tenant-ar-demo.html#/review-and-sign/submit</code> and click <b>Confirm &amp; Submit</b>.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-submit-empty.jpg" data-cap="Demo: Demo: completed with nothing filled or signed"><img src="img/demo-submit-empty.jpg" alt="Demo: Demo: completed with nothing filled or signed" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: completed with nothing filled or signed</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-back-after-submit.jpg" data-cap="Demo: Demo: Back after submitting reopens the submit modal"><img src="img/demo-back-after-submit.jpg" alt="Demo: Demo: Back after submitting reopens the submit modal" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: Back after submitting reopens the submit modal</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-19" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-19</span>
+    <span class="sev major">Major</span>
+    <h3>The <code>?fresh=1</code> in the shared link does nothing</h3>
+  </header>
+  <p class="where"><code>store.js:154-161</code> (<code>init()</code>)</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p><code>init()</code> always merges the saved state. Anyone who has opened the demo before lands back in their old session through the shared link, including a finished one with all forms signed (tested). The parameter sits in <code>location.search</code>, before the hash.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Not applicable; this is the demo's own reset link.</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>In <code>init()</code>, if <code>new URLSearchParams(location.search).has('fresh')</code>, call <code>reset()</code> and then <code>history.replaceState</code> to drop the parameter.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Finish or half-finish the demo.</li><li>Open <code>https://hcv-portal-stage.home.kruko.co/tenant-ar-demo.html?fresh=1#/family-members/edit</code> in the same browser.</li></ol></details>
+  
+</article></section><section class="area" id="area-household"><h2>Household members</h2>
+<article class="finding" id="AR-20" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-20</span>
+    <span class="sev major">Major</span>
+    <h3>An extra splash after Request to move</h3>
+  </header>
+  <p class="where"><code>#/request-to-move</code> &middot; <code>tenant.js:359-375</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Both answers go to the &ldquo;Let&rsquo;s start with your household members&rdquo; splash, then to the list.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>The answer is saved (LoadingView, &ldquo;We are processing your request&rdquo;) and the tenant goes straight to the member list. The splash only appears when request to move is skipped or already answered.</p><p class="ref">Source: <code>src/modules/recertification/splashes/RequestToMoveSplash.tsx:22-24, 33-42</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Route No/Yes to <code>/family-members/edit</code>.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Welcome &gt; Get Started &gt; No.</li></ol></details>
+  
+</article>
+<article class="finding" id="AR-21" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-21</span>
+    <span class="sev major">Major</span>
+    <h3>Member rows use the wrong icons, badges and layout</h3>
+  </header>
+  <p class="where"><code>#/family-members/edit</code> &middot; <code>tenant.js:387-460</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Table cells with a text-only badge, a trash-can delete icon, and the status column moves sideways when rows change.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Each member is an outlined row (1 px <code>border-home-blue-100</code>, <code>rounded-lg</code>, <code>p-4</code>) with no table header. Badges carry an icon: &ldquo;Review&rdquo; orange with <code>ExclamationCircleIcon</code>, &ldquo;Confirmed&rdquo; green with <code>CheckCircleIcon</code>; the badge opens the member. Edit is a 32 px round blue button with <code>PencilSquareIcon</code>; Delete is a 32 px round red-50 button with <code>XMarkIcon</code>, not a trash can.</p><p class="ref">Source: <code>FamilyMembersListEdit.tsx:272-351</code>, <code>src/components/badges/badgesConfig.ts:91-100</code>, <code>ActionBadge.tsx:30-46</code>; recording 0:41</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Rebuild the row with the DMS classes and heroicons.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Open Family Members, confirm Maya's three documents, return to the list.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-member-list.jpg" data-cap="Demo: Demo member list"><img src="img/demo-member-list.jpg" alt="Demo: Demo member list" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo member list</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-members.jpg" data-cap="DMS: DMS member list"><img src="img/dms-members.jpg" alt="DMS: DMS member list" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS member list</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-22" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-22</span>
+    <span class="sev major">Major</span>
+    <h3>The member summary is a different form</h3>
+  </header>
+  <p class="where"><code>#/family-members/&lt;id&gt;/summary</code> &middot; <code>tenant.js:507-570</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>A heading &ldquo;Uploaded documents&rdquo; sits above five free-text inputs (First name, Last name, Relationship, Date of birth, SSN last four), followed by document chips marked Add or Completed, and <b>Save &amp; Continue</b>.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>A legend card &ldquo;* Indicate required fields&rdquo;, then: <b>Summary information</b>: First name*, Middle name, Last name*, Maiden name, City of birth*, Date of birth* (date picker), Gender* (Female, Male), Social Security Number*. <b>Additional information</b>: Relationship to the head of household* (select: Head of Household, Spouse, Co Head, Other Adult, Full-Time Student 18 and Over, Youth Under 18, Foster Child or Adult, Live In Aide), Citizenship status* (Eligible Citizen, Eligible Noncitizen, Ineligible Noncitizen), Race (s)* multi-select chips, Ethnicity*. <b>Additional questions</b> as Yes/No radios: &ldquo;Was this person a student in the last year? *&rdquo;, &ldquo;Will this person be a student during next school term? *&rdquo;, &ldquo;Is this person subject to a lifetime sex offender registration? *&rdquo;, &ldquo;Is this person disabled? *&rdquo;. <b>Uploaded documents</b>: Birth Certificate, Social Security Card, ID Document, Student verification document, each either a file list with a pencil or a placeholder &ldquo;You may upload this document to keep your profile updated.&rdquo; with <b>Add new document</b> and a red banner such as &ldquo;Identity document is required.&rdquo;. Buttons <b>Back</b> and <b>Save</b>. Leaving with changes asks &ldquo;Changes to the form will not be saved&rdquo;.</p><p class="ref">Source: <code>FamilyMembersSummaryForm.tsx:443-716, 963-1049</code>; recording 5:45 and 11:36</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Rebuild the form section by section with the DMS controls.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Family Members &gt; pencil on Maya Solis.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-member-summary.jpg" data-cap="Demo: Demo member summary"><img src="img/demo-member-summary.jpg" alt="Demo: Demo member summary" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo member summary</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-member-summary.jpg" data-cap="DMS: DMS member summary (help tour open)"><img src="img/dms-member-summary.jpg" alt="DMS: DMS member summary (help tour open)" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS member summary (help tour open)</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-23" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-23</span>
+    <span class="sev major">Major</span>
+    <h3>Nothing is validated: empty members, impossible dates, a household without a head</h3>
+  </header>
+  <p class="where"><code>tenant.js:562-565</code>, <code>1117-1120</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Saved in the test: date of birth &ldquo;31/31/31&rdquo;, SSN &ldquo;12ab&rdquo;, relationship &ldquo;Cousin&rdquo; typed over &ldquo;Head of Household&rdquo; (the household then has no head), and a new member with no name at all. The placeholder then leaks into the copy: &ldquo;Please upload or scan New household member&rsquo;s Social Security Card&rdquo;, &ldquo;documents for New's Income&rdquo;.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Validation on blur: &ldquo;Full name is required&rdquo;, &ldquo;Last name is required&rdquo;, &ldquo;Birth city is required&rdquo;, &ldquo;Birth date is required&rdquo;, &ldquo;Option cannot be empty&rdquo;, &ldquo;This field is required&rdquo;, &ldquo;The selected relation is not allowed for the given age.&rdquo;; SSN must be 9 digits once a card is uploaded. The new-member uploader reads &ldquo;Please upload or scan the new household member&rsquo;s Social Security Card, Drag and Drop your file here, or click to select the document from your device.&rdquo;</p><p class="ref">Source: <code>src/api/family-members/schema.ts:173-219, 259-266</code>, <code>en-us.json:374-416</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Selects for relationship and gender, a date picker, an SSN mask, required checks before Save, and the DMS uploader copy for new members.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Pencil on Maya Solis, type 31/31/31 as the date of birth and Cousin as the relationship, Save.</li><li>Add new member and go through without typing a name.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-new-member-summary.jpg" data-cap="Demo: Demo: new member summary, all fields empty, Save allowed"><img src="img/demo-new-member-summary.jpg" alt="Demo: Demo: new member summary, all fields empty, Save allowed" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: new member summary, all fields empty, Save allowed</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-new-income.jpg" data-cap="Demo: Demo: placeholder name in the copy"><img src="img/demo-new-income.jpg" alt="Demo: Demo: placeholder name in the copy" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: placeholder name in the copy</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-24" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-24</span>
+    <span class="sev major">Major</span>
+    <h3>After removing the head of household, Skip opens the removed person's income</h3>
+  </header>
+  <p class="where"><code>tenant.js:469-481</code> (<code>goFinances</code>)</p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Remove Maya: the footer then says <b>Confirm</b> with nobody left, the modal &ldquo;You do not have a Head of Household.&rdquo; appears, and <b>Skip</b> opens &ldquo;Maya Solis's income&rdquo; because the target is hard-coded to the head.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>An info toast &ldquo;You do not have a Head of Household.&rdquo; on removal; Confirm/Skip continues to the first incomplete group of a living member, or the finances hub. A removed Yardi member stays as a struck-through row with <b>Undo</b>.</p><p class="ref">Source: <code>useAfterFamilyMembersNavigation.tsx:33-56</code>, <code>FamilyMembersListEdit.tsx:105-192</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Pick the first living member with incomplete finances, as DMS does.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Family Members &gt; remove Maya &gt; Confirm &gt; Skip.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-hoh-skip.jpg" data-cap="Demo: Demo: the removed head's income after Skip"><img src="img/demo-hoh-skip.jpg" alt="Demo: Demo: the removed head's income after Skip" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: the removed head's income after Skip</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-25" data-sev="minor">
+  <header class="fhead">
+    <span class="fid">AR-25</span>
+    <span class="sev minor">Minor</span>
+    <h3>Remove-member modal copy</h3>
+  </header>
+  <p class="where"><code>tenant.js:444-455</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>&ldquo;This action will delete all the information and uploaded documents associated with <b>{name}</b>.&rdquo; for everyone; a draft is called &ldquo;You have not yet completed the information&rdquo;.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Yardi member: the same sentence plus &ldquo;If you intend to change your name, don't delete the family member, you can edit your name in summary.&rdquo; User-added member: plus &ldquo;You won't be able to restore this member later.&rdquo; A draft with no name is called &ldquo;Family member draft&rdquo;.</p><p class="ref">Source: <code>en-us.json:1462-1469</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Use the two DMS variants and the draft name.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Remove Maya; then add a member, go Back, remove the draft.</li></ol></details>
+  
+</article>
+<article class="finding" id="AR-26" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-26</span>
+    <span class="sev major">Major</span>
+    <h3>Add-member steps: broken icon, preselected answers, two steps missing</h3>
+  </header>
+  <p class="where"><code>tenant.js:76</code> (<code>ICONS.plus</code>), <code>572-623</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>The splash icon draws a stem through the plus sign and reads as a goblet. Citizen Status preselects &ldquo;U.S. Citizen&rdquo; with native blue browser radios; Student status preselects &ldquo;No&rdquo;. There is no Permanent Resident Card step and no student verification step.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Splash with <code>UserPlusIcon</code>. Citizen Status uses <code>CreditCardIcon</code>, white radio cards, nothing selected, Continue disabled until a choice; &ldquo;Permanent Resident or Legal Refugee&rdquo; adds a Permanent Resident Card upload and review (&ldquo;Please upload both sides of a family member's permanent resident card, the front and the back.&rdquo;). Student status &ldquo;Yes&rdquo; adds a Student verification document upload and review.</p><p class="ref">Source: <code>FamilyMembersNewSplash.tsx:16-40</code>, <code>FamilyMembersCitizenStatusSplashForm.tsx:39-135</code>, <code>FamilyMembersStudentStatusSplashForm.tsx:86-161</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Use heroicons <code>UserPlusIcon</code> and <code>CreditCardIcon</code>, clear the defaults, style the radios as cards, add the two conditional steps.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Family Members &gt; Add new member +, then go through to Citizen Status.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-plus-icon.jpg" data-cap="Demo: Demo: add-member splash icon"><img src="img/demo-plus-icon.jpg" alt="Demo: Demo: add-member splash icon" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: add-member splash icon</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-citizenship.jpg" data-cap="Demo: Demo: preselected native radios"><img src="img/demo-citizenship.jpg" alt="Demo: Demo: preselected native radios" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: preselected native radios</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-27" data-sev="minor">
+  <header class="fhead">
+    <span class="fid">AR-27</span>
+    <span class="sev minor">Minor</span>
+    <h3>Document names and badges are inconsistent</h3>
+  </header>
+  <p class="where"><code>persona.json</code> slot labels, <code>store.js:284-288</code>, <code>tenant.js:545</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>The head's documents are &ldquo;Social Security card&rdquo;, &ldquo;Birth certificate&rdquo;, &ldquo;Identity document&rdquo;; an added member's are &ldquo;Social Security Card&rdquo;, &ldquo;Birth Certificate&rdquo;, &ldquo;ID Document&rdquo;. The same missing document is badged &ldquo;Add&rdquo; on the member summary and &ldquo;Review&rdquo; on the Summary.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>&ldquo;Social Security Card&rdquo;, &ldquo;Birth Certificate&rdquo;, &ldquo;ID Document&rdquo; everywhere.</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Use the DMS names in <code>persona.json</code> and one badge vocabulary.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Compare Maya's member summary with an added member's.</li></ol></details>
+  
+</article></section><section class="area" id="area-finances"><h2>Family finances</h2>
+<article class="finding" id="AR-28" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-28</span>
+    <span class="sev major">Major</span>
+    <h3>Income, asset and expense tables differ from DMS</h3>
+  </header>
+  <p class="where"><code>#/family-incomes/&lt;id&gt;/documents</code> and the asset and expense lists &middot; <code>tenant.js:718-813</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Grey labels on white, &ldquo;Income type&rdquo;, no Edit or Actions column, the badge is the only click target, no delete, an empty list shows only the header, and the footer always says <b>Continue</b>.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>A dark header bar (<code>bg-home-purple-600</code>, #250962) with white labels and a small tick before each. Income columns: Income source, Type, Annual income amount, Status, Edit. Assets: Institution / Source (with masked account number), Type, Asset value, Actions, Edit. Expenses: Provider / Source, Type, Expense value, Actions, Edit. Rows have a pencil (or a View icon for completed imported documents) and a red X. Badges carry a dot icon. Empty list: cog and &ldquo;No data available&rdquo;. Footer: <b>Back</b> and <b>Skip</b> while any row is in Review, <b>Continue</b> otherwise.</p><p class="ref">Source: <code>IncomeDocumentsList.tsx:251-353</code>, <code>AssetDocumentList.tsx:166-285</code>, <code>DocumentsListWrapper.tsx:36-50</code>; recording 1:17 and 1:41</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Rebuild the table with the header bar, Edit/Actions columns, delete with its modals, empty state, and Skip/Continue logic.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Family Finances &gt; Maya Solis &gt; Incomes.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-income-table.jpg" data-cap="Demo: Demo income list"><img src="img/demo-income-table.jpg" alt="Demo: Demo income list" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo income list</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-income-table.jpg" data-cap="DMS: DMS income list"><img src="img/dms-income-table.jpg" alt="DMS: DMS income list" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS income list</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-empty-table.jpg" data-cap="Demo: Demo empty list"><img src="img/demo-empty-table.jpg" alt="Demo: Demo empty list" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo empty list</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-empty-table.jpg" data-cap="DMS: DMS empty list"><img src="img/dms-empty-table.jpg" alt="DMS: DMS empty list" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS empty list</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-29" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-29</span>
+    <span class="sev major">Major</span>
+    <h3>Add New Income offers 4 types, preselects one, and leaves a row that cannot be deleted</h3>
+  </header>
+  <p class="where"><code>tenant.js:51-64</code>, <code>815-839</code>, <code>store.js:333-363</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>4 income types (SSI, Social Security, Wages / Employment, Pension), 2 asset and 2 expense types, the first one preselected, a people icon. <b>Continue</b> creates the row immediately, so <b>Back</b> on the upload page leaves &ldquo;SSI | SSI | $0.00 | Review&rdquo; in the list for good (verified).</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Splash with <code>CreditCardIcon</code>, a scrolling list of radio cards (max 220 px), Continue disabled until a type is chosen. Income types in this fixed order: Wages, Supplemental Security Income, Child Support, Unemployment, Business / Self Employment, Pension, Gifts and Contributions, TANF, Social Security, Military, Federal, PHA Wage, General Assistance, Indian Trust, Medical Reimbursement, Imputed Welfare, Alimony, Other Wage. 20 asset types, alphabetical. Expenses filtered by eligibility, else &ldquo;Unfortunately, you are not eligible to submit expenses at this time&rdquo;. Documents the tenant added are deleted with the red X (&ldquo;Data removed successfully&rdquo;).</p><p class="ref">Source: <code>DocumentsSelectDocTypeSplashForm.tsx:142-171</code>, <code>docTypesList.ts:53-56</code>, <code>useDocTypesList.tsx:36-79</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Use the DMS type lists, no default, and create the row only when its document is confirmed (or support delete).</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Maya's income list &gt; Add New Income + &gt; Continue &gt; Back.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-orphan-row.jpg" data-cap="Demo: Demo: the $0.00 row left behind"><img src="img/demo-orphan-row.jpg" alt="Demo: Demo: the $0.00 row left behind" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo: the $0.00 row left behind</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-30" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-30</span>
+    <span class="sev major">Major</span>
+    <h3>&ldquo;Is this information correct?&rdquo; uses the short type, and the No path throws the answer away</h3>
+  </header>
+  <p class="where"><code>tenant.js:841-885</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>&ldquo;Our records indicate that you are currently receiving SSI of approximately $961.00 per month.&rdquo; After <b>No</b> &gt; <b>No longer have</b>, the demo asks for the SSI award letter again, shows the old $961.00 / $11,532.00 and marks the income Completed (verified). &ldquo;Increased&rdquo; and &ldquo;Decreased&rdquo; also change nothing; <code>renderIncomeChange</code> ignores the choice.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>&ldquo;Our records indicate that you are currently receiving Supplemental Security Income of approximately {amount} per {frequency}. Is this information correct?&rdquo; <b>Yes</b> confirms with the toast &ldquo;Document updated successfully.&rdquo;. <b>No</b> leads to &ldquo;How did your {type} change?&rdquo; (<code>UserCircleIcon</code>), and the uploader title becomes, for example, &ldquo;Decreased - Supplemental Security Income&rdquo;. &ldquo;No longer have&rdquo; opens a non-processing uploader for proof of termination.</p><p class="ref">Source: <code>IncomeReviewSplash.tsx:69-92</code>, <code>IncomeChangeForm.tsx:31-99</code>, <code>en-us.json:1371-1376</code>; recording 1:05</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Use the full type name in the question; carry the choice into the uploader title; for &ldquo;No longer have&rdquo; show the proof-of-termination upload and remove the income on confirm; for Increased/Decreased prefill a changed amount.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Maya's income list &gt; Review &gt; No &gt; No longer have &gt; Continue &gt; Use demo packet.</li></ol></details>
+  
+</article>
+<article class="finding" id="AR-31" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-31</span>
+    <span class="sev major">Major</span>
+    <h3>The disposed-assets question is asked for every member, and Yes asks nothing further</h3>
+  </header>
+  <p class="where"><code>tenant.js:680</code>, <code>699-716</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Every member's asset splash leads to &ldquo;Assets disposed below Fair Market Value&rdquo; again. <b>Yes</b> goes straight to the asset list.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Asked once per household, on the first visit to Assets while unanswered. <b>Yes</b> opens &ldquo;Assets disposed below Fair Market Value for {name}&rdquo; with entries: type, &ldquo;Date you disposed of it&rdquo;, &ldquo;Fair market value on the date you disposed of it&rdquo;, &ldquo;Amount you received for it&rdquo;, the imputed value, optional reason, statement date, a dropzone, and &ldquo;Add new disposed asset +&rdquo;.</p><p class="ref">Source: <code>FamilyDisposedAssetsSplash.tsx:35-65</code>, <code>FamilyMembersDisposedAssetsSplashForm.tsx:308-368</code>, <code>DisposedAssetEntry.tsx:48-94</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Ask only while <code>disposedAssets</code> is null; add the entry form behind Yes.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Add a second member, then walk the finances for both.</li></ol></details>
+  
+</article>
+<article class="finding" id="AR-32" data-sev="minor">
+  <header class="fhead">
+    <span class="fid">AR-32</span>
+    <span class="sev minor">Minor</span>
+    <h3>&ldquo;Continue without adding&rdquo; modal copy</h3>
+  </header>
+  <p class="where"><code>tenant.js:776-787</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>&ldquo;Confirm that &ldquo;{name}&rdquo; has no asset.&rdquo;: no &ldquo;Please confirm below:&rdquo; line, no italics, and singular &ldquo;asset&rdquo; / &ldquo;expense&rdquo;.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Header &lsquo;You are selecting to continue without adding any income for &ldquo;{name}&rdquo;&rsquo;, the line &ldquo;Please confirm below:&rdquo;, then in italics &lsquo;Confirm that &ldquo;{name}&rdquo; has no income&rsquo;. Assets and expenses use &ldquo;assets&rdquo; and &ldquo;expenses&rdquo;.</p><p class="ref">Source: <code>IncomeDocumentsList.tsx:165-205</code>, <code>en-us.json:1712-1718</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Use the DMS strings with plural group names.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Add a member, reach their income list with no rows, click Continue.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-new-income.jpg" data-cap="Demo: Demo modal"><img src="img/demo-new-income.jpg" alt="Demo: Demo modal" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo modal</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-33" data-sev="minor">
+  <header class="fhead">
+    <span class="fid">AR-33</span>
+    <span class="sev minor">Minor</span>
+    <h3>Finance hub and summary rows: small differences</h3>
+  </header>
+  <p class="where"><code>tenant.js:625-666</code>, <code>1253-1292</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Expenses is always offered; the Incomes/Assets/Expenses buttons start at a different x on each member row; there is no Edit information button on phones. Summary finance rows show the full name, cents (&ldquo;$11,532.00&rdquo;) and no delete.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Expenses only when the member may claim childcare or medical expenses or is disabled; a pencil on desktop and an &ldquo;Edit information&rdquo; button on phones. Summary rows show &ldquo;Maya S.&rdquo;, whole dollars (&ldquo;$3,552&rdquo; in the recording), a badge, a pencil and a red X.</p><p class="ref">Source: <code>FamilyDocumentsMembersList.tsx:50-103</code>, <code>IncomesSummary.tsx:290-376</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Align the button column, apply the Expenses rule, format names and amounts as DMS.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Menu &gt; Family Finances; then Menu &gt; Summary.</li></ol></details>
+  
+</article></section><section class="area" id="area-ack"><h2>Acknowledgement and emergency contact</h2>
+<article class="finding" id="AR-34" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-34</span>
+    <span class="sev major">Major</span>
+    <h3>The Acknowledgement section is invented: wrong steps, wrong questions, answers preset</h3>
+  </header>
+  <p class="where"><code>#/acknowledgement*</code> &middot; <code>tenant.js:1019-1071</code>, <code>store.js:49-53</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Splash copy &ldquo;You will confirm a few household questions, then reasonable accommodation.&rdquo; with a black Back. No documents step. A &ldquo;Household questions&rdquo; card with three questions DMS does not ask (felony in 12 months, eviction in 3 years, full-time student &ldquo;(except Maya)&rdquo;), the coaching line &ldquo;Answer as Maya. The demo household has no felony, eviction, or student members.&rdquo;, and every answer preset to No. The chosen answer is a turquoise button, the same look as the page's main action.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>1. Splash &ldquo;Acknowledgement&rdquo; / &ldquo;This section contains important notices and questions.&rdquo;, Back is lilac <code>btn-accent</code>. 2. &ldquo;Acknowledgment Documents&rdquo; / &ldquo;HUD requires HOME to provide families the following documents. Please review and acknowledge that you've received documents below.&rdquo;: a list of notices that open in a new tab, the bold question &ldquo;I acknowledge that I have reviewed the documents&rdquo; with Yes/No, Continue disabled until Yes. 3. &ldquo;Acknowledgment&rdquo; / &ldquo;HOME requires families to answer the questions below. The questions will be used to determine your continued eligibility for housing assistance.&rdquo;: one card &ldquo;Background Questions&rdquo; with a single question, &ldquo;Has any household member been involved in any criminal activity, including but not limited to, alcohol-related offenses, manufacture of methamphetamines, possession, sale, or distribution of illegal drugs, required sex offender registration, or participation in drug rehabilitation within the past 12 months?*&rdquo;. Answers are daisy radios (#622cd6), label left, radios right, nothing preselected.</p><p class="ref">Source: <code>AcknowledgementSplash.tsx:71-88</code>, <code>AcknowledgementForm.tsx:123-151</code>, <code>AcknowledgementQuestionsForm.tsx:79-118</code>; recording 2:31</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Replace the questions screen with the Documents and Background Questions screens, radios with no defaults, the DMS copy, and remove the coaching line.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Menu &gt; Acknowledgment &gt; Continue.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-ack.jpg" data-cap="Demo: Demo acknowledgement"><img src="img/demo-ack.jpg" alt="Demo: Demo acknowledgement" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo acknowledgement</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-ack-docs.jpg" data-cap="DMS: DMS Acknowledgment Documents"><img src="img/dms-ack-docs.jpg" alt="DMS: DMS Acknowledgment Documents" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS Acknowledgment Documents</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-35" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-35</span>
+    <span class="sev major">Major</span>
+    <h3>Reasonable Accommodation is a form in DMS, not a Yes/No splash</h3>
+  </header>
+  <p class="where"><code>#/acknowledgement/reasonable-accommodation</code> &middot; <code>tenant.js:1073-1089</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>A splash &ldquo;Reasonable Accommodation Requests&rdquo; with one question and three buttons: an outlined Back, No and Yes.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>A content page &ldquo;Reasonable Accommodation&rdquo; / &ldquo;Provide details if any household member requires a reasonable accommodation to ensure equal access to housing programs, services, or activities.&rdquo;: a card with the policy text (two paragraphs, a bold line, three bullets, a closing sentence), then &ldquo;Do you have a Reasonable Accommodation that has been previously approved?*&rdquo; and &ldquo;Does anyone in your household require a Reasonable Accommodation?*&rdquo; as Yes/No radios. Yes opens follow-ups, up to the &ldquo;Information&rdquo; and &ldquo;Licensed Professional&rdquo; cards. Back and Continue; toast &ldquo;Accommodation information saved.&rdquo;.</p><p class="ref">Source: <code>AcknowledgementAccommodationForm.tsx:320-503</code>, <code>en-us.json:2445-2486</code>; recording 2:46</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Replace the splash with the form.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Menu &gt; Acknowledgment &gt; Continue &gt; Continue.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-ra.jpg" data-cap="Demo: Demo"><img src="img/demo-ra.jpg" alt="Demo: Demo" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-ra.jpg" data-cap="DMS: DMS"><img src="img/dms-ra.jpg" alt="DMS: DMS" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-36" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-36</span>
+    <span class="sev major">Major</span>
+    <h3>Emergency contact: missing splash, missing fields, no validation</h3>
+  </header>
+  <p class="where"><code>#/emergency-contact</code> &middot; <code>tenant.js:1091-1125</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>No splash. One page &ldquo;Your Emergency contact&rdquo; / &ldquo;Who should we call in an emergency?&rdquo; with four free-text fields: Name, Relationship, Phone, Email. An empty name, phone &ldquo;abc&rdquo; and email &ldquo;not-an-email&rdquo; were all accepted.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Splash &ldquo;Your Emergency contact&rdquo; / &ldquo;We&rsquo;ll now ask a few required questions&rdquo; (lilac Back, Continue), then &ldquo;Edit Your Emergency Contact&rdquo; / &ldquo;Update the emergency contact information below.&rdquo;. Card &ldquo;Contact Information&rdquo;: &ldquo;Do you wish to provide emergency contact?&rdquo; Yes/No, then First name*, Middle name, Last name*, Phone number* (US/MX flag picker). Card &ldquo;Additional Information&rdquo;: Address 1, Address 2, City, State (searchable), Zip Code, Email, Reason for contact* (multi-select chips: Emergency, Unable to contact you, Termination of rental assistance, Eviction from unit, Late payment of rent, Assist with recertification process, Change in lease terms, Change in house rules, Other). Back and Save; toast; errors such as &ldquo;Enter a complete phone number, for example (201) 555-0123&rdquo; and &ldquo;Please enter a valid email address&rdquo;.</p><p class="ref">Source: <code>EmergencyContactSplash.tsx:28-45</code>, <code>EmergencyContactEdit.tsx:175-310</code>, <code>src/api/emergency-contact/schemas.ts:15-38</code>; recording 3:16</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Add the splash and rebuild the edit form with its validation.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Menu &gt; Emergency Contact; clear the name, type abc as the phone, Continue.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-emergency.jpg" data-cap="Demo: Demo"><img src="img/demo-emergency.jpg" alt="Demo: Demo" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-emergency.jpg" data-cap="DMS: DMS"><img src="img/dms-emergency.jpg" alt="DMS: DMS" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS</figcaption></figure></div>
+</article></section><section class="area" id="area-sign"><h2>Summary, signing and completion</h2>
+<article class="finding" id="AR-37" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-37</span>
+    <span class="sev major">Major</span>
+    <h3>Summary: issue cards per document instead of per section, member panel fields differ, Request to move card missing</h3>
+  </header>
+  <p class="where"><code>#/summary</code> &middot; <code>tenant.js:1127-1311</code>, <code>store.js:183-222</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>One red card per missing document, without the member's name (&ldquo;Social Security Card is not completed.&rdquo; / &ldquo;Upload SSC&rdquo;). The member panel shows First name, Last name, Date of birth, SSN and Relationship, and documents as Review/Completed chips. No Request to move card. An empty emergency contact raises no issue.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Issue cards are section level only: &ldquo;Acknowledgements must be completed before continuing&rdquo; / &ldquo;Complete Acknowledgements&rdquo;, background questions, document review, reasonable accommodation, emergency contact, &ldquo;One of the family members must be a Head Of Household&rdquo; / &ldquo;Select Head Of Household&rdquo;, disposed assets. Document problems appear inside the member panel as red &ldquo;Document Issues&rdquo; or &ldquo;Additional Information Required&rdquo; blocks. Panel rows: First name*, Middle name, Last name*, City of birth*, Date of birth*, Gender*, Social Security Number*, then an <b>Edit Family Member</b> button and the uploaded files with <b>Edit information</b>. An HCV-only card &ldquo;Request to move&rdquo; shows Yes/No, or the red &ldquo;Request to move not confirmed&rdquo; with Edit.</p><p class="ref">Source: <code>GeneralSummary.tsx:284-413</code>, <code>CriticalIssuesSection.tsx:40-318</code>, <code>FamilyMemberSummary.tsx:189-321</code>, <code>RecertificationRequestToMoveSummary.tsx:44-72</code>; recording 11:52</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Generate issues per section with the DMS strings, move document issues into the member panel, match the panel rows and add the Request to move card.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Add a member, skip their documents, go to Summary.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-summary.jpg" data-cap="Demo: Demo summary"><img src="img/demo-summary.jpg" alt="Demo: Demo summary" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo summary</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-summary.jpg" data-cap="DMS: DMS summary"><img src="img/dms-summary.jpg" alt="DMS: DMS summary" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS summary</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-38" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-38</span>
+    <span class="sev major">Major</span>
+    <h3>Review and Sign: 3 forms instead of the DMS set, an HTML mock instead of the PDF, no loading state</h3>
+  </header>
+  <p class="where"><code>#/review-and-sign</code> &middot; <code>store.js:433-451</code>, <code>tenant.js:1330-1441, 1484-1512</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>Three forms. The sign dialog shows an HTML imitation of the form at once, under a plain purple gradient strip; the buttons sit inside the dialog.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>The documents come from the backend; the recording shows seven: Criminal History Release Form; Debts Owed to Public Housing Agencies and Terminations; Declaration of U.S. Citizenship; General Authorization for Release of Information; Request for Reasonable Accommodation / Notice of Right to Reasonable Accommodation; Supplement to Application for Federally Assisted Housing; Authorization for the Release of Information. Names are links to the PDF. The sign dialog: white panel up to 800 px with the <code>modal-banner.png</code> strip, &ldquo;Sign document&rdquo; / &ldquo;Please sign the document below to complete your submission.&rdquo;, the PDF with all pages stacked (react-pdf, no zoom), &ldquo;*Please review the document before signing.&rdquo;, and a separate bottom bar with <b>Back to list</b> and <b>Sign Document</b>, disabled with a &ldquo;Loading&rdquo; cog until the PDF has loaded.</p><p class="ref">Source: <code>ReviewAndSign.tsx:141-186</code>, <code>ReviewAndSignFiles.tsx:92-185</code>, <code>ModalWithPanel.tsx:56-96</code>, <code>PDFViewer.tsx:20, 110-135</code>; recording 11:58 and 12:05</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Seven sample PDFs (or keep the HTML pages but render them inside the DMS panel), the banner image, the bottom bar, and a short loading state before Sign Document enables.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Open <code>https://hcv-portal-stage.home.kruko.co/tenant-ar-demo.html#/review-and-sign</code> and click Sign on the first form.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-sign-list.jpg" data-cap="Demo: Demo list"><img src="img/demo-sign-list.jpg" alt="Demo: Demo list" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo list</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-sign-list.jpg" data-cap="DMS: DMS list"><img src="img/dms-sign-list.jpg" alt="DMS: DMS list" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS list</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-sign-modal.jpg" data-cap="Demo: Demo sign dialog"><img src="img/demo-sign-modal.jpg" alt="Demo: Demo sign dialog" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo sign dialog</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-sign-modal.jpg" data-cap="DMS: DMS sign dialog (PDF loading)"><img src="img/dms-sign-modal.jpg" alt="DMS: DMS sign dialog (PDF loading)" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS sign dialog (PDF loading)</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-39" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-39</span>
+    <span class="sev major">Major</span>
+    <h3>Signature style: only the head signs, and there is no member select although the copy asks for one</h3>
+  </header>
+  <p class="where"><code>tenant.js:1313-1316, 1443-1482</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>&ldquo;Please select a family member and then font type for signature.&rdquo; but there is no select. Two hard-coded fonts; <b>Select &amp; Save</b> signs the document immediately. An added adult never signs.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>The first Sign Document opens &ldquo;Select font type&rdquo; with a &ldquo;Select a family member&rdquo; select (adults who already have a style carry a check), &ldquo;Select Signature Style for:&rdquo; and the name, and 280&times;142 cards with a radio top right (selected card <code>bg-home-blue-200</code>). Fonts come from the backend. <b>Select &amp; Save</b> shows &ldquo;Signature style saved successfully.&rdquo; and moves to the next adult without a style; the document is signed (&ldquo;Document signed successfully.&rdquo;) only when every adult has one. After that one click per document signs for the whole household.</p><p class="ref">Source: <code>SignatureStyleModal.tsx:80-143</code>, <code>SignatureStyleSelector.tsx:21-46</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Add the member select over all adults, loop until each adult has a style, then sign.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open the demo, then Menu (&#9776;) &gt; <b>Reset demo</b> for a clean household (the <code>?fresh=1</code> link does not reset, see <a href="#AR-19">AR-19</a>).</li><li>Add an adult member, then Review and Sign &gt; Sign &gt; Sign Document.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-font.jpg" data-cap="Demo: Demo font picker"><img src="img/demo-font.jpg" alt="Demo: Demo font picker" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo font picker</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-40" data-sev="minor">
+  <header class="fhead">
+    <span class="fid">AR-40</span>
+    <span class="sev minor">Minor</span>
+    <h3>Submit confirmation buttons</h3>
+  </header>
+  <p class="where"><code>tenant.js:1549-1559</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p><b>Cancel</b> / <b>Confirm &amp; Submit</b>.</p></div>
+    <div class="col target"><h4>In DMS</h4><p><b>Back</b> / <b>Confirm &amp; Submit</b>; after submitting, the summary PDF opens in a new tab.</p><p class="ref">Source: <code>ReviewAndSign.tsx:88-126</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Rename Cancel to Back.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Sign all forms, click Submit application.</li></ol></details>
+  
+</article>
+<article class="finding" id="AR-41" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-41</span>
+    <span class="sev major">Major</span>
+    <h3>Completion screen: different icon, copy and buttons</h3>
+  </header>
+  <p class="where"><code>#/complete</code> &middot; <code>tenant.js:1568-1579</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>HOME logo, &ldquo;Maya Solis&rsquo;s annual recertification is in for review.&rdquo; and <b>Start over</b>, which resets the demo.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Outline <code>CheckBadgeIcon</code> in the turquoise circle; &ldquo;You have completed your recertification&rdquo; / &ldquo;Thank you! Your recertification has been submitted successfully. We have received your responses and will contact you if additional information is needed.&rdquo;; buttons <b>Download your signed summary</b> (secondary) and <b>Back to home</b> (primary).</p><p class="ref">Source: <code>CompletionSplash.tsx:62-78</code>, <code>en-us.json:2438</code>; recording 13:30</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Match the icon, copy and buttons; move Start over to the presenter controls (<a href="#AR-44">AR-44</a>).</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Submit the application.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-complete.jpg" data-cap="Demo: Demo"><img src="img/demo-complete.jpg" alt="Demo: Demo" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo</figcaption></figure><figure class="shot dms"><button type="button" class="zoom" data-src="img/dms-complete.jpg" data-cap="DMS: DMS"><img src="img/dms-complete.jpg" alt="DMS: DMS" loading="lazy"></button><figcaption><span class="tag dms">DMS</span>DMS</figcaption></figure></div>
+</article></section><section class="area" id="area-phone"><h2>Phone layout</h2>
+<article class="finding" id="AR-42" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-42</span>
+    <span class="sev major">Major</span>
+    <h3>On a phone the member list and document tables overflow the screen</h3>
+  </header>
+  <p class="where">390 px width &middot; <code>#/family-members/edit</code>, <code>#/family-incomes/&lt;id&gt;/documents</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>The members table is 394 px wide on a 390 px screen: the delete button sits past the card edge and names wrap word by word. The income table is 430 px: the Status column and its badge are outside the card and the page scrolls sideways.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Below lg every member is a card (<code>MobileItemCard</code>: status and actions on top, avatar and name below), and every document is a card (<code>MobileDocumentCard</code>: small column label, source in bold, badge, Type and Amount rows, small Edit/View and Delete buttons).</p><p class="ref">Source: <code>FamilyMembersListEdit.tsx:363-394</code>, <code>MobileItemCard.tsx</code>, <code>MobileDocumentCard.tsx:43-82</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Add the two card layouts below 1024 px.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>DevTools device mode at 390 px.</li><li>Open Family Members, then Maya's income list.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-phone-members.jpg" data-cap="Demo: Demo members, 390 px"><img src="img/demo-phone-members.jpg" alt="Demo: Demo members, 390 px" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo members, 390 px</figcaption></figure><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-phone-income.jpg" data-cap="Demo: Demo income list, 390 px"><img src="img/demo-phone-income.jpg" alt="Demo: Demo income list, 390 px" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Demo income list, 390 px</figcaption></figure></div>
+</article>
+<article class="finding" id="AR-43" data-sev="minor">
+  <header class="fhead">
+    <span class="fid">AR-43</span>
+    <span class="sev minor">Minor</span>
+    <h3>Phone navbar content</h3>
+  </header>
+  <p class="where">390 px width &middot; <code>tenant.js:176-201</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p>The language control disappears; the logo moves next to the avatar and the full name is shown.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>Flag and &ldquo;EN&rdquo; on the left; avatar without the name and the hamburger on the right; no centre logo. The name appears in the drawer.</p><p class="ref">Source: <code>Navbar.tsx:56-85</code>, <code>NavbarUser.tsx:16-22</code></p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Match the DMS phone navbar.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>DevTools device mode at 390 px.</li></ol></details>
+  
+</article></section><section class="area" id="area-demo"><h2>Demo-only controls</h2>
+<article class="finding" id="AR-44" data-sev="major">
+  <header class="fhead">
+    <span class="fid">AR-44</span>
+    <span class="sev major">Major</span>
+    <h3>Demo controls sit inside the replica</h3>
+  </header>
+  <p class="where"><code>tenant.js:1008-1011</code>, <code>194</code>, <code>1573-1576</code>, <code>1061</code></p>
+  <div class="compare">
+    <div class="col now"><h4>In the demo</h4><p><b>Use demo packet</b> on every upload page (and it silently replaces a file the viewer already chose), <b>Reset demo</b> in the menu, <b>Start over</b> on the completion screen, and the coaching line &ldquo;Answer as Maya&hellip;&rdquo; in the acknowledgement.</p></div>
+    <div class="col target"><h4>In DMS</h4><p>None of these exist; the DMS copy file has no demo, sample or reset strings.</p></div>
+  </div>
+  <div class="fix"><span class="lbl">Fix</span><p>Keep them for presenters, but outside the product chrome: a small presenter strip or keyboard shortcut, off by default and switched on with a parameter such as <code>?presenter=1</code>. On the upload page it can simply attach the sample file to the DMS file row.</p></div>
+  <details class="repro"><summary>Reproduce</summary><ol><li>Open any upload page, the menu, or the completion screen.</li></ol></details>
+  <div class="evidence"><figure class="shot demo"><button type="button" class="zoom" data-src="img/demo-upload.jpg" data-cap="Demo: Use demo packet next to Back and Continue"><img src="img/demo-upload.jpg" alt="Demo: Use demo packet next to Back and Continue" loading="lazy"></button><figcaption><span class="tag demo">Demo</span>Use demo packet next to Back and Continue</figcaption></figure></div>
+</article></section>
+
+  <section class="sources panel">
+    <h2>Sources</h2>
+    <dl>
+      <dt>Demo files</dt><dd><code>tenant-ar-demo.html</code>, <code>assets/pha-ar-demo/tenant.js</code> (1,669 lines), <code>store.js</code>, <code>tenant.css</code>, <code>persona.json</code>, <code>docs/*.svg</code> on hcv-portal-stage.home.kruko.co</dd>
+      <dt>DMS code</dt><dd>DMS.UI.Tenant <code>main</code> <code>d7adaf8b</code>; paths above are relative to the repo root</dd>
+      <dt>DMS visuals</dt><dd>&ldquo;8AI Participant Recertification No PII&rdquo;, 17 min screen capture of the live portal, August 2026. One step in it (&ldquo;Do you have access to them?&rdquo; after Get Started) is no longer in the current code and is not listed here</dd>
+      <dt>Demo screenshots</dt><dd>Taken on 29 Sep 2026 from the deployed demo; household Maya Solis is the demo's invented persona</dd>
+    </dl>
+  </section>
+</div>
+
+<dialog class="lightbox" id="lightbox" aria-label="Enlarged screenshot">
+  <button type="button" id="lb-close" aria-label="Close">&#10005;</button>
+  <img id="lb-img" alt="">
+  <p id="lb-cap"></p>
+</dialog>
+
+<script>
+(() => {
+  const chips = document.querySelectorAll('.chip');
+  const items = document.querySelectorAll('.finding');
+  const areas = document.querySelectorAll('.area');
+  const apply = (sev) => {
+    chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.filter === sev)));
+    items.forEach((f) => { f.hidden = sev !== 'all' && f.dataset.sev !== sev; });
+    areas.forEach((a) => { a.hidden = ![...a.querySelectorAll('.finding')].some((f) => !f.hidden); });
+  };
+  chips.forEach((c) => c.addEventListener('click', () => apply(c.dataset.filter)));
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lb-img');
+  const cap = document.getElementById('lb-cap');
+  document.querySelectorAll('.zoom').forEach((b) => b.addEventListener('click', () => {
+    img.src = b.dataset.src; img.alt = b.dataset.cap; cap.textContent = b.dataset.cap;
+    if (lb.showModal) lb.showModal();
+  }));
+  document.getElementById('lb-close').addEventListener('click', () => lb.close());
+  lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+})();
+</script>
+</body>
+</html>
